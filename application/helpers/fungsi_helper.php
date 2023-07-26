@@ -16,7 +16,7 @@ function is_admin()
 
     $status = true;
 
-    if ($role != 'admin') {
+    if ($role != 'ADMIN') {
         $status = false;
     }
 
@@ -29,6 +29,8 @@ function set_pesan($pesan, $tipe = true)
     if ($tipe) {
         $ci->session->set_flashdata('pesan', "<div class='alert alert-success'><strong>SUCCESS!</strong> {$pesan} <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
     } 
+
+    
     if($tipe === false) {
         $ci->session->set_flashdata('pesan', "<div class='alert alert-danger'><strong>ERROR!</strong> {$pesan} <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
     }
@@ -40,7 +42,7 @@ function userdata($field)
     $ci->load->model('Admin_model', 'admin');
 
     $userId = $ci->session->userdata('login_session')['user'];
-    return $ci->admin->get('user', ['id_user' => $userId])[$field];
+    return $ci->admin->get('user', ['ID_USER' => $userId])[$field];
 }
 
 function output_json($data)

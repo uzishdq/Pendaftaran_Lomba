@@ -75,6 +75,13 @@
             
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
+                <a class="nav-link pb-0" href="<?= base_url('jenis_event'); ?>">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Jenis Event</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link pb-0" href="<?= base_url('event'); ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Event</span>
@@ -90,19 +97,11 @@
             </li> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseMaster" aria-expanded="true" aria-controls="collapseMaster">
-                    <i class="fas fa-fw fa-folder"></i>
+                       <li class="nav-item">
+                <a class="nav-link pb-0" href="<?= base_url('registrasi_all'); ?>">
+                    <i class="fas fa-fw fa-users"></i>
                     <span>Registrasi</span>
                 </a>
-                <div id="collapseMaster" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-light py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Data Registrasi</h6>
-                        <a class="collapse-item" href="<?= base_url('registrasi_futsal'); ?>">Futsal</a>
-                        <a class="collapse-item" href="<?= base_url('registrasi_badminton'); ?>">Badminton</a>
-                        <a class="collapse-item" href="<?= base_url('upload'); ?>">Upload</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Heading -->
@@ -191,9 +190,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline small text-capitalize">
-                                    <?= userdata('nama'); ?>
+                                    <?= userdata('NAMA_USER'); ?>
                                 </span>
-                                <img class="img-profile rounded-circle" src="<?= base_url() ?>assets/img/avatar/<?= userdata('foto'); ?>">
+                                <img class="img-profile rounded-circle" src="<?= base_url() ?>assets/img/avatar/<?= userdata('FOTO'); ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -14,7 +14,7 @@ class Profile extends CI_Controller
         $this->load->library('form_validation');
 
         $userId = $this->session->userdata('login_session')['user'];
-        $this->user = $this->admin->get('user', ['id_user' => $userId]);
+        $this->user = $this->admin->get('user', ['ID_USER' => $userId]);
     }
 
     public function index()
@@ -26,7 +26,7 @@ class Profile extends CI_Controller
 
     private function _validasi()
     {
-        $db = $this->admin->get('user', ['id_user' => $this->input->post('id_user', true)]);
+        $db = $this->admin->get('user', ['ID_USER' => $this->input->post('ID_USER', true)]);
         $username = $this->input->post('username', true);
         $email = $this->input->post('email', true);
 
@@ -61,7 +61,7 @@ class Profile extends CI_Controller
         } else {
             $input = $this->input->post(null, true);
             if (empty($_FILES['foto']['name'])) {
-                $insert = $this->admin->update('user', 'id_user', $input['id_user'], $input);
+                $insert = $this->admin->update('user', 'ID_USER', $input['id_user'], $input);
                 if ($insert) {
                     set_pesan('perubahan berhasil disimpan.');
                 } else {
@@ -74,7 +74,7 @@ class Profile extends CI_Controller
                     die;
                 } else {
                     if (userdata('foto') != 'user.png') {
-                        $old_image = FCPATH . 'assets/img/avatar/' . userdata('foto');
+                        $old_image = FCPATH . 'assets/img/avatar/' . userdata('FOTO');
                         if (!unlink($old_image)) {
                             set_pesan('gagal hapus foto lama.');
                             redirect('profile/setting');
@@ -82,7 +82,7 @@ class Profile extends CI_Controller
                     }
 
                     $input['foto'] = $this->upload->data('file_name');
-                    $update = $this->admin->update('user', 'id_user', $input['id_user'], $input);
+                    $update = $this->admin->update('user', 'ID_USER', $input['id_user'], $input);
                     if ($update) {
                         set_pesan('perubahan berhasil disimpan.');
                     } else {

@@ -29,7 +29,8 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$data['registrasi'] = $this->admin->getRegistrasi('Futsal');
-        $data['event'] = $this->admin->get('event');
+        // $data['event'] = $this->admin->get('event');
+        $data['event'] = $this->admin->getEvent();
 		$this->template->load('templates/landing-page', 'landing_page/theme/index',$data);
 		// $this->template->load('templates/landing-page');
 	}

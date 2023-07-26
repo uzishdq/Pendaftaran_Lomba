@@ -70,12 +70,20 @@
           </div>
       <div class="col-lg-4 col-md-6 working-time item">
         <!-- <i class="fa fa-users"></i> -->
-        <h2>SPORT</h2>
+        <h2>Event</h2>
+        <?php
+           if ($event) :
+            foreach ($event as $e) :
+            ?>
         <ul>
-          <li>Futsal <span>08 - 10 Februari - 2023</span></li>
-          <li>Badminton <span>08 - 10 Februari - 2023</span></li>
-          <li>Basketball <span>09 - 11 februari - 2023</span></li>
+          <li><?= $e['NAMA_EVENT']; ?><span><?= $e['TGL_MULAI_EVEN']; ?></span></li>
         </ul>
+        <?php endforeach;
+         else : ?>
+        <ul>
+          <li>Tidak ada event</li>
+        </ul>
+        <?php endif; ?>
         <!-- <a href="service" class="btn btn-main">Read more</a> -->
       </div> 
 

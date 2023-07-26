@@ -36,22 +36,31 @@ class Admin_model extends CI_Model
          * tidak ingin menampilkan data user yang digunakan, 
          * pada managemen data user
          */
+        
         $this->db->where('id_user !=', $id);
         return $this->db->get('user')->result_array();
     }
 
     public function getEvent()
     {
-        $this->db->join('jenis j', 'e.jenis_id = j.id_jenis');
-        $this->db->order_by('id_event');
+        $this->db->join('jenis_event j', 'e.ID_JENIS_EVENT = j.ID_JENIS_EVENT');
+        $this->db->order_by('e.ID_JENIS_EVENT');
         return $this->db->get('event e')->result_array();
+    }
+
+    public function getRegistrasiAll()
+    {
+        $this->db->join('event e', 'r.ID_EVENT = e.ID_EVENT');
+        $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
+        $this->db->order_by('r.ID_REGISTRASI');
+        return $this->db->get('registrasi r')->result_array();
     }
 
     public function getRegistrasi($event)
     {
-        $this->db->join('event e', 'r.event_id = e.id_event');
-        $this->db->like('nama_event', $event);
-        $this->db->order_by('id_registrasi');
+        $this->db->join('event e', 'r.ID_EVENT = e.ID_EVENT');
+        $this->db->like('NAMA_EVENT', $event);
+        $this->db->order_by('ID_REGISTRASI');
         return $this->db->get('registrasi r')->result_array();
     }
 
@@ -65,14 +74,14 @@ class Admin_model extends CI_Model
     public function chartEventMulai($bulan)
     {
         $like = '2023-' . $bulan;
-        $this->db->like('tanggal_mulai', $like, 'after');
+        $this->db->like('TGL_MULAI_EVENT', $like, 'after');
         return count($this->db->get('event')->result_array());
     }
 
     public function chartEventAkhir($bulan)
     {
         $like = '2023-' . $bulan;
-        $this->db->like('tanggal_akhir', $like, 'after');
+        $this->db->like('TGL_AKHIR_EVENT', $like, 'after');
         return count($this->db->get('event')->result_array());
     }
 

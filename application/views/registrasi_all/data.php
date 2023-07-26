@@ -1,4 +1,34 @@
 <?= $this->session->flashdata('pesan'); ?>
+
+    <div class="tabs m-3">
+        <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <?php
+                if ($event) :
+                    foreach ($event as $e) :
+                        ?>
+                    <a class="nav-link active" id="doctor-tab" data-toggle="tab" href="#doctor" role="tab" aria-controls="doctor" aria-selected="true"><?= $e['NAMA_EVENT']; ?></a>
+                <?php endforeach; ?>
+                <?php else : ?>
+                    <a class="nav-link active" id="doctor-tab" data-toggle="tab" href="#" role="tab" aria-controls="doctor" aria-selected="true">Tidak Ada Event</a>
+                <?php endif; ?>
+            </li>
+        </ul>
+    </div>
+
+    <p>
+        <?php
+            if ($registerAll) :
+                foreach ($registerAll as $ra) :
+            ?>
+            <p><?= $ra['NAMA_EVENT']; ?></p>
+            <?php endforeach; ?>
+            <?php else : ?>
+                    <p>Tidak Ada Data</p>
+            <?php endif; ?>
+    </p>
+
+<div class="tab-content" id="teamTab">
 <div class="card shadow-sm border-bottom-primary">
     <div class="card-header bg-white py-3">
         <div class="row">

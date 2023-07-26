@@ -17,10 +17,12 @@ class Dashboard extends CI_Controller
         $data['event'] = $this->admin->count('event');
         $data['registrasi'] = $this->admin->count('registrasi');
         $data['user'] = $this->admin->count('user');
-        $data['transaksi'] = [
-            'barang_masuk' => $this->admin->getEvent(),
-            'barang_keluar' => $this->admin->getRegistrasi('Futsal')
-        ];
+        $data['team'] = $this->admin->count('team');
+        $data['getEvent'] = $this->admin->getEvent();
+        // $data['transaksi'] = [
+        //     'barang_masuk' => $this->admin->getEvent(),
+        //     'barang_keluar' => $this->admin->getRegistrasi('Futsal')
+        // ];
 
         // Line Chart
         $bln = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];

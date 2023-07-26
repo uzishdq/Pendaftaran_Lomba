@@ -18,7 +18,8 @@ class User extends CI_Controller
     public function index()
     {
         $data['title'] = "User Management";
-        $data['users'] = $this->admin->getUsers(userdata('id_user'));
+        $data['users'] = $this->admin->getUsers(userdata('ID_USER'));
+        
         $this->template->load('templates/dashboard', 'user/data', $data);
     }
 
@@ -29,18 +30,18 @@ class User extends CI_Controller
         $this->form_validation->set_rules('role', 'Role', 'required|trim');
 
         if ($mode == 'add') {
-            $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]|alpha_numeric');
-            $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
+            $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.USERNAME]|alpha_numeric');
+            $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.EMAIL_USER]');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[3]|trim');
             $this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]|trim');
         } if ($mode == 'edit') {
-            $db = $this->admin->get('user', ['id_user' => $this->input->post('id_user', true)]);
+            $db = $this->admin->get('user', ['ID_USER' => $this->input->post('id_user', true)]);
             if ($db) {
                 $username = $this->input->post('username', true);
                 $email = $this->input->post('email', true);
         
-                $uniq_username = $db['username'] == $username ? '' : '|is_unique[user.username]';
-                $uniq_email = $db['email'] == $email ? '' : '|is_unique[user.email]';
+                $uniq_username = $db['USERNAME'] == $username ? '' : '|is_unique[user.USERNAME]';
+                $uniq_email = $db['EMAIL_USER'] == $email ? '' : '|is_unique[user.EMAIL_USER]';
         
                 $this->form_validation->set_rules('username', 'Username', 'required|trim|alpha_numeric' . $uniq_username);
                 $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $uniq_email);
@@ -58,14 +59,14 @@ class User extends CI_Controller
         } else {
             $input = $this->input->post(null, true);
             $input_data = [
-                'nama'          => $input['nama'],
-                'username'      => $input['username'],
-                'email'         => $input['email'],
-                'no_telp'       => $input['no_telp'],
-                'role'          => $input['role'],
-                'password'      => password_hash($input['password'], PASSWORD_DEFAULT),
-                'created_at'    => time(),
-                'foto'          => 'user.png'
+                'USERNAME'      => $input['username'],
+                'EMAIL_USER'    => $input['email'],
+                'NAMA_USER'     => $input['nama'],
+                'PASSWORD'      => password_hash($input['password'], PASSWORD_DEFAULT),
+                'NO_TELP'       => $input['no_telp'],
+                'ROLE'          => $input['role'],
+                'FOTO'          => 'user.png',
+                'IS_ACTIVE'     => '0',
             ];
 
             if ($this->admin->insert('user', $input_data)) {
@@ -85,19 +86,19 @@ class User extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data['title'] = "Edit User";
-            $data['user'] = $this->admin->get('user', ['id_user' => $id]);
+            $data['user'] = $this->admin->get('user', ['ID_USER' => $id]);
             $this->template->load('templates/dashboard', 'user/edit', $data);
         } else {
             $input = $this->input->post(null, true);
             $input_data = [
-                'nama'          => $input['nama'],
-                'username'      => $input['username'],
-                'email'         => $input['email'],
-                'no_telp'       => $input['no_telp'],
-                'role'          => $input['role']
+                'NAMA_USER'     => $input['nama'],
+                'USERNAME'      => $input['username'],
+                'EMAIL_USER'    => $input['email'],
+                'NO_TELP'       => $input['no_telp'],
+                'ROLE'          => $input['role']
             ];
 
-            if ($this->admin->update('user', 'id_user', $id, $input_data)) {
+            if ($this->admin->update('user', 'ID_USER', $id, $input_data)) {
                 set_pesan('data berhasil diubah.');
                 redirect('user');
             } else {

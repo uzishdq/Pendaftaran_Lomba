@@ -22,11 +22,11 @@
             </div>
             <div class="card-body pb-2">
                 <?= $this->session->flashdata('pesan'); ?>
-                <?= form_open('', [], ['id_user' => $user['id_user']]); ?>
+                <?= form_open('', [], ['id_user' => $user['ID_USER']]); ?>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="username">Username</label>
                     <div class="col-md-6">
-                        <input value="<?= set_value('username', $user['username']); ?>" type="text" id="username" name="username" class="form-control" placeholder="Username">
+                        <input value="<?= set_value('username', $user['USERNAME']); ?>" type="text" id="username" name="username" class="form-control" placeholder="Username">
                         <?= form_error('username', '<span class="text-danger small">', '</span>'); ?>
                     </div>
                 </div>
@@ -34,21 +34,21 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="nama">Nama</label>
                     <div class="col-md-6">
-                        <input value="<?= set_value('nama', $user['nama']); ?>" type="text" id="nama" name="nama" class="form-control" placeholder="Nama">
+                        <input value="<?= set_value('nama', $user['NAMA_USER']); ?>" type="text" id="nama" name="nama" class="form-control" placeholder="Nama">
                         <?= form_error('nama', '<span class="text-danger small">', '</span>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="email">Email</label>
                     <div class="col-md-6">
-                        <input value="<?= set_value('email', $user['email']); ?>" type="text" id="email" name="email" class="form-control" placeholder="Email">
+                        <input value="<?= set_value('email', $user['EMAIL_USER']); ?>" type="text" id="email" name="email" class="form-control" placeholder="Email">
                         <?= form_error('email', '<span class="text-danger small">', '</span>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="no_telp">Nomor Telepon</label>
                     <div class="col-md-6">
-                        <input value="<?= set_value('no_telp', $user['no_telp']); ?>" type="text" id="no_telp" name="no_telp" class="form-control" placeholder="Nomor Telepon">
+                        <input value="<?= set_value('no_telp', $user['NO_TELP']); ?>" type="text" id="no_telp" name="no_telp" class="form-control" placeholder="Nomor Telepon">
                         <?= form_error('no_telp', '<span class="text-danger small">', '</span>'); ?>
                     </div>
                 </div>
@@ -56,11 +56,11 @@
                     <label class="col-md-4 text-md-right" for="role">Role</label>
                     <div class="col-md-6">
                         <div class="custom-control custom-radio">
-                            <input <?= $user['role'] == 'admin' ? 'checked' : ''; ?> <?= set_radio('role', 'admin'); ?> value="admin" type="radio" id="admin" name="role" class="custom-control-input">
+                            <input <?= $user['ROLE'] == 'admin' ? 'checked' : ''; ?> <?= set_radio('role', 'admin'); ?> value="admin" type="radio" id="admin" name="role" class="custom-control-input">
                             <label class="custom-control-label" for="admin">Admin</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input <?= $user['role'] == 'panitia' ? 'checked' : ''; ?> <?= set_radio('role', 'panitia'); ?> value="panitia" type="radio" id="panitia" name="role" class="custom-control-input">
+                            <input <?= $user['ROLE'] == 'panitia' ? 'checked' : ''; ?> <?= set_radio('role', 'panitia'); ?> value="panitia" type="radio" id="panitia" name="role" class="custom-control-input">
                             <label class="custom-control-label" for="panitia">Panitia</label>
                         </div>
                         <?= form_error('role', '<span class="text-danger small">', '</span>'); ?>

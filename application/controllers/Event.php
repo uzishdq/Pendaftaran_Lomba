@@ -16,23 +16,41 @@ class Event extends CI_Controller
     {
         $data['title'] = "Event";
         $data['event'] = $this->admin->getEvent();
+        $data['getEvent'] = $this->admin->getEvent();
+        
         $this->template->load('templates/dashboard', 'event/data', $data);
     }
 
     private function _validasi()
     {
-        $this->form_validation->set_rules('nama_event', 'Nama Event', 'required|trim');
-        $this->form_validation->set_rules('deskripsi', 'deskripsi', 'required|trim');
-        $this->form_validation->set_rules('tanggal_mulai', 'Tanggal Mulai', 'required|trim');
-        $this->form_validation->set_rules('tanggal_akhir', 'Tanggal Akhir', 'required|trim');
+        $this->form_validation->set_rules('NAMA_EVENT', 'Nama Event', 'required|trim');
+        // $this->form_validation->set_rules('deskripsi', 'deskripsi', 'required|trim');
+        $this->form_validation->set_rules('TGL_MULAI_EVENT', 'Tanggal Mulai', 'required|trim');
+        $this->form_validation->set_rules('TGL_AKHIR_EVENT', 'Tanggal Akhir', 'required|trim');
+        $this->form_validation->set_rules('BIAYA_EVENT', 'Biaya Event', 'required|trim');
+        $this->form_validation->set_rules('BANK_EVENT', 'Bank Event', 'required|trim');
+        $this->form_validation->set_rules('STATUS_EVENT', 'STATUS EVENT', 'required|trim');
+    }
+
+        private function _config()
+    {
+        $config['upload_path']      = "./assets/file/";
+        $config['allowed_types']    = 'pdf|doc|docx|gif|jpg|jpeg|png';
+        $config['encrypt_name']     = TRUE;
+        $config['max_size']         = '2048';
+
+        $this->load->library('upload', $config);
+        
     }
 
     public function add()
     {
         $this->_validasi();
+        $this->_config();
+        
         if ($this->form_validation->run() == false) {
             $data['title'] = "Event";
-            $data['jenis'] = $this->admin->get('jenis');
+            $data['jenis'] = $this->admin->get('jenis_event');
             $this->template->load('templates/dashboard', 'event/add', $data);
         } else {
             $input = $this->input->post(null, true);
@@ -55,8 +73,8 @@ class Event extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data['title'] = "Event";
-            $data['jenis'] = $this->admin->get('jenis');
-            $data['event'] = $this->admin->get('event', ['id_event' => $id]);
+            $data['jenis'] = $this->admin->get('jenis_event');
+            $data['event'] = $this->admin->get('event', ['ID_EVENT' => $id]);
             $this->template->load('templates/dashboard', 'event/edit', $data);
         } else {
             $input = $this->input->post(null, true);
