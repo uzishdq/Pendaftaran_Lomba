@@ -37,15 +37,14 @@ class Pendaftaran extends CI_Controller
         $config['max_size']         = '2048';
 
         $this->load->library('upload', $config);
-        
     }
 
     public function add()
     {
-    
+
         $this->_validasi();
         $this->_config();
-    
+
         try {
             if ($this->form_validation->run() == false) {
                 $data['title'] = "Registrasi";
@@ -62,12 +61,10 @@ class Pendaftaran extends CI_Controller
                 $tingkat = $this->input->post('tingkat');
                 $event = $this->input->post('event_id');
 
-                
-    
                 if ($this->upload->do_upload('file')) {
                     $file_data = $this->upload->data();
                     $file_name = $file_data['file_name'];
-    
+
                     $data = array(
                         'nama_team' => $name,
                         'peserta' => $participant,
@@ -78,62 +75,62 @@ class Pendaftaran extends CI_Controller
                         'file' => $file_name,
                         'event_id' => $event
                     );
-                
-                $insert = $this->admin->insert('registrasi', $data);
 
-                $dataupload = array();
-                $registrasi_id = $this->db->insert_id();
-                
-                for($i=1; $i < $participant; $i++){
-                    $nama_peserta = $this->input->post('nama_peserta' . $i);
-                }
+                    $insert = $this->admin->insert('registrasi', $data);
 
-                // Loop through the inputs
-                for ($i = 1; $i <= $participant; $i++) {
-                    $foto = $_FILES['upload' . $i];
-                    $nama_peserta = $this->input->post('nama_peserta' . $i);
-                    // if($nama_peserta == ''){
-                    //     set_pesan('Foto tidak boleh kosong !!!.');
-                    //     redirect('pendaftaran');
-                    // }
-                    $raport = $_FILES['raport' . $i];
-                    $kartu_pelajar = $_FILES['kartu_pelajar' . $i];
+                    $dataupload = array();
+                    $registrasi_id = $this->db->insert_id();
 
-                    // Handle file uploads and store the file paths
-                    $foto_path = 'assets/file/foto/' . $foto['name'];
-                    move_uploaded_file($foto['tmp_name'], $foto_path);
+                    for ($i = 1; $i < $participant; $i++) {
+                        $nama_peserta = $this->input->post('nama_peserta' . $i);
+                    }
 
-                    $raport_path = 'assets/file/raport/' . $raport['name'];
-                    move_uploaded_file($raport['tmp_name'], $raport_path);
+                    // Loop through the inputs
+                    for ($i = 1; $i <= $participant; $i++) {
+                        $foto = $_FILES['upload' . $i];
+                        $nama_peserta = $this->input->post('nama_peserta' . $i);
+                        // if($nama_peserta == ''){
+                        //     set_pesan('Foto tidak boleh kosong !!!.');
+                        //     redirect('pendaftaran');
+                        // }
+                        $raport = $_FILES['raport' . $i];
+                        $kartu_pelajar = $_FILES['KARTU_PELAJAR' . $i];
 
-                    $kartu_pelajar_path = 'assets/file/kartu_pelajar/' . $kartu_pelajar['name'];
-                    move_uploaded_file($kartu_pelajar['tmp_name'], $kartu_pelajar_path);
+                        // Handle file uploads and store the file paths
+                        $foto_path = 'assets/file/foto/' . $foto['name'];
+                        move_uploaded_file($foto['tmp_name'], $foto_path);
 
-                    // Create an array with the input values
-                    $input_data = array(
-                        'foto' => $foto_path,
-                        'nama_peserta' => $nama_peserta,
-                        'raport' => $raport_path,
-                        'kartu_pelajar' => $kartu_pelajar_path,
-                        'registrasi_id' => $registrasi_id
-                    );
+                        $raport_path = 'assets/file/raport/' . $raport['name'];
+                        move_uploaded_file($raport['tmp_name'], $raport_path);
 
-                    // Add the input data to the main data array
-                    $dataupload[] = $input_data;
-                }
-                
-                // Store the values in the database
-                
-                foreach ($dataupload as $input_data) {
-                    $uploads = $this->admin->insert('uploads', $input_data);
-                }
-                
-                if ($insert) {
-                    set_pesan('Data Registrasi Berhasil Disimpan.');
-                } else {
-                    set_pesan('Data Registrasi Gagal Disimpan.');
-                }
-                redirect('pendaftaran');
+                        $kartu_pelajar_path = 'assets/file/kartu_pelajar/' . $kartu_pelajar['name'];
+                        move_uploaded_file($kartu_pelajar['tmp_name'], $kartu_pelajar_path);
+
+                        // Create an array with the input values
+                        $input_data = array(
+                            'foto' => $foto_path,
+                            'nama_peserta' => $nama_peserta,
+                            'raport' => $raport_path,
+                            'kartu_pelajar' => $kartu_pelajar_path,
+                            'registrasi_id' => $registrasi_id
+                        );
+
+                        // Add the input data to the main data array
+                        $dataupload[] = $input_data;
+                    }
+
+                    // Store the values in the database
+
+                    foreach ($dataupload as $input_data) {
+                        $uploads = $this->admin->insert('uploads', $input_data);
+                    }
+
+                    if ($insert) {
+                        set_pesan('Data Registrasi Berhasil Disimpan.');
+                    } else {
+                        set_pesan('Data Registrasi Gagal Disimpan.');
+                    }
+                    redirect('pendaftaran');
                 } else {
                     $error = array('error' => $this->upload->display_errors());
                     $this->load->view('pendaftaran', $error);

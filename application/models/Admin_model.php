@@ -36,7 +36,7 @@ class Admin_model extends CI_Model
          * tidak ingin menampilkan data user yang digunakan, 
          * pada managemen data user
          */
-        
+
         $this->db->where('id_user !=', $id);
         return $this->db->get('user')->result_array();
     }
@@ -46,6 +46,12 @@ class Admin_model extends CI_Model
         $this->db->join('jenis_event j', 'e.ID_JENIS_EVENT = j.ID_JENIS_EVENT');
         $this->db->order_by('e.ID_JENIS_EVENT');
         return $this->db->get('event e')->result_array();
+    }
+
+    public function getEventId($id)
+    {
+        $this->db->where('ID_EVENT =', $id);
+        return $this->db->get('event')->result_array();
     }
 
     public function getRegistrasiAll()

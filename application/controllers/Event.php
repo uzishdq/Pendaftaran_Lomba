@@ -17,7 +17,7 @@ class Event extends CI_Controller
         $data['title'] = "Event";
         $data['event'] = $this->admin->getEvent();
         $data['getEvent'] = $this->admin->getEvent();
-        
+
         $this->template->load('templates/dashboard', 'event/data', $data);
     }
 
@@ -32,7 +32,7 @@ class Event extends CI_Controller
         $this->form_validation->set_rules('STATUS_EVENT', 'STATUS EVENT', 'required|trim');
     }
 
-        private function _config()
+    private function _config()
     {
         $config['upload_path']      = "./assets/file/";
         $config['allowed_types']    = 'pdf|doc|docx|gif|jpg|jpeg|png';
@@ -40,30 +40,63 @@ class Event extends CI_Controller
         $config['max_size']         = '2048';
 
         $this->load->library('upload', $config);
-        
     }
 
     public function add()
     {
         $this->_validasi();
         $this->_config();
-        
-        if ($this->form_validation->run() == false) {
-            $data['title'] = "Event";
-            $data['jenis'] = $this->admin->get('jenis_event');
-            $this->template->load('templates/dashboard', 'event/add', $data);
-        } else {
-            $input = $this->input->post(null, true);
-            $save = $this->admin->insert('event', $input);
-            if ($save) {
-                set_pesan('data berhasil disimpan.');
-                redirect('event');
+        try {
+            if ($this->form_validation->run() == false) {
+                $data['title'] = "Event";
+                $data['jenis'] = $this->admin->get('jenis_event');
+                $this->template->load('templates/dashboard', 'event/add', $data);
             } else {
-                set_pesan('data gagal disimpan', false);
-                redirect('event/add');
+                if (!$this->upload->do_upload('FOTO_EVENT')) //sesuai dengan name pada form 
+                {
+                    echo 'anda gagal upload';
+                } else {
+                    $file_data = $this->upload->data();
+                    $file_name = $file_data['file_name'];
+
+                    $IdJenisEvent = $this->input->post('ID_JENIS_EVENT');
+                    $namaEvent = $this->input->post('NAMA_EVENT');
+                    $tglMulai = $this->input->post('TGL_MULAI_EVENT');
+                    $tglAkhir = $this->input->post('TGL_AKHIR_EVENT');
+                    $biaya = $this->input->post('BIAYA_EVENT');
+                    $bank = $this->input->post('BANK_EVENT');
+                    $status = $this->input->post('STATUS_EVENT');
+
+                    $foto = $_FILES['FOTO_EVENT']["tmp_name"];
+
+                    $foto_path = 'assets/file/logo_event/' . $file_name;
+                    move_uploaded_file($foto, $foto_path);
+
+                    $input = array(
+                        'ID_JENIS_EVENT' => $IdJenisEvent,
+                        'NAMA_EVENT' => $namaEvent,
+                        'TGL_MULAI_EVENT' => $tglMulai,
+                        'TGL_AKHIR_EVENT' => $tglAkhir,
+                        'FOTO_EVENT' => $foto_path,
+                        'BIAYA_EVENT' => $biaya,
+                        'BANK_EVENT' => $bank,
+                        'STATUS_EVENT' => $status,
+                    );
+                    $save = $this->admin->insert('event', $input);
+                    if ($save) {
+                        set_pesan('data berhasil disimpan.');
+                        redirect('event');
+                    } else {
+                        set_pesan('data gagal disimpan', false);
+                        redirect('event/add');
+                    }
+                }
             }
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
     }
+
 
 
     public function edit($getId)

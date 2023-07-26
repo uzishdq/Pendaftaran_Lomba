@@ -13,7 +13,7 @@ class Service extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Registrasi";
+        $data['title'] = "registrasi";
         $data['event'] = $this->admin->getEvent();
         $this->template->load('templates/landing-page', 'landing_page/theme/service', $data);
     }
