@@ -57,70 +57,81 @@
 
 <section class="cta">
   <div class="tabs">
+  <h1 class="flex justify-content-center text-center mb-5">List Event</h1>
     <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
       <li class="nav-item" role="presentation">
         <?php if ($jenisEvent) : ?>
 
           <?php foreach ($jenisEvent as $je) : ?>
-            <a href="javascript:void(0)" onclick="filterEvent('<?= $je['ID_JENIS_EVENT']; ?>')"><?= $je['NAMA_JENIS_EVENT']; ?></a>
+            <a onclick="showTable('<?= $je['ID_JENIS_EVENT']; ?>')"><?= $je['NAMA_JENIS_EVENT']; ?></a>
           <?php endforeach; ?>
         <?php else : ?>
-          <a href="javascript:void(0)">Tidak Ada Event</a>
+          <a>Tidak Ada Event</a>
         <?php endif; ?>
       </li>
     </ul>
   </div>
-  <div class="container-fluid" id="daftarEvent">
-    <div class="cta-block row no-gutters">
-      <div class="section-title-inner">
-        <div class="section-title"></div>
+  <?php if ($jenisEvent) : ?>
+    <?php foreach ($jenisEvent as $je) : ?>
+      <div class="table-container" id="<?= $je['ID_JENIS_EVENT']; ?>">
+        <div class="container-fluid">
+          <div class="cta-block row no-gutters">
+            <div class="section-title-inner">
+              <div class="section-title"></div>
+            </div>
+            <div class="col-xl-12 working-time item">
+              <h2><?= $je['NAMA_JENIS_EVENT']; ?></h2>
+              <table class="table table-striped text-white">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama Event</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Status Event</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  if ($event) :
+                    foreach ($event as $e) :
+                      $tanggalMulai = $e['TGL_MULAI_EVENT'];
+                      $datetime1 = date_create($tanggalMulai);
+                      $tglAwal = date_format($datetime1, 'd');
+
+                      $tanggalAkhir = $e['TGL_AKHIR_EVENT'];
+                      $datetime2 = date_create($tanggalAkhir);
+                      $tglAkhir = date_format($datetime2, 'd F Y');
+
+                      $status = strtoupper($e['STATUS_EVENT']);
+                  ?>
+                      <tr>
+                        <th scope="row"><?= $no++; ?></th>
+                        <td><?= $e['NAMA_EVENT']; ?></td>
+                        <td><?= $tglAwal; ?> - <?= $tglAkhir; ?></td>
+                        <td><?= $status ?></td>
+                      </tr>
+                    <?php endforeach;
+                  else : ?>
+                    <tr>
+                      <td>Tidak Ada Event</td>
+                    </tr>
+                  <?php endif; ?>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    <?php else : ?>
+      <h1>Tidak ada Data</h1>
+    <?php endif; ?>
+
       </div>
-      <div class="col-xl-12 working-time item">
-        <h2>Olahraga</h2>
-        <table class="table table-striped text-white">
-          <thead>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Nama Event</th>
-              <th scope="col">Tanggal</th>
-              <th scope="col">Status Event</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $no = 1;
-            if ($event) :
-              foreach ($event as $e) :
-                $tanggalMulai = $e['TGL_MULAI_EVENT'];
-                $datetime1 = date_create($tanggalMulai);
-                $tglAwal = date_format($datetime1, 'd');
-
-                $tanggalAkhir = $e['TGL_AKHIR_EVENT'];
-                $datetime2 = date_create($tanggalAkhir);
-                $tglAkhir = date_format($datetime2, 'd F Y');
-
-                $status = strtoupper($e['STATUS_EVENT']);
-            ?>
-                <tr>
-                  <th scope="row"><?= $no++; ?></th>
-                  <td><?= $e['NAMA_EVENT']; ?></td>
-                  <td><?= $tglAwal; ?> - <?= $tglAkhir; ?></td>
-                  <td><?= $status ?></td>
-                </tr>
-              <?php endforeach;
-            else : ?>
-              <tr>
-                <td>Tidak Ada Event</td>
-              </tr>
-            <?php endif; ?>
-
-          </tbody>
-        </table>
-
-      </div>
-    </div>
-  </div>
 </section>
+
+
 
 <!--about section-->
 <section class="feature-section section bg-gray" id="about">
@@ -207,3 +218,35 @@
 </div>
 
 <!--End about section-->
+
+<style>
+  /* CSS untuk menyembunyikan semua tabel dengan class "table-container" */
+  .table-container {
+    display: block;
+  }
+</style>
+
+<script>
+  // JavaScript untuk menampilkan tabel sesuai dengan ID jenis event yang dipilih
+  function showTable(jenisEventId) {
+    // Menyembunyikan semua tabel acara
+    const allTables = document.querySelectorAll('.table-container');
+    allTables.forEach(table => {
+      table.style.display = 'none';
+    });
+
+    // Menampilkan tabel dengan ID jenis event yang sesuai
+    const selectedTable = document.getElementById(jenisEventId);
+    if (selectedTable) {
+      selectedTable.style.display = 'block';
+    }
+  }
+
+  // Inisialisasi pertama kali, sembunyikan semua tabel acara
+  document.addEventListener('DOMContentLoaded', () => {
+    const allTables = document.querySelectorAll('.table-container');
+    allTables.forEach(table => {
+      table.style.display = 'none';
+    });
+  });
+</script>
