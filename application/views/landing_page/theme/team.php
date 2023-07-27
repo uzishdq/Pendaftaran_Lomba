@@ -12,178 +12,105 @@
 </section>
 <!--End Page Title-->
 
-<section class="team-section section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <!-- Nav tabs -->
-        <div class="tabs">
-          <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="doctor-tab" data-toggle="tab" href="#doctor" role="tab" aria-controls="doctor" aria-selected="true">Futsal</a>
-            </li>
-            <li class="nav-item" role="presentation">
-              <a class="nav-link" id="event-planning-tab" data-toggle="tab" href="#event-planning" role="tab" aria-controls="event-planning" aria-selected="false">Badminton</a>
-            </li>
-          </ul>
-        </div>
-        <div class="tab-content" id="teamTab">
-          <!--Start single tab content-->
-          <div class="team-members tab-pane fade show active" id="doctor">
-            <div class="row">
-              <div class="col-lg justify-content-center">
-                <!-- <div class="team-person text-center"> -->
-                <?= $this->session->flashdata('pesan'); ?>
-                <div class="card shadow-sm border-bottom-info">
-                  <div class="card-header bg-white py-3">
-                    <div class="row">
-                      <div class="col d-flex justify-content-center">
-                        <h4 class="h5 align-middle m-0 font-weight-bold text-info">
-                          Data Registrasi Futsal
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="table-responsive">
-                    <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Event</th>
-                          <th>Nama Team</th>
-                          <th>Jumlah Peserta</th>
-                          <th>Asal Sekolah</th>
-                          <th>Tingkat</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        if ($registrasi) :
-                          $no = 1;
-                          foreach ($registrasi as $r) :
-                        ?>
-                            <tr>
-                              <td><?= $no++; ?></td>
-                              <td><?= $r['nama_event']; ?></td>
-                              <td><?= $r['nama_team']; ?></td>
-                              <td><?= $r['peserta']; ?></td>
-                              <td><?= $r['sekolah']; ?></td>
-                              <td><?= $r['tingkat']; ?></td>
-                            </tr>
-                          <?php endforeach; ?>
-                        <?php else : ?>
-                          <tr>
-                            <td colspan="6" class="text-center">
-                              Data Kosong
-                            </td>
-                          </tr>
-                        <?php endif; ?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+<section class="cta">
+  <div class="tabs">
+    <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <?php if ($jenisEvent) : ?>
 
+          <?php foreach ($jenisEvent as $je) : ?>
+            <a onclick="showTable('<?= $je['ID_JENIS_EVENT']; ?>')"><?= $je['NAMA_JENIS_EVENT']; ?></a>
+          <?php endforeach; ?>
+        <?php else : ?>
+          <a>Tidak Ada Event</a>
+        <?php endif; ?>
+      </li>
+    </ul>
+  </div>
+  <?php if ($jenisEvent) : ?>
+    <?php foreach ($jenisEvent as $je) : ?>
+      <div class="table-container" id="<?= $je['ID_JENIS_EVENT']; ?>">
+        <div class="container-fluid">
+          <div class="cta-block row no-gutters">
+            <div class="section-title-inner">
+              <div class="section-title"></div>
+            </div>
+            <div class="col-xl-12 working-time item">
+              <h2><?= $je['NAMA_JENIS_EVENT']; ?></h2>
+              <table class="table table-striped w-100 dt-responsive nowrap text-white ">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Event</th>
+                    <th scope="col">Nama Team</th>
+                    <th scope="col">Jumlah Peserta</th>
+                    <th scope="col">Asal Sekolah</th>
+                    <th scope="col">Tingkat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  if ($team) :
+                    foreach ($team as $t) :
+                  ?>
+                      <tr>
+                        <th scope="row"><?= $no++; ?></th>
+                        <td><?= $t['NAMA_EVENT']; ?></td>
+                        <td><?= $t['NAMA_TEAM']; ?></td>
+                        <td><?= $t['JUMLAH_PESERTA']; ?></td>
+                        <td><?= $t['SEKOLAH']; ?></td>
+                        <td><?= $t['TINGKAT']; ?></td>
+                      </tr>
+                    <?php endforeach;
+                  else : ?>
+                    <tr>
+                      <td>Tidak Ada Event</td>
+                    </tr>
+                  <?php endif; ?>
 
-                <!-- </div> -->
-              </div>
+                </tbody>
+              </table>
             </div>
           </div>
-          <!--End single tab content-->
-          <!--Start single tab content-->
-          <div class="team-members tab-pane fade" id="event-planning">
-            <div class="row">
-              <div class="col-lg justify-content-center">
-
-                <?= $this->session->flashdata('pesan'); ?>
-                <div class="card shadow-sm border-bottom-info">
-                  <div class="card-header bg-white py-3">
-                    <div class="row">
-                      <div class="col d-flex justify-content-center">
-                        <h4 class="h5 align-middle m-0 font-weight-bold text-info">
-                          Data Registrasi Badminton
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="table-responsive">
-                    <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Event</th>
-                          <th>Nama Team</th>
-                          <th>Jumlah Peserta</th>
-                          <th>Asal Sekolah</th>
-                          <th>Tingkat</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        if ($registrasi_badminton) :
-                          $no = 1;
-                          foreach ($registrasi_badminton as $r) :
-                        ?>
-                            <tr>
-                              <td><?= $no++; ?></td>
-                              <td><?= $r['nama_event']; ?></td>
-                              <td><?= $r['nama_team']; ?></td>
-                              <td><?= $r['peserta']; ?></td>
-                              <td><?= $r['sekolah']; ?></td>
-                              <td><?= $r['tingkat']; ?></td>
-                            </tr>
-                          <?php endforeach; ?>
-                        <?php else : ?>
-                          <tr>
-                            <td colspan="6" class="text-center">
-                              Data Kosong
-                            </td>
-                          </tr>
-                        <?php endif; ?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-            <!--End single tab content-->
-          </div>
         </div>
+      <?php endforeach; ?>
+    <?php else : ?>
+      <h1>Tidak ada Data</h1>
+    <?php endif; ?>
+
       </div>
-    </div>
 </section>
 
 
+<style>
+  /* CSS untuk menyembunyikan semua tabel dengan class "table-container" */
+  .table-container {
+    display: block;
+  }
+</style>
+
 <script>
-  $(document).ready(function() {
-    // Initialize DataTables with options for search and filtering
-    $('#dataTable').DataTable({
-      // Enable search functionality
-      searching: true,
+  // JavaScript untuk menampilkan tabel sesuai dengan ID jenis event yang dipilih
+  function showTable(jenisEventId) {
+    // Menyembunyikan semua tabel acara
+    const allTables = document.querySelectorAll('.table-container');
+    allTables.forEach(table => {
+      table.style.display = 'none';
+    });
 
-      // Enable filtering by event type (Futsal or Badminton)
-      columnDefs: [{
-          targets: 1,
-          searchable: true
-        }, // Column index 1 (Event column)
-      ],
+    // Menampilkan tabel dengan ID jenis event yang sesuai
+    const selectedTable = document.getElementById(jenisEventId);
+    if (selectedTable) {
+      selectedTable.style.display = 'block';
+    }
+  }
 
-      // Add custom dropdown filters for event type
-      initComplete: function() {
-        this.api().columns(1).every(function() {
-          var column = this;
-          var select = $('<select><option value="">All Events</option></select>')
-            .appendTo($(column.footer()).empty())
-            .on('change', function() {
-              var val = $.fn.dataTable.util.escapeRegex($(this).val());
-              column.search(val ? '^' + val + '$' : '', true, false).draw();
-            });
-
-          column.data().unique().sort().each(function(d, j) {
-            select.append('<option value="' + d + '">' + d + '</option>');
-          });
-        });
-      }
+  // Inisialisasi pertama kali, sembunyikan semua tabel acara
+  document.addEventListener('DOMContentLoaded', () => {
+    const allTables = document.querySelectorAll('.table-container');
+    allTables.forEach(table => {
+      table.style.display = 'none';
     });
   });
 </script>

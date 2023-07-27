@@ -13,9 +13,9 @@ class Team extends CI_Controller {
 	
 	public function index()
 	{
-		$data['registrasi'] = $this->admin->getRegistrasi('Futsal');
-        $data['registrasi_badminton'] = $this->admin->getRegistrasi('Badminton');
-        $data['event'] = $this->admin->get('event');
+		$data['event'] = $this->admin->getEvent();
+		$data['jenisEvent'] = $this->admin->getJenisEvent();
+        $data['team'] = $this->admin->getTeam();
 		$this->template->load('templates/landing-page', 'landing_page/theme/team',$data);
 		// $this->template->load('templates/landing-page');
 	}

@@ -30,7 +30,6 @@ class Welcome extends CI_Controller
 	public function index()
 	{
 		$data['event'] = $this->admin->getEvent();
-
 		$data['jenisEvent'] = $this->admin->getJenisEvent();
 
 		$this->template->load('templates/landing-page', 'landing_page/theme/index', $data);
