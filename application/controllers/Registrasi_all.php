@@ -14,7 +14,7 @@ class Registrasi_all extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Dafar Registrasi";
+        $data['title'] = "Data Registrasi";
         $data['event'] = $this->admin->getEvent();
         $data['registerAll'] = $this->admin->getRegistrasiAll();
         $this->template->load('templates/dashboard', 'registrasi_all/data', $data);
@@ -76,5 +76,18 @@ class Registrasi_all extends CI_Controller
             set_pesan('data gagal dihapus.', false);
         }
         redirect('jenis');
+    }
+
+    public function toggle($getId)
+    {
+        $id = encode_php_tags($getId);
+        $status = $this->admin->get('registrasi', ['ID_EVENT' => $id])['STATUS_REGISTRASI'];
+        $toggle = $status ? 0 : 1; //Jika user aktif maka nonaktifkan, begitu pula sebaliknya
+        $pesan = $toggle ? 'Terima' : 'Tolak';
+
+        if ($this->admin->update('registrasi', 'ID_EVENT', $id, ['STATUS_REGISTRASI' => $toggle])) {
+            set_pesan($pesan);
+        }
+        redirect('registrasi_all');
     }
 }

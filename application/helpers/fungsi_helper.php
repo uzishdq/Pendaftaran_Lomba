@@ -27,12 +27,14 @@ function set_pesan($pesan, $tipe = true)
 {
     $ci = get_instance();
     if ($tipe) {
-        $ci->session->set_flashdata('pesan', "<div class='alert alert-success'><strong>SUCCESS!</strong> {$pesan} <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
-    } 
+        $ci->session->set_flashdata('pesan', "<div class='alert-dismissible'>
+        <div class='alert-success'><strong>SUCCESS!</strong> {$pesan} <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>
+    </div>");
+    }
 
-    
-    if($tipe === false) {
-        $ci->session->set_flashdata('pesan', "<div class='alert alert-danger'><strong>ERROR!</strong> {$pesan} <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
+
+    if ($tipe === false) {
+        $ci->session->set_flashdata('pesan', "<div class='alert-dismissible alert alert-danger'><strong>ERROR!</strong> {$pesan} <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>");
     }
 }
 

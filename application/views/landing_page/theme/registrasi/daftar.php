@@ -293,7 +293,7 @@ else : ?>
         // Generate new form sections based on the input value
         for (var i = 1; i <= pesertaValue; i++) {
             var formSectionHtml = `
-            <div class="col-md">
+            <div class="col-sm-5 col-md-6 col-xl-3">
                 <div class="form-group">
                     <label for="upload${i}">
                         <img id="preview-image${i}" src="<?= base_url() ?>assets/img/avatar/user.png" alt="peserta${i}" class="rounded-circle shadow-sm img-thumbnail">

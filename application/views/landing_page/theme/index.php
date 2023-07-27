@@ -54,23 +54,23 @@
 
 <!--====  End of Page Slider  ====-->
 
+
 <section class="cta">
-  <div class="container-fluid">
+  <div class="tabs">
+    <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a href="javascript:void(0)" onclick="filterEvent('all')">Semua</a>
+      </li>
+    </ul>
+  </div>
+  <div class="container-fluid" id="daftarEvent">
     <div class="cta-block row no-gutters">
-
-      <!-- <div class="col-lg-4 col-md-6 emmergency item">
-        <i class="fa fa-phone"></i>
-        <h2>FUTSAL</h2>
-        <a href="tel:1-800-700-6200">+62 821 345 789</a>
-        <p>Informasi selengkapnya silahkan hubungi nomor berikut</p>
-      </div> -->
-
       <div class="section-title-inner">
         <div class="section-title"></div>
       </div>
       <div class="col-lg-4 col-md-6 working-time item">
         <!-- <i class="fa fa-users"></i> -->
-        <h2>Event</h2>
+        <h2>haha</h2>
         <?php
         if ($event) :
           foreach ($event as $e) :
@@ -84,21 +84,11 @@
             <li>Tidak ada event</li>
           </ul>
         <?php endif; ?>
-        <!-- <a href="service" class="btn btn-main">Read more</a> -->
+
       </div>
 
-      <!-- <div class="col-lg-4 col-md-6 top-doctor item">
-        <i class="fa fa-hourglass-o"></i>
-        <h2><E-Sport>E-Sports</E-Sport></h2>
-        <ul class="w-hours">
-          <li>Mobile Legend<span>08-February-2023</span></li>
-          <li>PUBGM<span>09-February-2023</span></li>
-          <li>Free Fire<span>10-February-2023</span></li>
-        </ul>
-      </div> -->
 
       <div class="col-lg-4 col-md-12 working-time item">
-        <!-- <i class="fa fa-hourglass-o"></i> -->
         <h2><E-Sport>Vanue</E-Sport></h2>
         <ul class="w-hours">
           <h3>Sport</h3>

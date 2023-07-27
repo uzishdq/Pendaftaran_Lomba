@@ -33,6 +33,18 @@
             z-index: 1;
         }
     </style>
+    <script>
+        // Fungsi untuk menyembunyikan pesan setelah beberapa waktu (dalam milidetik)
+        function hideMessage() {
+            var messageElement = document.querySelector('.alert-dismissible');
+            if (messageElement) {
+                messageElement.style.display = 'none';
+            }
+        }
+
+        // Menjalankan fungsi hideMessage() setelah 5 detik (5000 milidetik)
+        setTimeout(hideMessage, 5000);
+    </script>
 </head>
 
 <body id="page-top">
@@ -70,37 +82,35 @@
             </div>
 
             <!-- Divider -->
-            
+
             <!-- <hr class="sidebar-divider"> -->
-            
+
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?= base_url('jenis_event'); ?>">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fa fa-book"></i>
                     <span>Jenis Event</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?= base_url('event'); ?>">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fa fa-trophy"></i>
                     <span>Event</span>
                 </a>
             </li>
-            
-            <!-- Nav Item - Dashboard -->
-            <!-- <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('registrasi'); ?>">
-                    <i class="fas fa-fw fa-users"></i>
+
+            <li class="nav-item">
+                <a class="nav-link pb-0" href="<?= base_url('registrasi_all'); ?>">
+                    <i class="fa fa-address-book"></i>
                     <span>Registrasi</span>
                 </a>
-            </li> -->
+            </li>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-                       <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('registrasi_all'); ?>">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Registrasi</span>
+            <li class="nav-item">
+                <a class="nav-link pb-0" href="<?= base_url('jadwal'); ?>">
+                    <i class="fa fa-calendar"></i>
+                    <span>Jadwal</span>
                 </a>
             </li>
 
