@@ -43,7 +43,7 @@
         }
 
         // Menjalankan fungsi hideMessage() setelah 5 detik (5000 milidetik)
-        setTimeout(hideMessage, 5000);
+        setTimeout(hideMessage, 2000);
     </script>
 </head>
 

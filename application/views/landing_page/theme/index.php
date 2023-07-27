@@ -59,7 +59,14 @@
   <div class="tabs">
     <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <a href="javascript:void(0)" onclick="filterEvent('all')">Semua</a>
+        <?php if ($jenisEvent) : ?>
+
+          <?php foreach ($jenisEvent as $je) : ?>
+            <a href="javascript:void(0)" onclick="filterEvent('<?= $je['ID_JENIS_EVENT']; ?>')"><?= $je['NAMA_JENIS_EVENT']; ?></a>
+          <?php endforeach; ?>
+        <?php else : ?>
+          <a href="javascript:void(0)">Tidak Ada Event</a>
+        <?php endif; ?>
       </li>
     </ul>
   </div>
@@ -68,47 +75,49 @@
       <div class="section-title-inner">
         <div class="section-title"></div>
       </div>
-      <div class="col-lg-4 col-md-6 working-time item">
-        <!-- <i class="fa fa-users"></i> -->
-        <h2>haha</h2>
-        <?php
-        if ($event) :
-          foreach ($event as $e) :
-        ?>
-            <ul>
-              <li><?= $e['NAMA_EVENT']; ?><span><?= $e['TGL_MULAI_EVENT']; ?></span></li>
-            </ul>
-          <?php endforeach;
-        else : ?>
-          <ul>
-            <li>Tidak ada event</li>
-          </ul>
-        <?php endif; ?>
+      <div class="col-xl-12 working-time item">
+        <h2>Olahraga</h2>
+        <table class="table table-striped text-white">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Nama Event</th>
+              <th scope="col">Tanggal</th>
+              <th scope="col">Status Event</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $no = 1;
+            if ($event) :
+              foreach ($event as $e) :
+                $tanggalMulai = $e['TGL_MULAI_EVENT'];
+                $datetime1 = date_create($tanggalMulai);
+                $tglAwal = date_format($datetime1, 'd');
+
+                $tanggalAkhir = $e['TGL_AKHIR_EVENT'];
+                $datetime2 = date_create($tanggalAkhir);
+                $tglAkhir = date_format($datetime2, 'd F Y');
+
+                $status = strtoupper($e['STATUS_EVENT']);
+            ?>
+                <tr>
+                  <th scope="row"><?= $no++; ?></th>
+                  <td><?= $e['NAMA_EVENT']; ?></td>
+                  <td><?= $tglAwal; ?> - <?= $tglAkhir; ?></td>
+                  <td><?= $status ?></td>
+                </tr>
+              <?php endforeach;
+            else : ?>
+              <tr>
+                <td>Tidak Ada Event</td>
+              </tr>
+            <?php endif; ?>
+
+          </tbody>
+        </table>
 
       </div>
-
-
-      <div class="col-lg-4 col-md-12 working-time item">
-        <h2><E-Sport>Vanue</E-Sport></h2>
-        <ul class="w-hours">
-          <h3>Sport</h3>
-          <li>Futsal<span>Lapangan A & B</span></li>
-          <li>Basketball<span>Lapangan B</span></li>
-          <li>Badminton<span>Gor Lapangan A & B</span></li><br>
-          <h3>E-Sport</h3>
-          <li>Mobile Legend<span>Studio SMA Lt.2 </span></li>
-        </ul>
-      </div>
-
-      <div class="col-lg-4 col-md-12 working-time item">
-        <!-- <i class="fa fa-hourglass-o"></i> -->
-        <h2><E-Sport>E-Sport</E-Sport></h2>
-        <ul class="w-hours">
-          <li>Mobile Legend<span>08 - 09 februari - 2023</span></li>
-        </ul>
-      </div>
-
-
     </div>
   </div>
 </section>

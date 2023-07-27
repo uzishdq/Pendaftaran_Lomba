@@ -54,6 +54,11 @@ class Admin_model extends CI_Model
         return $this->db->get('event')->result_array();
     }
 
+    public function getJenisEvent()
+    {
+        return $this->db->get('jenis_event')->result_array();
+    }
+
     public function getSchedule()
     {
         $multiClause = array('r.STATUS_REGISTRASI' => 1, 'e.STATUS_EVENT' => 'dibuka');

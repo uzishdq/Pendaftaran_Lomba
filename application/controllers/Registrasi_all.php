@@ -80,12 +80,12 @@ class Registrasi_all extends CI_Controller
 
     public function toggle($getId)
     {
-        $id = encode_php_tags($getId);
-        $status = $this->admin->get('registrasi', ['ID_EVENT' => $id])['STATUS_REGISTRASI'];
+        $id = $getId;
+        $status = $this->admin->get('registrasi', ['ID_REGISTRASI' => $id])['STATUS_REGISTRASI'];
         $toggle = $status ? 0 : 1; //Jika user aktif maka nonaktifkan, begitu pula sebaliknya
         $pesan = $toggle ? 'Terima' : 'Tolak';
 
-        if ($this->admin->update('registrasi', 'ID_EVENT', $id, ['STATUS_REGISTRASI' => $toggle])) {
+        if ($this->admin->update('registrasi', 'ID_REGISTRASI', $id, ['STATUS_REGISTRASI' => $toggle])) {
             set_pesan($pesan);
         }
         redirect('registrasi_all');
