@@ -17,7 +17,6 @@
     <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
       <li class="nav-item" role="presentation">
         <?php if ($jenisEvent) : ?>
-
           <?php foreach ($jenisEvent as $je) : ?>
             <a onclick="showTable('<?= $je['ID_JENIS_EVENT']; ?>')"><?= $je['NAMA_JENIS_EVENT']; ?></a>
           <?php endforeach; ?>
@@ -49,23 +48,32 @@
                   </tr>
                 </thead>
                 <tbody>
+
                   <?php
-                  $no = 1;
+                  $no = 1; // Inisialisasi nomor urut di setiap jenis event
+                  $foundEvent = false; // Variabel penanda jika ada event yang sesuai dengan jenis event
                   if ($team) :
                     foreach ($team as $t) :
+                      if ($t['ID_JENIS_EVENT'] == $je['ID_JENIS_EVENT']) { // Memeriksa ID jenis event yang sesuai
+                        $foundEvent = true; // Mengubah penanda menjadi true karena ada event yang sesuai
                   ?>
-                      <tr>
-                        <th scope="row"><?= $no++; ?></th>
-                        <td><?= $t['NAMA_EVENT']; ?></td>
-                        <td><?= $t['NAMA_TEAM']; ?></td>
-                        <td><?= $t['JUMLAH_PESERTA']; ?></td>
-                        <td><?= $t['SEKOLAH']; ?></td>
-                        <td><?= $t['TINGKAT']; ?></td>
-                      </tr>
-                    <?php endforeach;
-                  else : ?>
+                        <tr>
+                          <th scope="row"><?= $no++; ?></th>
+                          <td><?= $t['NAMA_EVENT']; ?></td>
+                          <td><?= $t['NAMA_TEAM']; ?></td>
+                          <td><?= $t['JUMLAH_PESERTA']; ?></td>
+                          <td><?= $t['SEKOLAH']; ?></td>
+                          <td><?= $t['TINGKAT']; ?></td>
+                        </tr>
+                    <?php
+                      }
+                    endforeach;
+                  endif;
+
+                  if (!$foundEvent) :
+                    ?>
                     <tr>
-                      <td>Tidak Ada Event</td>
+                      <td colspan="4">Tidak Ada Data</td>
                     </tr>
                   <?php endif; ?>
 
@@ -86,31 +94,20 @@
 <style>
   /* CSS untuk menyembunyikan semua tabel dengan class "table-container" */
   .table-container {
-    display: block;
+    display: none;
   }
 </style>
 
 <script>
-  // JavaScript untuk menampilkan tabel sesuai dengan ID jenis event yang dipilih
-  function showTable(jenisEventId) {
-    // Menyembunyikan semua tabel acara
-    const allTables = document.querySelectorAll('.table-container');
-    allTables.forEach(table => {
-      table.style.display = 'none';
-    });
-
-    // Menampilkan tabel dengan ID jenis event yang sesuai
-    const selectedTable = document.getElementById(jenisEventId);
-    if (selectedTable) {
-      selectedTable.style.display = 'block';
+  // Fungsi untuk menampilkan tabel sesuai dengan ID jenis event yang dipilih
+  function showTable(idJenisEvent) {
+    var tableContainers = document.getElementsByClassName('table-container');
+    for (var i = 0; i < tableContainers.length; i++) {
+      if (tableContainers[i].id === idJenisEvent) {
+        tableContainers[i].style.display = 'block';
+      } else {
+        tableContainers[i].style.display = 'none';
+      }
     }
   }
-
-  // Inisialisasi pertama kali, sembunyikan semua tabel acara
-  document.addEventListener('DOMContentLoaded', () => {
-    const allTables = document.querySelectorAll('.table-container');
-    allTables.forEach(table => {
-      table.style.display = 'none';
-    });
-  });
 </script>

@@ -77,7 +77,7 @@ class Admin_model extends CI_Model
             'r.STATUS_REGISTRASI' => 1,
             'e.STATUS_EVENT' => 'dibuka',
         );
-        $this->db->select('e.ID_EVENT, e.NAMA_EVENT, r.JUMLAH_PESERTA,t.KOTA, t.NAMA_TEAM, t.SEKOLAH, t.TINGKAT');
+        $this->db->select('e.ID_JENIS_EVENT, e.NAMA_EVENT, r.JUMLAH_PESERTA,t.KOTA, t.NAMA_TEAM, t.SEKOLAH, t.TINGKAT');
         $this->db->join('event e', 'r.ID_EVENT = e.ID_EVENT');
         $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
         $this->db->where($multiClause);

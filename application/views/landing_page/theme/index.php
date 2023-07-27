@@ -52,12 +52,10 @@
   </div>
 </div>
 
-<!--====  End of Page Slider  ====-->
-
-
+<!--====  End of Page Slider  ====-->s
 <section class="cta">
   <div class="tabs">
-  <h1 class="flex justify-content-center text-center mb-5">List Event</h1>
+    <h1 class="flex justify-content-center text-center mb-5">List Event</h1>
     <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
       <li class="nav-item" role="presentation">
         <?php if ($jenisEvent) : ?>
@@ -92,43 +90,50 @@
                 </thead>
                 <tbody>
                   <?php
-                  $no = 1;
+                  $no = 1; // Inisialisasi nomor urut di setiap jenis event
+                  $foundEvent = false; // Variabel penanda jika ada event yang sesuai dengan jenis event
                   if ($event) :
                     foreach ($event as $e) :
-                      $tanggalMulai = $e['TGL_MULAI_EVENT'];
-                      $datetime1 = date_create($tanggalMulai);
-                      $tglAwal = date_format($datetime1, 'd');
+                      if ($e['ID_JENIS_EVENT'] == $je['ID_JENIS_EVENT']) { // Memeriksa ID jenis event yang sesuai
+                        $foundEvent = true; // Mengubah penanda menjadi true karena ada event yang sesuai
+                        $tanggalMulai = $e['TGL_MULAI_EVENT'];
+                        $datetime1 = date_create($tanggalMulai);
+                        $tglAwal = date_format($datetime1, 'd');
 
-                      $tanggalAkhir = $e['TGL_AKHIR_EVENT'];
-                      $datetime2 = date_create($tanggalAkhir);
-                      $tglAkhir = date_format($datetime2, 'd F Y');
+                        $tanggalAkhir = $e['TGL_AKHIR_EVENT'];
+                        $datetime2 = date_create($tanggalAkhir);
+                        $tglAkhir = date_format($datetime2, 'd F Y');
 
-                      $status = strtoupper($e['STATUS_EVENT']);
+                        $status = strtoupper($e['STATUS_EVENT']);
                   ?>
-                      <tr>
-                        <th scope="row"><?= $no++; ?></th>
-                        <td><?= $e['NAMA_EVENT']; ?></td>
-                        <td><?= $tglAwal; ?> - <?= $tglAkhir; ?></td>
-                        <td><?= $status ?></td>
-                      </tr>
-                    <?php endforeach;
-                  else : ?>
+                        <tr>
+                          <th scope="row"><?= $no++; ?></th>
+                          <td><?= $e['NAMA_EVENT']; ?></td>
+                          <td><?= $tglAwal; ?> - <?= $tglAkhir; ?></td>
+                          <td><?= $status ?></td>
+                        </tr>
+                    <?php
+                      }
+                    endforeach;
+                  endif;
+
+                  if (!$foundEvent) :
+                    ?>
                     <tr>
-                      <td>Tidak Ada Event</td>
+                      <td colspan="4">Tidak Ada Data</td>
                     </tr>
                   <?php endif; ?>
-
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-      <?php endforeach; ?>
-    <?php else : ?>
-      <h1>Tidak ada Data</h1>
-    <?php endif; ?>
-
       </div>
+    <?php endforeach; ?>
+  <?php else : ?>
+    <h1>Tidak ada Data</h1>
+  <?php endif; ?>
+  </div>
 </section>
 
 
@@ -222,31 +227,20 @@
 <style>
   /* CSS untuk menyembunyikan semua tabel dengan class "table-container" */
   .table-container {
-    display: block;
+    display: none;
   }
 </style>
 
 <script>
-  // JavaScript untuk menampilkan tabel sesuai dengan ID jenis event yang dipilih
-  function showTable(jenisEventId) {
-    // Menyembunyikan semua tabel acara
-    const allTables = document.querySelectorAll('.table-container');
-    allTables.forEach(table => {
-      table.style.display = 'none';
-    });
-
-    // Menampilkan tabel dengan ID jenis event yang sesuai
-    const selectedTable = document.getElementById(jenisEventId);
-    if (selectedTable) {
-      selectedTable.style.display = 'block';
+  // Fungsi untuk menampilkan tabel sesuai dengan ID jenis event yang dipilih
+  function showTable(idJenisEvent) {
+    var tableContainers = document.getElementsByClassName('table-container');
+    for (var i = 0; i < tableContainers.length; i++) {
+      if (tableContainers[i].id === idJenisEvent) {
+        tableContainers[i].style.display = 'block';
+      } else {
+        tableContainers[i].style.display = 'none';
+      }
     }
   }
-
-  // Inisialisasi pertama kali, sembunyikan semua tabel acara
-  document.addEventListener('DOMContentLoaded', () => {
-    const allTables = document.querySelectorAll('.table-container');
-    allTables.forEach(table => {
-      table.style.display = 'none';
-    });
-  });
 </script>
