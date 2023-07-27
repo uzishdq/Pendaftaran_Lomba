@@ -11,12 +11,13 @@
   </div>
 </section>
 <!--End Page Title-->
-
 <section class="cta">
   <div class="tabs">
+    <h1 class="flex justify-content-center text-center mb-5">List Event</h1>
     <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
       <li class="nav-item" role="presentation">
         <?php if ($jenisEvent) : ?>
+
           <?php foreach ($jenisEvent as $je) : ?>
             <a onclick="showTable('<?= $je['ID_JENIS_EVENT']; ?>')"><?= $je['NAMA_JENIS_EVENT']; ?></a>
           <?php endforeach; ?>
@@ -36,7 +37,7 @@
             </div>
             <div class="col-xl-12 working-time item">
               <h2><?= $je['NAMA_JENIS_EVENT']; ?></h2>
-              <table class="table table-striped w-100 dt-responsive nowrap text-white ">
+              <table class="table table-striped text-white">
                 <thead>
                   <tr>
                     <th scope="col">No.</th>
@@ -48,7 +49,6 @@
                   </tr>
                 </thead>
                 <tbody>
-
                   <?php
                   $no = 1; // Inisialisasi nomor urut di setiap jenis event
                   $foundEvent = false; // Variabel penanda jika ada event yang sesuai dengan jenis event
@@ -76,19 +76,19 @@
                       <td colspan="4">Tidak Ada Data</td>
                     </tr>
                   <?php endif; ?>
-
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-      <?php endforeach; ?>
-    <?php else : ?>
-      <h1>Tidak ada Data</h1>
-    <?php endif; ?>
-
       </div>
+    <?php endforeach; ?>
+  <?php else : ?>
+    <h1>Tidak ada Data</h1>
+  <?php endif; ?>
+  </div>
 </section>
+
 
 
 <style>
