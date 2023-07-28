@@ -16,6 +16,7 @@ class Jadwal extends CI_Controller
     {
         $data['title'] = "Jadwal Pertandingan";
         $data['jadwal'] = $this->admin->getSchedule();
+        $data['atribut'] = $this->admin->getAtributAll();
         $this->template->load('templates/dashboard', 'jadwal/data', $data);
     }
 

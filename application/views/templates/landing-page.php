@@ -87,6 +87,9 @@ $title = basename($_SERVER['PHP_SELF'], '.php'); // Assuming your pages have .ph
             <li class="nav-item <?php if ($title === 'registrasi') echo 'active'; ?>">
               <a class="nav-link" href="<?= base_url('service'); ?>">PORPIIS CUP</a>
             </li>
+            <li class="nav-item <?php if ($title === 'Pertandingan') echo 'active'; ?>">
+              <a class="nav-link" href="<?= base_url('pertandingan'); ?>">Pertandingan</a>
+            </li>
             <li class="nav-item <?php if ($title === 'team') echo 'active'; ?>">
               <a class="nav-link" href="<?= base_url('team'); ?>">Team</a>
             </li>

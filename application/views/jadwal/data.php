@@ -19,6 +19,44 @@
             </div>
         </div>
     </div>
+    <div class="table-responsive">
+        <table class="table table-striped" id="dataTable">
+            <thead>
+                <tr>
+                    <th>No. </th>
+                    <th>Nama Atribut</th>
+                    <th> Event</th>
+                    <th>Jadwal Pertandingan</th>
+                    <th>Tingkat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $no = 1;
+                if ($atribut) :
+                    foreach ($atribut as $e) :
+                ?>
+                        <tr>
+                            <td><?= $no++; ?></td>
+                            <td><?= $e['NAMA_ATRIBUT']; ?></td>
+                            <td><?= $e['NAMA_EVENT']; ?></td>
+                            <td><a href="<?= base_url('/') . $e['FOTO_ATRIBUT'] ?>" target="_blank">Jadwal</a></td>
+                            <td><?= $e['TINGKAT_ATRIBUT']; ?></td>
+                            <td>
+                                <a href="<?= base_url('jadwal/edit/') . $e['ID_ATRIBUT'] ?>" class="btn btn-circle btn-sm btn-warning"><i class="fa fa-fw fa-edit"></i></a>
+                                <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('jadwal/delete/') . $e['ID_ATRIBUT'] ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach;
+                else : ?>
+                    <tr>
+                        <td colspan="8" class="text-center">Silahkan tambahkan Event</td>
+                    </tr>
+                <?php endif; ?>
+
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="card shadow-sm border-bottom-primary">
@@ -26,7 +64,7 @@
         <div class="row">
             <div class="col">
                 <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
-                    Data Jenis Event
+                    Data Pertandingan
                 </h4>
             </div>
             <div class="col-auto">

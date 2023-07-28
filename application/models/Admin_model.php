@@ -114,7 +114,7 @@ class Admin_model extends CI_Model
         $this->db->join('registrasi r', 'u.registrasi_id = r.id_registrasi');
         $this->db->order_by('registrasi_id');
         return $this->db->get('uploads u')->result_array();
-    }
+    }  
 
     public function getAtributEvent()
     {
@@ -123,6 +123,13 @@ class Admin_model extends CI_Model
         $this->db->where('e.STATUS_EVENT', 'dibuka');
         $this->db->or_where('e.STATUS_EVENT', 'berjalan');
         return $this->db->get('event e')->result_array();
+    }
+
+    public function getAtributAll()
+    {
+        $this->db->join('event e', 'e.ID_EVENT = a.ID_EVENT');
+        $this->db->join('jenis_event j', 'e.ID_JENIS_EVENT = j.ID_JENIS_EVENT');
+        return $this->db->get('atribut a')->result_array();
     }
 
     public function getAtribut()

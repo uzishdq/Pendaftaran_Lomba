@@ -90,7 +90,17 @@ if ($jenisEvent) :
         </div>
     <?php endforeach; ?>
 <?php else : ?>
-    <h2>Data Tidak Ada</h2>
+    <div class="card shadow-sm mb-4 border-bottom-primary">
+        <div class="card-header bg-white py-3">
+            <div class="row">
+                <div class="col">
+                    <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
+                        Tidak Ada Data
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php endif; ?>
 
 
