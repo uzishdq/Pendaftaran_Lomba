@@ -103,35 +103,33 @@ class Event extends CI_Controller
     {
         $id = encode_php_tags($getId);
         $this->_validasi();
-
+        $this->_config();
         if ($this->form_validation->run() == false) {
             $data['title'] = "Event";
             $data['jenis'] = $this->admin->get('jenis_event');
             $data['event'] = $this->admin->get('event', ['ID_EVENT' => $id]);
             $this->template->load('templates/dashboard', 'event/edit', $data);
         } else {
-            $input = $this->input->post(null, true);
-            if ($_FILES['FOTO_EVENT']['name']) {
-                // Other configuration options as needed
-                $this->load->library('upload', $config);
-
-                if ($this->upload->do_upload('FOTO_EVENT')) {
-                    // File uploaded successfully
-                    $file_data = $this->upload->data();
-                    $foto_event = $file_data['file_name'];
-
-                    // Delete old file (if needed)
-                    $old_foto_event = $this->input->post('OLD_FOTO_EVENT');
-                    if ($old_foto_event && file_exists('assets/file/logo_event/' . $old_foto_event)) {
-                        unlink('assets/file/logo_event/' . $old_foto_event);
-                    }
-                } else {
-                    // File upload failed, keep the old file name
-                    $foto_event = $this->input->post('OLD_FOTO_EVENT');
+            if (!$this->upload->do_upload('FOTO_EVENT')) {
+                $foto_path = $this->input->post('OLD_FOTO_EVENT');
+                $old_foto_event = $this->input->post('OLD_FOTO_EVENT');
+                if ($old_foto_event && file_exists($old_foto_event)) {
+                    unlink($old_foto_event);
                 }
+                set_pesan('data gagal diedit.');
             } else {
-                // No file uploaded, keep the old file name
-                $foto_event = $this->input->post('OLD_FOTO_EVENT');
+
+                $file_data = $this->upload->data();
+                $file_name = $file_data['file_name'];
+                $foto = $_FILES['FOTO_EVENT']["tmp_name"];
+                $foto_path = 'assets/file/logo_event/' . $file_name;
+
+                move_uploaded_file($foto, $foto_path);
+
+                $old_foto_event = $this->input->post('OLD_FOTO_EVENT');
+                if ($old_foto_event && file_exists('assets/file/logo_event/' . $old_foto_event)) {
+                    unlink('assets/file/logo_event/' . $old_foto_event);
+                }
             }
 
             // Convert biaya to integer
@@ -141,7 +139,7 @@ class Event extends CI_Controller
 
             // Prepare data for database update
             $input = array(
-                'FOTO_EVENT' => $foto_event,
+                'FOTO_EVENT' => $foto_path,
                 'ID_JENIS_EVENT' => $this->input->post('ID_JENIS_EVENT'),
                 'NAMA_EVENT' => $this->input->post('NAMA_EVENT'),
                 'TGL_MULAI_EVENT' => $this->input->post('TGL_MULAI_EVENT'),
@@ -150,7 +148,7 @@ class Event extends CI_Controller
                 'BANK_EVENT' => $this->input->post('BANK_EVENT'),
                 'STATUS_EVENT' => $this->input->post('STATUS_EVENT')
             );
-            $update = $this->admin->update('event', 'id_event', $id, $input);
+            $update = $this->admin->update('event', 'ID_EVENT', $id, $input);
 
             if ($update) {
                 set_pesan('data berhasil diedit.');
