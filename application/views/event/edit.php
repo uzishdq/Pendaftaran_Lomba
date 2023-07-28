@@ -32,18 +32,6 @@
                         <?= form_error('NAMA_EVENT', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
-                <!-- <div class="row form-group">
-                    <label class="col-md-3 text-md-right" for="deskripsi">Deskripsi Event</label>
-                    <div class="col-md-9">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-book"></i></span>
-                            </div>
-                            <textarea name="deskripsi" id="deskripsi" class="form-control" rows="4" placeholder="Deskripsi..."><?= set_value('deskripsi', $event['deskripsi']); ?></textarea>
-                        </div>
-                        <?= form_error('deskripsi', '<small class="text-danger">', '</small>'); ?>
-                    </div>
-                </div> -->
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="ID_JENIS_EVENT">Kategori Event</label>
                     <div class="col-md-9">
@@ -81,7 +69,7 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                             </div>
-                            <input value="<?= set_value('BIAYA_EVENT',$event['BIAYA_EVENT']); ?>" name="BIAYA_EVENT" id="BIAYA_EVENT" type="number" class="form-control" placeholder="Biaya Pendaftaran...">
+                            <input value="<?= set_value('BIAYA_EVENT', $event['BIAYA_EVENT']); ?>" name="BIAYA_EVENT" id="BIAYA_EVENT" type="number" class="form-control" placeholder="Biaya Pendaftaran...">
                         </div>
                         <?= form_error('BIAYA_EVENT', '<small class="text-danger">', '</small>'); ?>
                     </div>
@@ -92,7 +80,7 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                             </div>
-                            <input value="<?= set_value('BANK_EVENT',$event['BANK_EVENT']); ?>" name="BANK_EVENT" id="BANK_EVENT" type="text" class="form-control" placeholder="BCA 082304.... a/n Permadi">
+                            <input value="<?= set_value('BANK_EVENT', $event['BANK_EVENT']); ?>" name="BANK_EVENT" id="BANK_EVENT" type="text" class="form-control" placeholder="BCA 082304.... a/n Permadi">
                         </div>
                         <?= form_error('BANK_EVENT', '<small class="text-danger">', '</small>'); ?>
                     </div>
@@ -102,10 +90,10 @@
                     <div class="col-md-9">
                         <div class="input-group">
                             <select name="STATUS_EVENT" id="STATUS_EVENT" class="custom-select">
-                                <option value="<?=$event['STATUS_EVENT']; ?>" selected ><?= $event['STATUS_EVENT']; ?></option>
-                                <option value="dibuka" >Dibuka</option>
-                                <option value="berjalan" >Sedang Berjalan</option>
-                                <option value="ditutup" >Ditutup</option>
+                                <option value="<?= $event['STATUS_EVENT']; ?>" selected><?= $event['STATUS_EVENT']; ?></option>
+                                <option value="dibuka">Dibuka</option>
+                                <option value="berjalan">Sedang Berjalan</option>
+                                <option value="ditutup">Ditutup</option>
                             </select>
                         </div>
                         <?= form_error('STATUS_EVENT', '<small class="text-danger">', '</small>'); ?>
@@ -116,7 +104,9 @@
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col-9">
-                                <input type="file" value="<?=$event['FOTO_EVENT']; ?>" name="FOTO_EVENT" id="FOTO_EVENT">
+                                <input type="file" value="<?= $event['FOTO_EVENT']; ?>" name="FOTO_EVENT" id="FOTO_EVENT">
+                                <input hidden type="text" value="<?= $event['FOTO_EVENT']; ?>" name="OLD_FOTO_EVENT" id="OLD_FOTO_EVENT">
+        
                                 <?= form_error('FOTO_EVENT', '<small class="text-danger">', '</small>'); ?>
                             </div>
                         </div>

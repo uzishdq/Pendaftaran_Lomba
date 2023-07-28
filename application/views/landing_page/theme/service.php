@@ -29,7 +29,7 @@ if ($event) :
                 <li><i class="fas fa-caret-right"></i>Masih berstatus siswa sekolah aktif</li>
                 <li><i class="fas fa-caret-right"></i>Mematuhi syarat & ketentuan yang berlaku</li>
                 <li><i class="fas fa-caret-right"></i>Melakukan pembayaran biaya pendaftaran</li>
-                <h6><br>Biaya Pendaftaran: <?= $e['BIAYA_EVENT']; ?></h6>
+                <h6><br>Biaya Pendaftaran: Rp.<?=number_format($e['BIAYA_EVENT'], 0, ',', '.'); ?></h6>
                 <h6 class="font-weight-bold"><br>Transfer: <?= $e['BANK_EVENT']; ?></h6>
               </ul>
               <a href="<?= base_url('registrasi/daftar/') . $e['ID_EVENT'] ?>" class="btn-style-one" style="border-radius:10px;">Register Now</a>

@@ -60,8 +60,8 @@ class Profile extends CI_Controller
             $this->template->load('templates/dashboard', 'profile/setting', $data);
         } else {
             $input = $this->input->post(null, true);
-            if (empty($_FILES['foto']['name'])) {
-                $insert = $this->admin->update('user', 'ID_USER', $input['id_user'], $input);
+            if (empty($_FILES['FOTO']['tmp_name'])) {
+                $insert = $this->admin->update('user', 'ID_USER', $input['ID_USER'], $input);
                 if ($insert) {
                     set_pesan('perubahan berhasil disimpan.');
                 } else {
@@ -69,11 +69,11 @@ class Profile extends CI_Controller
                 }
                 redirect('profile/setting');
             } else {
-                if ($this->upload->do_upload('foto') == false) {
+                if ($this->upload->do_upload('FOTO') == false) {
                     echo $this->upload->display_errors();
                     die;
                 } else {
-                    if (userdata('foto') != 'user.png') {
+                    if (userdata('FOTO') != 'user.png') {
                         $old_image = FCPATH . 'assets/img/avatar/' . userdata('FOTO');
                         if (!unlink($old_image)) {
                             set_pesan('gagal hapus foto lama.');
@@ -81,8 +81,8 @@ class Profile extends CI_Controller
                         }
                     }
 
-                    $input['foto'] = $this->upload->data('file_name');
-                    $update = $this->admin->update('user', 'ID_USER', $input['id_user'], $input);
+                    $input['FOTO'] = $this->upload->data('file_name');
+                    $update = $this->admin->update('user', 'ID_USER', $input['ID_USER'], $input);
                     if ($update) {
                         set_pesan('perubahan berhasil disimpan.');
                     } else {

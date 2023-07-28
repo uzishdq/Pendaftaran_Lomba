@@ -61,8 +61,6 @@ $title = basename($_SERVER['PHP_SELF'], '.php'); // Assuming your pages have .ph
 <body>
   <div class="page-wrapper">
 
-
-
     <!--header top-->
 
     <!--header top-->

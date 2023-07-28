@@ -24,7 +24,6 @@ class Event extends CI_Controller
     private function _validasi()
     {
         $this->form_validation->set_rules('NAMA_EVENT', 'Nama Event', 'required|trim');
-        // $this->form_validation->set_rules('deskripsi', 'deskripsi', 'required|trim');
         $this->form_validation->set_rules('TGL_MULAI_EVENT', 'Tanggal Mulai', 'required|trim');
         $this->form_validation->set_rules('TGL_AKHIR_EVENT', 'Tanggal Akhir', 'required|trim');
         $this->form_validation->set_rules('BIAYA_EVENT', 'Biaya Event', 'required|trim');
@@ -64,11 +63,12 @@ class Event extends CI_Controller
                     $tglMulai = $this->input->post('TGL_MULAI_EVENT');
                     $tglAkhir = $this->input->post('TGL_AKHIR_EVENT');
                     $biaya = $this->input->post('BIAYA_EVENT');
+                    $nominal = preg_replace('/[^\d]/', '', $biaya);
+                    $nominal_int = intval($nominal);
                     $bank = $this->input->post('BANK_EVENT');
                     $status = $this->input->post('STATUS_EVENT');
 
                     $foto = $_FILES['FOTO_EVENT']["tmp_name"];
-
                     $foto_path = 'assets/file/logo_event/' . $file_name;
                     move_uploaded_file($foto, $foto_path);
 
@@ -78,7 +78,7 @@ class Event extends CI_Controller
                         'TGL_MULAI_EVENT' => $tglMulai,
                         'TGL_AKHIR_EVENT' => $tglAkhir,
                         'FOTO_EVENT' => $foto_path,
-                        'BIAYA_EVENT' => $biaya,
+                        'BIAYA_EVENT' => $nominal_int,
                         'BANK_EVENT' => $bank,
                         'STATUS_EVENT' => $status,
                     );
@@ -111,6 +111,45 @@ class Event extends CI_Controller
             $this->template->load('templates/dashboard', 'event/edit', $data);
         } else {
             $input = $this->input->post(null, true);
+            if ($_FILES['FOTO_EVENT']['name']) {
+                // Other configuration options as needed
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('FOTO_EVENT')) {
+                    // File uploaded successfully
+                    $file_data = $this->upload->data();
+                    $foto_event = $file_data['file_name'];
+
+                    // Delete old file (if needed)
+                    $old_foto_event = $this->input->post('OLD_FOTO_EVENT');
+                    if ($old_foto_event && file_exists('assets/file/logo_event/' . $old_foto_event)) {
+                        unlink('assets/file/logo_event/' . $old_foto_event);
+                    }
+                } else {
+                    // File upload failed, keep the old file name
+                    $foto_event = $this->input->post('OLD_FOTO_EVENT');
+                }
+            } else {
+                // No file uploaded, keep the old file name
+                $foto_event = $this->input->post('OLD_FOTO_EVENT');
+            }
+
+            // Convert biaya to integer
+            $biaya = $this->input->post('BIAYA_EVENT');
+            $nominal = preg_replace('/[^\d]/', '', $biaya);
+            $nominal_int = intval($nominal);
+
+            // Prepare data for database update
+            $input = array(
+                'FOTO_EVENT' => $foto_event,
+                'ID_JENIS_EVENT' => $this->input->post('ID_JENIS_EVENT'),
+                'NAMA_EVENT' => $this->input->post('NAMA_EVENT'),
+                'TGL_MULAI_EVENT' => $this->input->post('TGL_MULAI_EVENT'),
+                'TGL_AKHIR_EVENT' => $this->input->post('TGL_AKHIR_EVENT'),
+                'BIAYA_EVENT' => $nominal_int,
+                'BANK_EVENT' => $this->input->post('BANK_EVENT'),
+                'STATUS_EVENT' => $this->input->post('STATUS_EVENT')
+            );
             $update = $this->admin->update('event', 'id_event', $id, $input);
 
             if ($update) {
@@ -126,7 +165,15 @@ class Event extends CI_Controller
     public function delete($getId)
     {
         $id = encode_php_tags($getId);
+
+        $old_foto_event = $this->admin->getFotoEvent($id);
+
+        if ($old_foto_event && file_exists('assets/file/logo_event/' . $old_foto_event)) {
+            unlink('assets/file/logo_event/' . $old_foto_event);
+        }
+
         if ($this->admin->delete('event', 'id_event', $id)) {
+
             set_pesan('data berhasil dihapus.');
         } else {
             set_pesan('data gagal dihapus.', false);

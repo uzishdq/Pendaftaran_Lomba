@@ -1,6 +1,8 @@
 <!--=================================
 =            Page Slider            =
 ==================================-->
+<!-- <div class="hero-slider">
+  <!-- Slider Item -->
 <div class="hero-slider">
   <!-- Slider Item -->
   <div class="slider-item slide1" style="background-image:url(<?= base_url(); ?>assets/img/images/slider/banner-1.jpeg)">
@@ -120,7 +122,7 @@
                   if (!$foundEvent) :
                     ?>
                     <tr>
-                      <td colspan="4">Tidak Ada Data</td>
+                      <td colspan="4" class="text-center">Tidak Ada Data</td>
                     </tr>
                   <?php endif; ?>
                 </tbody>
@@ -217,10 +219,6 @@
   </div>
 </section>
 
-<!-- Tempat untuk menampilkan bagan -->
-<div id="challonge-chart">
-  <canvas id="myChart"></canvas>
-</div>
 
 <!--End about section-->
 

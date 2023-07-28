@@ -213,7 +213,7 @@
             <footer class="sticky-footer bg-light">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Saya Sendiri</span>
+                        <span>&copy; Copyright 2023. Designed &amp; Developed by Me</span>
                     </div>
                 </div>
             </footer>

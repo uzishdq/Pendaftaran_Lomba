@@ -13,7 +13,6 @@
 <!--End Page Title-->
 <section class="cta">
   <div class="tabs">
-    <h1 class="flex justify-content-center text-center mb-5">List Event</h1>
     <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
       <li class="nav-item" role="presentation">
         <?php if ($jenisEvent) : ?>
@@ -73,7 +72,7 @@
                   if (!$foundEvent) :
                     ?>
                     <tr>
-                      <td colspan="4">Tidak Ada Data</td>
+                      <td colspan="6" class="text-center">Tidak Ada Data</td>
                     </tr>
                   <?php endif; ?>
                 </tbody>
@@ -92,14 +91,12 @@
 
 
 <style>
-  /* CSS untuk menyembunyikan semua tabel dengan class "table-container" */
   .table-container {
     display: none;
   }
 </style>
 
 <script>
-  // Fungsi untuk menampilkan tabel sesuai dengan ID jenis event yang dipilih
   function showTable(idJenisEvent) {
     var tableContainers = document.getElementsByClassName('table-container');
     for (var i = 0; i < tableContainers.length; i++) {

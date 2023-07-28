@@ -15,7 +15,7 @@ class Registrasi_all extends CI_Controller
     public function index()
     {
         $data['title'] = "Data Registrasi";
-        $data['event'] = $this->admin->getEvent();
+        $data['jenisEvent'] = $this->admin->getJenisEvent();
         $data['registerAll'] = $this->admin->getRegistrasiAll();
         $this->template->load('templates/dashboard', 'registrasi_all/data', $data);
     }

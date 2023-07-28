@@ -17,60 +17,60 @@
                                 <img src="<?= base_url() ?>assets/img/avatar/<?= $user['FOTO']; ?>" alt="<?= $user['NAMA_USER']; ?>" class="rounded-circle shadow-sm img-thumbnail">
                             </div>
                             <div class="col-9">
-                                <input type="file" name="FOTO" id="foto">
-                                <?= form_error('foto', '<small class="text-danger">', '</small>'); ?>
+                                <input type="file" name="FOTO" id="FOTO">
+                                <?= form_error('FOTO', '<small class="text-danger">', '</small>'); ?>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr>
                 <div class="row form-group">
-                    <label class="col-md-3 text-md-right" for="username">Username</label>
+                    <label class="col-md-3 text-md-right" for="USERNAME">Username</label>
                     <div class="col-md-9">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-user"></i></span>
                             </div>
-                            <input value="<?= set_value('USERNAME', $user['USERNAME']); ?>" name="username" id="username" type="text" class="form-control" placeholder="Username...">
+                            <input value="<?= set_value('USERNAME', $user['USERNAME']); ?>" name="USERNAME" id="USERNAME" type="text" class="form-control" placeholder="Username...">
                         </div>
-                        <?= form_error('username', '<small class="text-danger">', '</small>'); ?>
+                        <?= form_error('USERNAME', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <hr>
                 <div class="row form-group">
-                    <label class="col-md-3 text-md-right" for="nama">Nama Anda</label>
+                    <label class="col-md-3 text-md-right" for="NAMA_USER">Nama lengkap</label>
                     <div class="col-md-9">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-user"></i></span>
                             </div>
-                            <input value="<?= set_value('NAMA_USER', $user['NAMA_USER']); ?>" name="nama" id="nama" type="text" class="form-control" placeholder="Nama Anda...">
+                            <input value="<?= set_value('NAMA_USER', $user['NAMA_USER']); ?>" name="NAMA_USER" id="NAMA_USER" type="text" class="form-control" placeholder="Nama Anda...">
                         </div>
-                        <?= form_error('nama', '<small class="text-danger">', '</small>'); ?>
+                        <?= form_error('NAMA_USER', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">
-                    <label class="col-md-3 text-md-right" for="email">Email</label>
+                    <label class="col-md-3 text-md-right" for="EMAIL_USER">Email</label>
                     <div class="col-md-9">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-envelope"></i></span>
                             </div>
-                            <input value="<?= set_value('EMAIL_USER', $user['EMAIL_USER']); ?>" name="email" id="email" type="text" class="form-control" placeholder="Email...">
+                            <input value="<?= set_value('EMAIL_USER', $user['EMAIL_USER']); ?>" name="EMAIL_USER" id="EMAIL_USER" type="text" class="form-control" placeholder="Email...">
                         </div>
-                        <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
+                        <?= form_error('EMAIL_USER', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">
-                    <label class="col-md-3 text-md-right" for="no_telp">Nomor Telepon</label>
+                    <label class="col-md-3 text-md-right" for="NO_TELP">Nomor Telepon</label>
                     <div class="col-md-9">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-phone"></i></span>
                             </div>
-                            <input value="<?= set_value('NO_TELP', $user['NO_TELP']); ?>" name="no_telp" id="no_telp" type="text" class="form-control" placeholder="Nomor Telepon...">
+                            <input value="<?= set_value('NO_TELP', $user['NO_TELP']); ?>" name="NO_TELP" id="NO_TELP" type="text" class="form-control" placeholder="Nomor Telepon...">
                         </div>
-                        <?= form_error('no_telp', '<small class="text-danger">', '</small>'); ?>
+                        <?= form_error('NO_TELP', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <hr>

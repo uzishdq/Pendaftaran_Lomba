@@ -48,6 +48,13 @@ class Admin_model extends CI_Model
         return $this->db->get('event e')->result_array();
     }
 
+    public function getFotoEvent($id)
+    {
+        $this->db->select('FOTO_EVENT');
+        $this->db->where('ID_EVENT =', $id);
+        return $this->db->get('event')->result_array();
+    }
+
     public function getEventId($id)
     {
         $this->db->where('ID_EVENT =', $id);
@@ -81,6 +88,7 @@ class Admin_model extends CI_Model
         $this->db->join('event e', 'r.ID_EVENT = e.ID_EVENT');
         $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
         $this->db->where($multiClause);
+        $this->db->or_where('e.STATUS_EVENT', 'berjalan');
         $this->db->order_by('r.ID_REGISTRASI');
         return $this->db->get('registrasi r')->result_array();
     }
@@ -102,6 +110,22 @@ class Admin_model extends CI_Model
     }
 
     public function getUploads()
+    {
+        $this->db->join('registrasi r', 'u.registrasi_id = r.id_registrasi');
+        $this->db->order_by('registrasi_id');
+        return $this->db->get('uploads u')->result_array();
+    }
+
+    public function getAtributEvent()
+    {
+        $this->db->select('e.ID_EVENT,e.ID_JENIS_EVENT, e.NAMA_EVENT,e.STATUS_EVENT, j.NAMA_JENIS_EVENT');
+        $this->db->join('jenis_event j', 'e.ID_JENIS_EVENT = j.ID_JENIS_EVENT');
+        $this->db->where('e.STATUS_EVENT', 'dibuka');
+        $this->db->or_where('e.STATUS_EVENT', 'berjalan');
+        return $this->db->get('event e')->result_array();
+    }
+
+    public function getAtribut()
     {
         $this->db->join('registrasi r', 'u.registrasi_id = r.id_registrasi');
         $this->db->order_by('registrasi_id');

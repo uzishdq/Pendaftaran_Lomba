@@ -46,7 +46,7 @@
                             <td><?= $e['NAMA_JENIS_EVENT']; ?></td>
                             <td><?= $e['TGL_MULAI_EVENT']; ?></td>
                             <td><?= $e['TGL_AKHIR_EVENT']; ?></td>
-                            <td><?= $e['BIAYA_EVENT']; ?></td>
+                            <td>Rp. <?= number_format($e['BIAYA_EVENT'], 0, ',', '.'); ?></td>
                             <td><?= $e['BANK_EVENT']; ?></td>
                             <td><?= $e['STATUS_EVENT']; ?></td>
                             <th>
