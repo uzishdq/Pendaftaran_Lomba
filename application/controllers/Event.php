@@ -62,11 +62,12 @@ class Event extends CI_Controller
                     $namaEvent = $this->input->post('NAMA_EVENT');
                     $tglMulai = $this->input->post('TGL_MULAI_EVENT');
                     $tglAkhir = $this->input->post('TGL_AKHIR_EVENT');
+                    $bank = $this->input->post('BANK_EVENT');
+                    $status = $this->input->post('STATUS_EVENT');
+
                     $biaya = $this->input->post('BIAYA_EVENT');
                     $nominal = preg_replace('/[^\d]/', '', $biaya);
                     $nominal_int = intval($nominal);
-                    $bank = $this->input->post('BANK_EVENT');
-                    $status = $this->input->post('STATUS_EVENT');
 
                     $foto = $_FILES['FOTO_EVENT']["tmp_name"];
                     $foto_path = 'assets/file/logo_event/' . $file_name;

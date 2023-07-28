@@ -78,6 +78,14 @@ class Admin_model extends CI_Model
         $this->db->order_by('r.ID_REGISTRASI');
         return $this->db->get('registrasi r')->result_array();
     }
+    public function getTeamPeserta($idRegistrasi)
+    {
+        $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
+        $this->db->join('peserta p', 'p.ID_TEAM = t.ID_TEAM');
+        $this->db->join('contact_person c', 'c.ID_CONTACT_PERSON = t.ID_CONTACT_PERSON');
+        $this->db->where('r.ID_REGISTRASI =', $idRegistrasi);
+        return $this->db->get('registrasi r')->result_array();
+    }
 
     public function getTeam()
     {

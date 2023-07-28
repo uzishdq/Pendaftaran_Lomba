@@ -1,5 +1,7 @@
 <?= $this->session->flashdata('pesan'); ?>
-
+<div class="alert alert-warning" role="alert">
+    Warning : Jika Menghapus data registrasi semua data pendaftaran akan terhapus
+</div>
 <div class="tabs m-3">
     <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
         <?php
@@ -41,8 +43,9 @@ if ($jenisEvent) :
                                 <th>No Registrasi</th>
                                 <th>Nama Event</th>
                                 <th>Nama Team</th>
+                                <th>Sekolah</th>
                                 <th>Jumlah Peserta</th>
-                                <th>Status Event</th>
+                                <th>Tingkat</th>
                                 <th>Bukti Pembayaran</th>
                                 <th>Aksi</th>
                             </tr>
@@ -60,14 +63,19 @@ if ($jenisEvent) :
                                             <td><?= $no++; ?></td>
                                             <td><?= $e['ID_REGISTRASI']; ?></td>
                                             <td><?= $e['NAMA_EVENT']; ?></td>
+                                            <td>
+                                                <a href="<?= base_url('registrasi_all/team/') . $e['ID_REGISTRASI'] ?>">
+                                                    <?= $e['SEKOLAH']; ?></a>
+                                            </td>
                                             <td><?= $e['NAMA_TEAM']; ?></td>
                                             <td><?= $e['JUMLAH_PESERTA']; ?></td>
-                                            <td><?= $e['STATUS_EVENT']; ?></td>
+                                            <td><?= $e['TINGKAT']; ?></td>
                                             <td><a href="<?= base_url('/') . $e['BUKTI_BAYAR'] ?>" target="_blank">Bukti Registrasi</a></td>
                                             <th>
                                                 <a href="<?= base_url('registrasi_all/toggle/') . $e['ID_REGISTRASI'] ?>" class="btn btn-circle btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-secondary' : 'btn-success' ?>" title="<?= $e['STATUS_REGISTRASI'] ? 'Tolak' : 'Terima' ?>"><i class="fa fa-fw fa-power-off"></i></a>
-                                                <!-- <a href="<?= base_url('event/edit/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-warning btn-sm"><i class="fa fa-edit"></i></a> -->
-                                                <a onclick="return confirm('Yakin ingin hapus? <?= $e['NAMA_EVENT']; ?>')" href="<?= base_url('event/delete/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                <?php if (is_admin()) : ?>
+                                                    <a onclick="return confirm('Jika Menghapus data registrasi semua data pendaftaran akan terhapus, Yakin ingin hapus? <?= $e['NAMA_EVENT']; ?>')" href="<?= base_url('event/delete/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                <?php endif; ?>
                                             </th>
                                         </tr>
                                 <?php
@@ -103,8 +111,15 @@ if ($jenisEvent) :
     </div>
 <?php endif; ?>
 
+<style>
+    /* CSS untuk menyembunyikan semua tabel dengan class "table-container" */
+    .table-container {
+        display: none;
+    }
+</style>
 
 <script>
+    // Fungsi untuk menampilkan tabel sesuai dengan ID jenis event yang dipilih
     function showTable(idJenisEvent) {
         var tableContainers = document.getElementsByClassName('table-container');
         for (var i = 0; i < tableContainers.length; i++) {
@@ -115,4 +130,19 @@ if ($jenisEvent) :
             }
         }
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cari semua elemen dengan kelas "table-container"
+        var tableContainers = document.getElementsByClassName('table-container');
+
+        // Semua table-container diubah menjadi display: none (sembunyikan tabel)
+        for (var i = 0; i < tableContainers.length; i++) {
+            tableContainers[i].style.display = 'none';
+        }
+
+        // Tampilkan tabel pertama secara otomatis
+        if (tableContainers.length > 0) {
+            tableContainers[0].style.display = 'block';
+        }
+    });
 </script>

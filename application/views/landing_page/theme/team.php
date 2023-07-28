@@ -36,7 +36,7 @@
             </div>
             <div class="col-xl-12 working-time item">
               <h2><?= $je['NAMA_JENIS_EVENT']; ?></h2>
-              <table class="table table-striped text-white">
+              <table class="table table-hover table-dark">
                 <thead>
                   <tr>
                     <th scope="col">No.</th>
@@ -83,7 +83,14 @@
       </div>
     <?php endforeach; ?>
   <?php else : ?>
-    <h1>Tidak ada Data</h1>
+    <section class="m-5 d-flex justify-content-center align-items-center">
+      <div class="shadow card w-75 ">
+        <div class="card-body text-center">
+          <h5 class="card-title">Tidak Ada Pertandingan</h5>
+          <p class="card-text">Pekan Olahraga Permata Insani Islamic School</p>
+        </div>
+      </div>
+    </section>
   <?php endif; ?>
   </div>
 </section>
@@ -97,6 +104,7 @@
 </style>
 
 <script>
+  // Fungsi untuk menampilkan tabel sesuai dengan ID jenis event yang dipilih
   function showTable(idJenisEvent) {
     var tableContainers = document.getElementsByClassName('table-container');
     for (var i = 0; i < tableContainers.length; i++) {
@@ -107,4 +115,19 @@
       }
     }
   }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // Cari semua elemen dengan kelas "table-container"
+    var tableContainers = document.getElementsByClassName('table-container');
+
+    // Semua table-container diubah menjadi display: none (sembunyikan tabel)
+    for (var i = 0; i < tableContainers.length; i++) {
+      tableContainers[i].style.display = 'none';
+    }
+
+    // Tampilkan tabel pertama secara otomatis
+    if (tableContainers.length > 0) {
+      tableContainers[0].style.display = 'block';
+    }
+  });
 </script>

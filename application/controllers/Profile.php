@@ -26,17 +26,17 @@ class Profile extends CI_Controller
 
     private function _validasi()
     {
-        $db = $this->admin->get('user', ['ID_USER' => $this->input->post('ID_USER', true)]);
-        $username = $this->input->post('username', true);
-        $email = $this->input->post('email', true);
+        // $db = $this->admin->get('user', ['ID_USER' => $this->input->post('ID_USER', true)]);
+        // $username = $this->input->post('USERNAME', true);
+        // $email = $this->input->post('EMAIL', true);
 
-        // $uniq_username = $db['username'] == $username ? '' : '|is_unique[user.username]';
-        // $uniq_email = $db['email'] == $email ? '' : '|is_unique[user.email]';
+        // $uniq_username = $db['USERNAME'] == $username ? '' : '|is_unique[user.USERNAME]';
+        // $uniq_email = $db['EMAIL_USER'] == $email ? '' : '|is_unique[user.EMAIL_USER]';
 
-        // $this->form_validation->set_rules('username', 'Username', 'required|trim|alpha_numeric' . $uniq_username);
-        // $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $uniq_email);
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'required|trim|numeric');
+        $this->form_validation->set_rules('USERNAME', 'Username', 'required|trim|alpha_numeric');
+        $this->form_validation->set_rules('EMAIL_USER', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('NAMA_USER', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('NO_TELP', 'Nomor Telepon', 'required|trim|numeric');
     }
 
     private function _config()
@@ -105,9 +105,9 @@ class Profile extends CI_Controller
             $this->template->load('templates/dashboard', 'profile/ubahpassword', $data);
         } else {
             $input = $this->input->post(null, true);
-            if (password_verify($input['password_lama'], userdata('password'))) {
-                $new_pass = ['password' => password_hash($input['password_baru'], PASSWORD_DEFAULT)];
-                $query = $this->admin->update('user', 'id_user', userdata('id_user'), $new_pass);
+            if (password_verify($input['password_lama'], userdata('PASSWORD'))) {
+                $new_pass = ['PASSWORD' => password_hash($input['password_baru'], PASSWORD_DEFAULT)];
+                $query = $this->admin->update('user', 'ID_USER', userdata('ID_USER'), $new_pass);
 
                 if ($query) {
                     set_pesan('password berhasil diubah.');

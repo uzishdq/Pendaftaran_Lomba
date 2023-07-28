@@ -3,12 +3,6 @@
   <div class="container">
     <div class="title-text">
       <h1>PORPIIS CUP</h1>
-      <ul class="title-menu clearfix">
-        <!-- <li>
-                    <a href="welcome">home &nbsp;/</a>
-                </li>
-                <li>Event</li> -->
-      </ul>
     </div>
   </div>
 </section>
@@ -29,10 +23,10 @@ if ($event) :
                 <li><i class="fas fa-caret-right"></i>Masih berstatus siswa sekolah aktif</li>
                 <li><i class="fas fa-caret-right"></i>Mematuhi syarat & ketentuan yang berlaku</li>
                 <li><i class="fas fa-caret-right"></i>Melakukan pembayaran biaya pendaftaran</li>
-                <h6><br>Biaya Pendaftaran: Rp.<?=number_format($e['BIAYA_EVENT'], 0, ',', '.'); ?></h6>
+                <h6><br>Biaya Pendaftaran: Rp.<?= number_format($e['BIAYA_EVENT'], 0, ',', '.'); ?></h6>
                 <h6 class="font-weight-bold"><br>Transfer: <?= $e['BANK_EVENT']; ?></h6>
               </ul>
-              <a href="<?= base_url('registrasi/daftar/') . $e['ID_EVENT'] ?>" class="btn-style-one" style="border-radius:10px;">Register Now</a>
+              <a href="<?= base_url('registrasi/daftar/') . $e['ID_EVENT'] ?>" class="btn-style-one" style="border-radius:10px;">Daftar Sekarang</a>
             </div>
           </div>
           <div class="col-lg-6">
@@ -43,9 +37,13 @@ if ($event) :
 
   <?php endforeach; ?>
 <?php else : ?>
-  <tr>
-    <td colspan="3" class="text-center">
-      Data Kosong
-    </td>
-  </tr>
+  <section class="service-overview section">
+    <div class="container service-box">
+        <div class=" mb-5 mb-lg-0">
+          <div class="content-block d-flex align-items-center justify-content-center">
+            <h2>Tidak Ada <br>Competition</h2>
+          </div>
+        </div>
+    </div>
+  </section>
 <?php endif; ?>

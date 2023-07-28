@@ -33,7 +33,7 @@
                 $no = 1;
                 if ($jenis) :
                     foreach ($jenis as $j) :
-                        ?>
+                ?>
                         <tr>
                             <td><?= $no++; ?></td>
                             <td><?= $j['NAMA_JENIS_EVENT']; ?></td>

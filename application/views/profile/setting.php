@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 <?= $this->session->flashdata('pesan'); ?>
-                <?= form_open_multipart('', [], ['id_user' => $user['ID_USER']]); ?>
+                <?= form_open_multipart('', [], ['ID_USER' => $user['ID_USER']]); ?>
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="foto">Foto</label>
                     <div class="col-md-9">
@@ -69,6 +69,7 @@
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-fw fa-phone"></i></span>
                             </div>
                             <input value="<?= set_value('NO_TELP', $user['NO_TELP']); ?>" name="NO_TELP" id="NO_TELP" type="text" class="form-control" placeholder="Nomor Telepon...">
+                            <input hidden value="<?= set_value('IS_ACTIVE', $user['IS_ACTIVE']); ?>" name="IS_ACTIVE" id="IS_ACTIVE" type="text" class="form-control" placeholder="Nomor Telepon...">
                         </div>
                         <?= form_error('NO_TELP', '<small class="text-danger">', '</small>'); ?>
                     </div>

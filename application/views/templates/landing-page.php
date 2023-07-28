@@ -52,6 +52,10 @@ $title = basename($_SERVER['PHP_SELF'], '.php'); // Assuming your pages have .ph
   <link href="<?= base_url(); ?>assets/vendor/datatables/responsive/css/responsive.bootstrap4.min.css" rel="stylesheet">
   <link href="<?= base_url(); ?>assets/vendor/gijgo/css/gijgo.min.css" rel="stylesheet">
 
+  <!-- Sisipkan CSS loading -->
+  <link rel="stylesheet" type="text/css" href="path/to/loading.css">
+
+
   <!--Favicon-->
   <link rel="icon" href="<?= base_url(); ?>assets/img/images/favicon2.png" type="image/x-icon">
 
@@ -84,10 +88,10 @@ $title = basename($_SERVER['PHP_SELF'], '.php'); // Assuming your pages have .ph
             <li class="nav-item <?php if ($title === 'about') echo 'active'; ?>">
               <a class="nav-link" href="<?= base_url('about'); ?>">About</a>
             </li>
-            <li class="nav-item <?php if ($title === 'registrasi') echo 'active'; ?>">
+            <li class="nav-item <?php if ($title === 'service') echo 'active'; ?>">
               <a class="nav-link" href="<?= base_url('service'); ?>">PORPIIS CUP</a>
             </li>
-            <li class="nav-item <?php if ($title === 'Pertandingan') echo 'active'; ?>">
+            <li class="nav-item <?php if ($title === 'pertandingan') echo 'active'; ?>">
               <a class="nav-link" href="<?= base_url('pertandingan'); ?>">Pertandingan</a>
             </li>
             <li class="nav-item <?php if ($title === 'team') echo 'active'; ?>">
@@ -196,12 +200,25 @@ $title = basename($_SERVER['PHP_SELF'], '.php'); // Assuming your pages have .ph
   </div>
   <!--End pagewrapper-->
 
+  <!-- Halaman dengan loading menggunakan JavaScript -->
+  <div id="loading" class="loading-container">
+    <div class="loading"></div>
+  </div>
+
+  <!-- Sisipkan script jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Ketika halaman selesai dimuat, sembunyikan loading
+    $(window).on('load', function() {
+      $("#loading").fadeOut("slow");
+    });
+  </script>
+
 
   <!--Scroll to top-->
   <div class="scroll-to-top scroll-to-target" data-target=".header-top">
     <span class="icon fa fa-angle-up"></span>
   </div>
-
   <!-- jquery -->
   <script src="<?= base_url(); ?>assets/vendor/plugins/jquery.min.js"></script>
   <!-- bootstrap -->

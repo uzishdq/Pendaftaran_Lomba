@@ -36,7 +36,7 @@
     <script>
         // Fungsi untuk menyembunyikan pesan setelah beberapa waktu (dalam milidetik)
         function hideMessage() {
-            var messageElement = document.querySelector('.alert-dismissible');
+            var messageElement = document.querySelector('.alert');
             if (messageElement) {
                 messageElement.style.display = 'none';
             }
@@ -86,12 +86,14 @@
             <!-- <hr class="sidebar-divider"> -->
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link pb-0" href="<?= base_url('jenis_event'); ?>">
-                    <i class="fa fa-book"></i>
-                    <span>Jenis Event</span>
-                </a>
-            </li>
+            <?php if (is_admin()) : ?>
+                <li class="nav-item">
+                    <a class="nav-link pb-0" href="<?= base_url('jenis_event'); ?>">
+                        <i class="fa fa-book"></i>
+                        <span>Jenis Event</span>
+                    </a>
+                </li>
+            <?php endif; ?>
 
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?= base_url('event'); ?>">

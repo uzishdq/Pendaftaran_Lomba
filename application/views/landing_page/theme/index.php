@@ -54,22 +54,22 @@
   </div>
 </div>
 
-<!--====  End of Page Slider  ====-->s
-<section class="cta">
-  <div class="tabs">
-    <h1 class="flex justify-content-center text-center mb-5">List Event</h1>
-    <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <?php if ($jenisEvent) : ?>
+<!--====  End of Page Slider  ====-->
+<section class="cta"">
+  <div class=" tabs">
+  <h1 class="flex justify-content-center text-center mb-5">List Event</h1>
+  <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <?php if ($jenisEvent) : ?>
 
-          <?php foreach ($jenisEvent as $je) : ?>
-            <a onclick="showTable('<?= $je['ID_JENIS_EVENT']; ?>')"><?= $je['NAMA_JENIS_EVENT']; ?></a>
-          <?php endforeach; ?>
-        <?php else : ?>
-          <a>Tidak Ada Event</a>
-        <?php endif; ?>
-      </li>
-    </ul>
+        <?php foreach ($jenisEvent as $je) : ?>
+          <a onclick="showTable('<?= $je['ID_JENIS_EVENT']; ?>')"><?= $je['NAMA_JENIS_EVENT']; ?></a>
+        <?php endforeach; ?>
+      <?php else : ?>
+        <a>Tidak Ada Event</a>
+      <?php endif; ?>
+    </li>
+  </ul>
   </div>
   <?php if ($jenisEvent) : ?>
     <?php foreach ($jenisEvent as $je) : ?>
@@ -79,9 +79,9 @@
             <div class="section-title-inner">
               <div class="section-title"></div>
             </div>
-            <div class="col-xl-12 working-time item">
+            <div class="col-xl-12 working-time item shadow rounded">
               <h2><?= $je['NAMA_JENIS_EVENT']; ?></h2>
-              <table class="table table-striped text-white">
+              <table class="table table-hover table-dark table w-100">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
@@ -133,7 +133,6 @@
       </div>
     <?php endforeach; ?>
   <?php else : ?>
-    <h1>Tidak ada Data</h1>
   <?php endif; ?>
   </div>
 </section>
@@ -141,7 +140,7 @@
 
 
 <!--about section-->
-<section class="feature-section section bg-gray" id="about">
+<section class="feature-section section " id="about">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -160,7 +159,7 @@
                   </figure>
                 </div>
                 <h3 class="mb-2">Sportivitas</h3>
-                <p>Dalam olahraga, sportivitas menekankan pentingnya fair play dan perilaku yang jujur ​​serta mengikuti aturan dengan tepat.
+                <p class="text-justify">Dalam olahraga, sportivitas menekankan pentingnya fair play dan perilaku yang jujur ​​serta mengikuti aturan dengan tepat.
                   Para atlet yang memiliki sportivitas adalah mereka yang berkompetisi dengan sportif, tidak mencari cara curang untuk mencapai kemenangan,
                   dan menghormati lawan mereka. Mereka menunjukkan etika bermain yang baik, menerima keputusan wasit atau juri dengan lapang dada,
                   dan tidak menunjukkan perilaku agresif atau merendahkan lawan mereka.</p>
@@ -176,7 +175,7 @@
                   </figure>
                 </div>
                 <h3 class="mb-2">Loyalitas</h3>
-                <p>Loyalitas merupakan Seorang atlet yang loyal akan tetap berada di sisi timnya, berusaha keras,
+                <p class="text-justify">Loyalitas merupakan Seorang atlet yang loyal akan tetap berada di sisi timnya, berusaha keras,
                   dan mendukung rekan setimnya, meskipun hasilnya tidak selalu menguntungkan. Loyalitas membentuk ikatan yang kuat di antara anggota tim,
                   membangun kepercayaan, dan menciptakan semangat juang bersama untuk meraih kemenangan. Selain itu,
                   loyalitas juga mencakup menghormati aturan permainan, bersikap sportif, dan tidak terlibat dalam perilaku curang atau tidak etis yang dapat merugikan timnya.</p>
@@ -192,9 +191,7 @@
                   </figure>
                 </div>
                 <h3 class="mb-2">Competitive</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ducimus veniam illo quibusdam pariatur
-                  ex sunt, est aspernatur
-                  at debitis eius vitae vel nostrum dolorem labore autem corrupti odit mollitia?</p>
+                <p class="text-justify">Competitive adalah istilah yang digunakan untuk menggambarkan situasi di mana individu, perusahaan, atau entitas lain bersaing untuk mencapai tujuan tertentu atau untuk menjadi yang terbaik dalam suatu bidang. Dalam konteks persaingan, pesaing berusaha untuk mencapai keunggulan atas orang atau entitas lainnya dengan cara mengatasi atau mengungguli mereka dalam berbagai aspek.</p>
               </div>
             </div>
             <div class="col-sm-6">
@@ -207,9 +204,7 @@
                   </figure>
                 </div>
                 <h3 class="mb-2">Teamwork</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil ducimus veniam illo quibusdam pariatur
-                  ex sunt, est aspernatur
-                  at debitis eius vitae vel nostrum dolorem labore autem corrupti odit mollitia?</p>
+                <p class="text-justify">Teamwork adalah kerjasama atau kolaborasi antara anggota tim dalam mencapai tujuan bersama. Dalam konteks kerja atau proyek, teamwork adalah kemampuan anggota tim untuk bekerja bersama, saling mendukung, dan berkontribusi secara efektif guna mencapai sasaran yang telah ditetapkan.</p>
               </div>
             </div>
           </div>
@@ -241,4 +236,19 @@
       }
     }
   }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // Cari semua elemen dengan kelas "table-container"
+    var tableContainers = document.getElementsByClassName('table-container');
+
+    // Semua table-container diubah menjadi display: none (sembunyikan tabel)
+    for (var i = 0; i < tableContainers.length; i++) {
+      tableContainers[i].style.display = 'none';
+    }
+
+    // Tampilkan tabel pertama secara otomatis
+    if (tableContainers.length > 0) {
+      tableContainers[0].style.display = 'block';
+    }
+  });
 </script>

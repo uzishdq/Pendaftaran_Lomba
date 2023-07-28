@@ -351,6 +351,12 @@ li {
   margin-top: 5px;
 }
 
+.custom-btn {
+    background-color: #48bdc5;
+    border-color: #48bdc5;
+}
+
+
 .navbar {
   display: flex;
   justify-content: center;

@@ -25,7 +25,7 @@
                 <?php
                 $id = $event['ID_EVENT'];
                 ?>
-                <form action="<?= base_url('event/edit/'.$id) ?>" method="post" enctype="multipart/form-data">
+                <form action="<?= base_url('event/edit/' . $id) ?>" method="post" enctype="multipart/form-data">
                     <div class="row form-group">
                         <!-- <input value="<?= set_value('ID_EVENT', $event['ID_EVENT']); ?>" name="ID_EVENT"type="text""> -->
                         <label class="col-md-3 text-md-right" for="NAMA_EVENT">Nama Event</label>
@@ -73,7 +73,7 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                 </div>
-                                <input value="<?= set_value('BIAYA_EVENT', $event['BIAYA_EVENT']); ?>" name="BIAYA_EVENT" id="BIAYA_EVENT" type="number" class="form-control" placeholder="Biaya Pendaftaran...">
+                                <input value="<?= set_value('BIAYA_EVENT', $event['BIAYA_EVENT']); ?>" name="BIAYA_EVENT" id="BIAYA_EVENT" oninput="formatRupiah(this)" type="text" class="form-control" placeholder="Biaya Pendaftaran...">
                             </div>
                             <?= form_error('BIAYA_EVENT', '<small class="text-danger">', '</small>'); ?>
                         </div>
@@ -127,3 +127,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    function formatRupiah(input) {
+        // Menghilangkan semua karakter kecuali angka
+        var value = input.value.replace(/\D/g, "");
+
+        // Mengubah angka menjadi format rupiah
+        var formattedValue = new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+        }).format(value);
+
+        // Menampilkan nilai yang telah diformat kembali ke input
+        input.value = formattedValue;
+    }
+</script>

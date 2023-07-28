@@ -39,7 +39,7 @@
                 if ($event) :
                     $no = 1;
                     foreach ($event as $e) :
-                        ?>
+                ?>
                         <tr>
                             <td><?= $no++; ?></td>
                             <td><?= $e['NAMA_EVENT']; ?></td>
@@ -51,13 +51,15 @@
                             <td><?= $e['STATUS_EVENT']; ?></td>
                             <th>
                                 <a href="<?= base_url('event/edit/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                <a onclick="return confirm('Yakin ingin hapus? <?= $e['NAMA_EVENT']; ?>')" href="<?= base_url('event/delete/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                <?php if (is_admin()) : ?>
+                                    <a onclick="return confirm('Yakin ingin hapus? <?= $e['NAMA_EVENT']; ?>')" href="<?= base_url('event/delete/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                <?php endif; ?>
                             </th>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="6" class="text-center">
+                        <td colspan="9" class="text-center">
                             Data Kosong
                         </td>
                     </tr>
