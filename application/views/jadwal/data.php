@@ -28,6 +28,7 @@
                     <th> Event</th>
                     <th>Jadwal Pertandingan</th>
                     <th>Tingkat</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +51,7 @@
                     <?php endforeach;
                 else : ?>
                     <tr>
-                        <td colspan="8" class="text-center">Silahkan tambahkan Event</td>
+                        <td colspan="8" class="text-center"> Data Kosong. Silahkan tambahkan Jadwal Pertandingan</td>
                     </tr>
                 <?php endif; ?>
 

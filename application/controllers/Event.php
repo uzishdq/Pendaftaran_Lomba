@@ -112,10 +112,6 @@ class Event extends CI_Controller
         } else {
             if (!$this->upload->do_upload('FOTO_EVENT')) {
                 $foto_path = $this->input->post('OLD_FOTO_EVENT');
-                $old_foto_event = $this->input->post('OLD_FOTO_EVENT');
-                if ($old_foto_event && file_exists($old_foto_event)) {
-                    unlink($old_foto_event);
-                }
                 set_pesan('data gagal diedit.');
             } else {
 

@@ -23,10 +23,12 @@
                     </div>
                 </div>
                 <div class="card-body text-center">
-                    <h5 class="card-title"><?= strtoupper($e['NAMA_EVENT']); ?></h5>
+                    <h5 class="card-title"><?= strtoupper($e['NAMA_EVENT']); ?> - <?= strtoupper($e['NAMA_ATRIBUT']); ?></h5>
                     <p class="card-text"> <?= $tglAwal; ?> - <?= $tglAkhir; ?></p>
                 </div>
-                <img loading="lazy" class="img-fluid" style="border-radius=10px;" src="<?= $e['FOTO_ATRIBUT'] ?>" alt="service-image">
+                <div class="d-flex justify-content-center">
+                    <img loading="lazy"style="border-radius=10px;" src="<?= $e['FOTO_ATRIBUT'] ?>" alt="service-image">
+                </div>
             </div>
 
         <?php endforeach;

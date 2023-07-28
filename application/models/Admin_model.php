@@ -74,6 +74,7 @@ class Admin_model extends CI_Model
         $this->db->join('event e', 'r.ID_EVENT = e.ID_EVENT');
         $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
         $this->db->where($multiClause);
+        $this->db->or_where('e.STATUS_EVENT', 'berjalan');
         $this->db->order_by('r.ID_REGISTRASI');
         return $this->db->get('registrasi r')->result_array();
     }
@@ -114,7 +115,7 @@ class Admin_model extends CI_Model
         $this->db->join('registrasi r', 'u.registrasi_id = r.id_registrasi');
         $this->db->order_by('registrasi_id');
         return $this->db->get('uploads u')->result_array();
-    }  
+    }
 
     public function getAtributEvent()
     {

@@ -1,4 +1,5 @@
 <?= $this->session->flashdata('pesan'); ?>
+
 <?php
 $no = 1;
 if ($event) :
@@ -31,7 +32,7 @@ if ($event) :
                         <div class=" row form-group">
                         <label class="col-md-4 text-md-right" for="NAMA_ATRIBUT">Nama Atribut</label>
                         <div class="col-md-6">
-                            <input type="text" id="NAMA_ATRIBUT" name="NAMA_ATRIBUT" class="form-control" placeholder="Pertandingan...">
+                            <input required type="text" id="NAMA_ATRIBUT" name="NAMA_ATRIBUT" class="form-control" placeholder="Pertandingan...">
                             <?= form_error('NAMA_ATRIBUT', '<span class="text-danger small">', '</span>'); ?>
                         </div>
                 </div>
@@ -81,8 +82,18 @@ else : ?>
             <div class="row">
                 <div class="col">
                     <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
-                        Tidak Ada Event
+                        Tidak Ada
                     </h4>
+                </div>
+                <div class="col-auto">
+                    <a href="<?= base_url('jadwal') ?>" class="btn btn-sm btn-secondary btn-icon-split">
+                        <span class="icon">
+                            <i class="fa fa-arrow-left"></i>
+                        </span>
+                        <span class="text">
+                            Kembali
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
