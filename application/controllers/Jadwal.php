@@ -60,7 +60,8 @@ class Jadwal extends CI_Controller
             } else {
                 if (!$this->upload->do_upload('FOTO_ATRIBUT')) //sesuai dengan name pada form 
                 {
-                    echo 'anda gagal upload';
+                    set_pesan('data gagal disimpan Ukuran File Terlalu Besar', false);
+                    redirect('jadwal/add');
                 } else {
                     $file_data = $this->upload->data();
                     $file_name = $file_data['file_name'];
@@ -105,13 +106,12 @@ class Jadwal extends CI_Controller
                 if (!$this->upload->do_upload('FOTO_ATRIBUT')) //sesuai dengan name pada form 
                 {
                     $foto_path = $this->input->post('OLD_FOTO_ATRIBUT');
-                    set_pesan('data gagal diedit.', false);
                 } else {
                     $file_data = $this->upload->data();
                     $file_name = $file_data['file_name'];
                     $foto = $_FILES['FOTO_ATRIBUT']["tmp_name"];
                     $foto_path = 'assets/file/pertandingan/' . $file_name;
-                    
+
                     move_uploaded_file($foto, $foto_path);
 
                     $old_foto_atribut = $this->input->post('OLD_FOTO_ATRIBUT');

@@ -22,7 +22,7 @@ $id = $atribut['ID_ATRIBUT']
             </div>
         </div>
         <div class="card-body pb-2">
-            <form action="<?= base_url('jadwal/edit/'.$id) ?>" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url('jadwal/edit/' . $id) ?>" id="myForm" method="post" enctype="multipart/form-data">
                 <input hidden value="<?= set_value('ID_EVENT', $atribut['ID_EVENT']); ?>" name="ID_EVENT" type="text"">
                         <input hidden value=" <?= set_value('ID_USER', $idUser); ?>" name="ID_USER" type="text"">
                         <div class=" row form-group">
@@ -51,6 +51,8 @@ $id = $atribut['ID_ATRIBUT']
                     <div class="col-9">
                         <input type="file" name="FOTO_ATRIBUT" id="FOTO_ATRIBUT" accept="image/gif, image/jpeg, image/png">
                         <input hidden type="text" value="<?= $atribut['FOTO_ATRIBUT']; ?>" name="OLD_FOTO_ATRIBUT" id="OLD_FOTO_ATRIBUT">
+                        <br>
+                        <small>Max ukuran file 10MB <a href="https://compresspng.com/" target="_blank">Convert Disini</a></small>
                         <?= form_error('FOTO_ATRIBUT', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
@@ -71,3 +73,16 @@ $id = $atribut['ID_ATRIBUT']
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        var fileInput = document.getElementById('FOTO_ATRIBUT');
+        var fileSize = fileInput.files[0].size; // Ukuran file dalam byte
+        var maxSize = 10 * 1024 * 1024; // 10 MB dalam byte
+
+        if (fileSize > maxSize) {
+            alert('Ukuran file melebihi batas maksimum (10 MB).');
+            event.preventDefault(); // Mencegah pengiriman form jika validasi tidak lolos
+        }
+    });
+</script>
