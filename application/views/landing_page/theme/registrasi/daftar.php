@@ -321,6 +321,7 @@ else : ?>
         `;
             formSectionsContainer.innerHTML += formSectionHtml;
         }
+
     }
 </script>
 

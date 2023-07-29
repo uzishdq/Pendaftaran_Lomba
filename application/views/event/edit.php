@@ -25,7 +25,7 @@
                 <?php
                 $id = $event['ID_EVENT'];
                 ?>
-                <form action="<?= base_url('event/edit/' . $id) ?>" method="post" enctype="multipart/form-data">
+                <form action="<?= base_url('event/edit/' . $id) ?>" id="myFormEditEvent" method="post" enctype="multipart/form-data">
                     <div class="row form-group">
                         <!-- <input value="<?= set_value('ID_EVENT', $event['ID_EVENT']); ?>" name="ID_EVENT"type="text""> -->
                         <label class="col-md-3 text-md-right" for="NAMA_EVENT">Nama Event</label>
@@ -144,4 +144,14 @@
         // Menampilkan nilai yang telah diformat kembali ke input
         input.value = formattedValue;
     }
+    document.getElementById('myFormEditEvent').addEventListener('submit', function(event) {
+        var fileInput = document.getElementById('FOTO_EVENT');
+        var fileSize = fileInput.files[0].size; // Ukuran file dalam byte
+        var maxSize = 10 * 1024 * 1024; // 10 MB dalam byte
+
+        if (fileSize > maxSize) {
+            alert('Ukuran file melebihi batas maksimum (10 MB).');
+            event.preventDefault(); // Mencegah pengiriman form jika validasi tidak lolos
+        }
+    });
 </script>

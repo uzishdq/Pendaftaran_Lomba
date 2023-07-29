@@ -22,7 +22,7 @@ $id = $atribut['ID_ATRIBUT']
             </div>
         </div>
         <div class="card-body pb-2">
-            <form action="<?= base_url('jadwal/edit/' . $id) ?>" id="myForm" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url('jadwal/edit/' . $id) ?>" id="myFormEditJawdal" method="post" enctype="multipart/form-data">
                 <input hidden value="<?= set_value('ID_EVENT', $atribut['ID_EVENT']); ?>" name="ID_EVENT" type="text"">
                         <input hidden value=" <?= set_value('ID_USER', $idUser); ?>" name="ID_USER" type="text"">
                         <div class=" row form-group">
@@ -75,7 +75,7 @@ $id = $atribut['ID_ATRIBUT']
 </div>
 
 <script>
-    document.getElementById('myForm').addEventListener('submit', function(event) {
+    document.getElementById('myFormEditJawdal').addEventListener('submit', function(event) {
         var fileInput = document.getElementById('FOTO_ATRIBUT');
         var fileSize = fileInput.files[0].size; // Ukuran file dalam byte
         var maxSize = 10 * 1024 * 1024; // 10 MB dalam byte
