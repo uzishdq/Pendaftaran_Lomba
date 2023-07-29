@@ -14,6 +14,7 @@ class Pertandingan extends CI_Controller
     {
         $data['title'] = "Pertandingan";
         $data['event'] = $this->admin->getAtributAll();
+        $data['jenisEvent'] = $this->admin->getEvent();
         $this->template->load('templates/landing-page', 'landing_page/theme/pertandingan', $data);
     }
 }

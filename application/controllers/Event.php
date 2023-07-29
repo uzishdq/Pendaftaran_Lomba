@@ -36,7 +36,7 @@ class Event extends CI_Controller
         $config['upload_path']      = "./assets/file/";
         $config['allowed_types']    = 'pdf|doc|docx|gif|jpg|jpeg|png';
         $config['encrypt_name']     = TRUE;
-        $config['max_size']         = '2048';
+        $config['max_size']         = '10048';
 
         $this->load->library('upload', $config);
     }
@@ -53,7 +53,8 @@ class Event extends CI_Controller
             } else {
                 if (!$this->upload->do_upload('FOTO_EVENT')) //sesuai dengan name pada form 
                 {
-                    echo 'anda gagal upload';
+                    set_pesan('data gagal disimpan', false);
+                    redirect('event/add');
                 } else {
                     $file_data = $this->upload->data();
                     $file_name = $file_data['file_name'];
@@ -113,7 +114,7 @@ class Event extends CI_Controller
         } else {
             if (!$this->upload->do_upload('FOTO_EVENT')) {
                 $foto_path = $this->input->post('OLD_FOTO_EVENT');
-                set_pesan('data gagal diedit.');
+                set_pesan('data gagal diedit.',false);
             } else {
 
                 $file_data = $this->upload->data();

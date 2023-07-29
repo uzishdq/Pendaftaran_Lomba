@@ -24,7 +24,6 @@ class Jadwal extends CI_Controller
     {
         $this->form_validation->set_rules('NAMA_ATRIBUT', 'Nama Atribut', 'required|trim');
         $this->form_validation->set_rules('TINGKAT_ATRIBUT', 'Tingkat', 'required');
-        $this->form_validation->set_rules('FOTO_ATRIBUT', 'Foto Atribut', 'callback_validate_file');
     }
 
     private function _config()
@@ -106,12 +105,13 @@ class Jadwal extends CI_Controller
                 if (!$this->upload->do_upload('FOTO_ATRIBUT')) //sesuai dengan name pada form 
                 {
                     $foto_path = $this->input->post('OLD_FOTO_ATRIBUT');
-                    set_pesan('data gagal diedit.');
+                    set_pesan('data gagal diedit.', false);
                 } else {
                     $file_data = $this->upload->data();
                     $file_name = $file_data['file_name'];
                     $foto = $_FILES['FOTO_ATRIBUT']["tmp_name"];
                     $foto_path = 'assets/file/pertandingan/' . $file_name;
+                    
                     move_uploaded_file($foto, $foto_path);
 
                     $old_foto_atribut = $this->input->post('OLD_FOTO_ATRIBUT');

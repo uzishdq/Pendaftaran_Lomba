@@ -110,7 +110,8 @@
                                 <div class="col-9">
                                     <input type="file" value="<?= $event['FOTO_EVENT']; ?>" name="FOTO_EVENT" id="FOTO_EVENT">
                                     <input hidden type="text" value="<?= $event['FOTO_EVENT']; ?>" name="OLD_FOTO_EVENT" id="OLD_FOTO_EVENT">
-
+                                    <br>
+                                    <small>Max ukuran file 10MB <a href="https://compresspng.com/" target="_blank">Convert Disini</a></small>
                                     <?= form_error('FOTO_EVENT', '<small class="text-danger">', '</small>'); ?>
                                 </div>
                             </div>

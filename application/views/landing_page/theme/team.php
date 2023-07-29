@@ -16,7 +16,6 @@
     <ul class="nav nav-tabs justify-content-center" id="teamTab" role="tablist">
       <li class="nav-item" role="presentation">
         <?php if ($jenisEvent) : ?>
-
           <?php foreach ($jenisEvent as $je) : ?>
             <a onclick="showTable('<?= $je['ID_JENIS_EVENT']; ?>')"><?= $je['NAMA_JENIS_EVENT']; ?></a>
           <?php endforeach; ?>
@@ -72,7 +71,7 @@
                   if (!$foundEvent) :
                     ?>
                     <tr>
-                      <td colspan="6" class="text-center">Tidak Ada Data</td>
+                      <td colspan="6" class="text-center">Tidak ada tim , Segera mendaftar</td>
                     </tr>
                   <?php endif; ?>
                 </tbody>
@@ -82,7 +81,7 @@
         </div>
       </div>
     <?php endforeach; ?>
-  <?php else : ?>
+    <?php else : ?>
     <section class="m-5 d-flex justify-content-center align-items-center">
       <div class="shadow card w-75 ">
         <div class="card-body text-center">

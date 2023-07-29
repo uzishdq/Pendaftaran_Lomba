@@ -107,6 +107,8 @@
                             <div class="row">
                                 <div class="col-9">
                                     <input type="file" name="FOTO_EVENT" id="FOTO_EVENT" accept="image/gif, image/jpeg, image/png" required>
+                                    <br>
+                                    <small>Max ukuran file 10MB <a href="https://compresspng.com/" target="_blank">Convert Disini</a></small>
                                     <?= form_error('FOTO_EVENT', '<small class="text-danger">', '</small>'); ?>
                                 </div>
                             </div>
