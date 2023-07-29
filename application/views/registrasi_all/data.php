@@ -1,5 +1,5 @@
 <?= $this->session->flashdata('pesan'); ?>
-<div class="alert alert-warning" role="alert">
+<div class="alert-warning" role="alert">
     Warning : Jika Menghapus data registrasi semua data pendaftaran akan terhapus
 </div>
 <div class="tabs m-3">

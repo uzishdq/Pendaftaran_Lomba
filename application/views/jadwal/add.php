@@ -53,7 +53,9 @@ if ($event) :
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-9">
-                                <input type="file" name="FOTO_ATRIBUT" id="FOTO_ATRIBUT" accept="image/gif, image/jpeg, image/png" required>
+                                <input type="file" name="FOTO_ATRIBUT" id="FOTO_ATRIBUT" accept="image/gif, image/jpeg, image/png">
+                                <br>
+                                <small>Max ukuran file 10MB <a href="https://compresspng.com/" target="_blank">Convert Disini</a></small>
                                 <?= form_error('FOTO_ATRIBUT', '<small class="text-danger">', '</small>'); ?>
                             </div>
                         </div>

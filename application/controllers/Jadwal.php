@@ -24,6 +24,7 @@ class Jadwal extends CI_Controller
     {
         $this->form_validation->set_rules('NAMA_ATRIBUT', 'Nama Atribut', 'required|trim');
         $this->form_validation->set_rules('TINGKAT_ATRIBUT', 'Tingkat', 'required');
+        $this->form_validation->set_rules('FOTO_ATRIBUT', 'Foto Atribut', 'callback_validate_file');
     }
 
     private function _config()
@@ -31,8 +32,21 @@ class Jadwal extends CI_Controller
         $config['upload_path']      = "./assets/file/";
         $config['allowed_types']    = 'pdf|doc|docx|gif|jpg|jpeg|png';
         $config['encrypt_name']     = TRUE;
+        $config['max_size']         = '10048';
 
         $this->load->library('upload', $config);
+    }
+
+    public function validate_file()
+    {
+        $this->_validasi();
+        $config = $this->_config();
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('FOTO_ATRIBUT')) {
+            $this->form_validation->set_message('validate_file', $this->upload->display_errors());
+            return false;
+        }
+        return true;
     }
 
     public function add()
@@ -68,7 +82,7 @@ class Jadwal extends CI_Controller
                         set_pesan('data berhasil disimpan.');
                         redirect('jadwal');
                     } else {
-                        set_pesan('data gagal disimpan', false);
+                        set_pesan('data gagal disimpan');
                         redirect('jadwal/add');
                     }
                 }
@@ -121,7 +135,7 @@ class Jadwal extends CI_Controller
                     redirect('jadwal');
                 } else {
                     set_pesan('data gagal diedit', false);
-                    redirect('jadwal/edit/'.$id);
+                    redirect('jadwal/edit/' . $id);
                 }
             }
         } catch (Exception $e) {

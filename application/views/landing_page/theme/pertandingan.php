@@ -48,13 +48,13 @@ if ($event) :
                         <h5 class="card-title"><?= strtoupper($e['NAMA_EVENT']); ?> - <?= strtoupper($e['NAMA_ATRIBUT']); ?></h5>
                         <p class="card-text"> <?= $tglAwal; ?> - <?= $tglAkhir; ?></p>
                     </div>
-                    <div class="d-flex justify-content-center mb-5">
-                        <img loading="lazy" style="border-radius=10px;" src="<?= $e['FOTO_ATRIBUT'] ?>" alt="service-image">
+                    <div class="d-flex justify-content-center">
+                        <img loading="lazy" style="border-radius: 10px; width: 100%;" src="<?= $e['FOTO_ATRIBUT'] ?>" alt="service-image">
                     </div>
                 </div>
             </section>
-
         </div>
+
 
     <?php endforeach;
 else : ?>
