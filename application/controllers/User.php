@@ -7,7 +7,8 @@ class User extends CI_Controller
     {
         parent::__construct();
         cek_login();
-        if (!is_admin()) {
+        if (!is_admin())
+        {
             redirect('dashboard');
         }
 
@@ -19,7 +20,7 @@ class User extends CI_Controller
     {
         $data['title'] = "User Management";
         $data['users'] = $this->admin->getUsers(userdata('ID_USER'));
-        
+
         $this->template->load('templates/dashboard', 'user/data', $data);
     }
 
@@ -29,20 +30,24 @@ class User extends CI_Controller
         $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'required|trim');
         $this->form_validation->set_rules('role', 'Role', 'required|trim');
 
-        if ($mode == 'add') {
+        if ($mode == 'add')
+        {
             $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.USERNAME]|alpha_numeric');
             $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.EMAIL_USER]');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[3]|trim');
             $this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]|trim');
-        } if ($mode == 'edit') {
+        }
+        if ($mode == 'edit')
+        {
             $db = $this->admin->get('user', ['ID_USER' => $this->input->post('id_user', true)]);
-            if ($db) {
+            if ($db)
+            {
                 $username = $this->input->post('username', true);
                 $email = $this->input->post('email', true);
-        
+
                 $uniq_username = $db['USERNAME'] == $username ? '' : '|is_unique[user.USERNAME]';
                 $uniq_email = $db['EMAIL_USER'] == $email ? '' : '|is_unique[user.EMAIL_USER]';
-        
+
                 $this->form_validation->set_rules('username', 'Username', 'required|trim|alpha_numeric' . $uniq_username);
                 $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $uniq_email);
             }
@@ -53,10 +58,13 @@ class User extends CI_Controller
     {
         $this->_validasi('add');
 
-        if ($this->form_validation->run() == false) {
+        if ($this->form_validation->run() == false)
+        {
             $data['title'] = "Tambah User";
             $this->template->load('templates/dashboard', 'user/add', $data);
-        } else {
+        }
+        else
+        {
             $input = $this->input->post(null, true);
             $input_data = [
                 'USERNAME'      => $input['username'],
@@ -69,10 +77,13 @@ class User extends CI_Controller
                 'IS_ACTIVE'     => '0',
             ];
 
-            if ($this->admin->insert('user', $input_data)) {
+            if ($this->admin->insert('user', $input_data))
+            {
                 set_pesan('data berhasil disimpan.');
                 redirect('user');
-            } else {
+            }
+            else
+            {
                 set_pesan('data gagal disimpan', false);
                 redirect('user/add');
             }
@@ -84,11 +95,14 @@ class User extends CI_Controller
         $id = encode_php_tags($getId);
         $this->_validasi('edit');
 
-        if ($this->form_validation->run() == false) {
+        if ($this->form_validation->run() == false)
+        {
             $data['title'] = "Edit User";
             $data['user'] = $this->admin->get('user', ['ID_USER' => $id]);
             $this->template->load('templates/dashboard', 'user/edit', $data);
-        } else {
+        }
+        else
+        {
             $input = $this->input->post(null, true);
             $input_data = [
                 'NAMA_USER'     => $input['nama'],
@@ -98,10 +112,13 @@ class User extends CI_Controller
                 'ROLE'          => $input['role']
             ];
 
-            if ($this->admin->update('user', 'ID_USER', $id, $input_data)) {
+            if ($this->admin->update('user', 'ID_USER', $id, $input_data))
+            {
                 set_pesan('data berhasil diubah.');
                 redirect('user');
-            } else {
+            }
+            else
+            {
                 set_pesan('data gagal diubah.', false);
                 redirect('user/edit/' . $id);
             }
@@ -111,9 +128,12 @@ class User extends CI_Controller
     public function delete($getId)
     {
         $id = encode_php_tags($getId);
-        if ($this->admin->delete('user', 'id_user', $id)) {
+        if ($this->admin->delete('user', 'ID_USER', $id))
+        {
             set_pesan('data berhasil dihapus.');
-        } else {
+        }
+        else
+        {
             set_pesan('data gagal dihapus.', false);
         }
         redirect('user');
@@ -122,11 +142,12 @@ class User extends CI_Controller
     public function toggle($getId)
     {
         $id = encode_php_tags($getId);
-        $status = $this->admin->get('user', ['id_user' => $id])['is_active'];
+        $status = $this->admin->get('user', ['ID_USER' => $id])['IS_ACTIVE'];
         $toggle = $status ? 0 : 1; //Jika user aktif maka nonaktifkan, begitu pula sebaliknya
         $pesan = $toggle ? 'user diaktifkan.' : 'user dinonaktifkan.';
 
-        if ($this->admin->update('user', 'id_user', $id, ['is_active' => $toggle])) {
+        if ($this->admin->update('user', 'ID_USER', $id, ['IS_ACTIVE' => $toggle]))
+        {
             set_pesan($pesan);
         }
         redirect('user');
