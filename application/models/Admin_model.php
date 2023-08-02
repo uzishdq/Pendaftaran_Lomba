@@ -5,9 +5,12 @@ class Admin_model extends CI_Model
 {
     public function get($table, $data = null, $where = null)
     {
-        if ($data != null) {
+        if ($data != null)
+        {
             return $this->db->get_where($table, $data)->row_array();
-        } else {
+        }
+        else
+        {
             return $this->db->get_where($table, $where)->result_array();
         }
     }
@@ -68,13 +71,10 @@ class Admin_model extends CI_Model
 
     public function getSchedule()
     {
-        $multiClause = array('r.STATUS_REGISTRASI' => 1, 'e.STATUS_EVENT' => 'dibuka');
-
         $this->db->select('t.ID_TEAM, t.NAMA_TEAM, t.SEKOLAH, t.TINGKAT');
         $this->db->join('event e', 'r.ID_EVENT = e.ID_EVENT');
         $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
-        $this->db->where($multiClause);
-        $this->db->or_where('e.STATUS_EVENT', 'berjalan');
+        $this->db->where('r.STATUS_REGISTRASI', '1');
         $this->db->order_by('r.ID_REGISTRASI');
         return $this->db->get('registrasi r')->result_array();
     }
@@ -165,7 +165,8 @@ class Admin_model extends CI_Model
     public function getMax($table, $field, $kode = null)
     {
         $this->db->select_max($field);
-        if ($kode != null) {
+        if ($kode != null)
+        {
             $this->db->like($field, $kode, 'after');
         }
         return $this->db->get($table)->row_array()[$field];
@@ -187,5 +188,20 @@ class Admin_model extends CI_Model
         $field = $field . ' <=';
         $this->db->where($field, $min);
         return $this->db->get($table)->result_array();
+    }
+
+    public function get_upcoming_events()
+    {
+        $tanggal_sekarang = date('Y-m-d');
+        $this->db->where('TGL_AKHIR_EVENT <', $tanggal_sekarang);
+        $this->db->where('STATUS_EVENT !=', 'ditutup');
+        $query = $this->db->get('event');
+        return $query->result();
+    }
+
+    public function update_status_selesai($id_event)
+    {
+        $this->db->where('ID_EVENT', $id_event);
+        $this->db->update('event', array('STATUS_EVENT' => 'ditutup'));
     }
 }

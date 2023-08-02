@@ -26,7 +26,15 @@ if ($event) :
                 <h6><br>Biaya Pendaftaran: Rp.<?= number_format($e['BIAYA_EVENT'], 0, ',', '.'); ?></h6>
                 <h6 class="font-weight-bold"><br>Transfer: <?= $e['BANK_EVENT']; ?></h6>
               </ul>
-              <a href="<?= base_url('registrasi/daftar/') . $e['ID_EVENT'] ?>" class="btn-style-one" style="border-radius:10px;">Daftar Sekarang</a>
+              <?php if ($e['STATUS_EVENT'] == "ditutup")
+              { ?>
+                <a href="#" class="btn-style-one" style="border-radius:10px;">Pendaftaran Ditutup</a>
+              <?php }
+              else
+              { ?>
+                <a href="<?= base_url('registrasi/daftar/') . $e['ID_EVENT'] ?>" class="btn-style-one" style="border-radius:10px;">Daftar Sekarang</a>
+              <?php } ?>
+
             </div>
           </div>
           <div class="col-lg-6">
@@ -39,11 +47,11 @@ if ($event) :
 <?php else : ?>
   <section class="service-overview section">
     <div class="container service-box">
-        <div class=" mb-5 mb-lg-0">
-          <div class="content-block d-flex align-items-center justify-content-center">
-            <h2>Tidak Ada <br>Competition</h2>
-          </div>
+      <div class=" mb-5 mb-lg-0">
+        <div class="content-block d-flex align-items-center justify-content-center">
+          <h2>Tidak Ada <br>Competition</h2>
         </div>
+      </div>
     </div>
   </section>
 <?php endif; ?>

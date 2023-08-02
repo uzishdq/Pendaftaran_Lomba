@@ -56,14 +56,14 @@
                     <div class="row form-group">
                         <label class="col-md-3 text-md-right" for="TGL_MULAI_EVENT">Tanggal Mulai</label>
                         <div class="col-md-9">
-                            <input value="<?= set_value('TGL_MULAI_EVENT', date('Y-m-d')); ?>" name="TGL_MULAI_EVENT" id="TGL_MULAI_EVENT" type="date" class="form-control" placeholder="Tanggal Mulai...">
+                            <input value="<?= set_value('TGL_MULAI_EVENT', $event['TGL_MULAI_EVENT']); ?>" name="TGL_MULAI_EVENT" id="TGL_MULAI_EVENT" type="date" class="form-control" placeholder="Tanggal Mulai...">
                             <?= form_error('TGL_MULAI_EVENT', '<small class="text-danger">', '</small>'); ?>
                         </div>
                     </div>
                     <div class="row form-group">
                         <label class="col-md-3 text-md-right" for="TGL_AKHIR_EVENT">Tanggal Akhir</label>
                         <div class="col-md-9">
-                            <input value="<?= set_value('TGL_AKHIR_EVENT', date('Y-m-d')); ?>" name="TGL_AKHIR_EVENT" id="TGL_AKHIR_EVENT" type="date" class="form-control" placeholder="Tanggal Akhir...">
+                            <input value="<?= set_value('TGL_AKHIR_EVENT', $event['TGL_AKHIR_EVENT']); ?>" name="TGL_AKHIR_EVENT" id="TGL_AKHIR_EVENT" type="date" class="form-control" placeholder="Tanggal Akhir...">
                             <?= form_error('TGL_AKHIR_EVENT', '<small class="text-danger">', '</small>'); ?>
                         </div>
                     </div>

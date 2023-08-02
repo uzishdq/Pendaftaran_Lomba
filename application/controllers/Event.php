@@ -45,17 +45,23 @@ class Event extends CI_Controller
     {
         $this->_validasi();
         $this->_config();
-        try {
-            if ($this->form_validation->run() == false) {
+        try
+        {
+            if ($this->form_validation->run() == false)
+            {
                 $data['title'] = "Event";
                 $data['jenis'] = $this->admin->get('jenis_event');
                 $this->template->load('templates/dashboard', 'event/add', $data);
-            } else {
+            }
+            else
+            {
                 if (!$this->upload->do_upload('FOTO_EVENT')) //sesuai dengan name pada form 
                 {
                     set_pesan('data gagal disimpan', false);
                     redirect('event/add');
-                } else {
+                }
+                else
+                {
                     $file_data = $this->upload->data();
                     $file_name = $file_data['file_name'];
 
@@ -85,16 +91,21 @@ class Event extends CI_Controller
                         'STATUS_EVENT' => $status,
                     );
                     $save = $this->admin->insert('event', $input);
-                    if ($save) {
+                    if ($save)
+                    {
                         set_pesan('data berhasil disimpan.');
                         redirect('event');
-                    } else {
+                    }
+                    else
+                    {
                         set_pesan('data gagal disimpan', false);
                         redirect('event/add');
                     }
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
     }
@@ -106,16 +117,22 @@ class Event extends CI_Controller
         $id = encode_php_tags($getId);
         $this->_validasi();
         $this->_config();
-        if ($this->form_validation->run() == false) {
+        if ($this->form_validation->run() == false)
+        {
             $data['title'] = "Event";
             $data['jenis'] = $this->admin->get('jenis_event');
             $data['event'] = $this->admin->get('event', ['ID_EVENT' => $id]);
             $this->template->load('templates/dashboard', 'event/edit', $data);
-        } else {
-            if (!$this->upload->do_upload('FOTO_EVENT')) {
+        }
+        else
+        {
+            if (!$this->upload->do_upload('FOTO_EVENT'))
+            {
                 $foto_path = $this->input->post('OLD_FOTO_EVENT');
-                set_pesan('data gagal diedit.',false);
-            } else {
+                set_pesan('data gagal diedit.', false);
+            }
+            else
+            {
 
                 $file_data = $this->upload->data();
                 $file_name = $file_data['file_name'];
@@ -125,7 +142,8 @@ class Event extends CI_Controller
                 move_uploaded_file($foto, $foto_path);
 
                 $old_foto_event = $this->input->post('OLD_FOTO_EVENT');
-                if ($old_foto_event && file_exists('assets/file/logo_event/' . $old_foto_event)) {
+                if ($old_foto_event && file_exists('assets/file/logo_event/' . $old_foto_event))
+                {
                     unlink('assets/file/logo_event/' . $old_foto_event);
                 }
             }
@@ -148,10 +166,13 @@ class Event extends CI_Controller
             );
             $update = $this->admin->update('event', 'ID_EVENT', $id, $input);
 
-            if ($update) {
+            if ($update)
+            {
                 set_pesan('data berhasil diedit.');
                 redirect('event');
-            } else {
+            }
+            else
+            {
                 set_pesan('data gagal diedit.');
                 redirect('event/edit/' . $id);
             }
@@ -162,16 +183,13 @@ class Event extends CI_Controller
     {
         $id = encode_php_tags($getId);
 
-        $old_foto_event = $this->admin->getFotoEvent($id);
-
-        if ($old_foto_event && file_exists('assets/file/logo_event/' . $old_foto_event)) {
-            unlink('assets/file/logo_event/' . $old_foto_event);
-        }
-
-        if ($this->admin->delete('event', 'id_event', $id)) {
+        if ($this->admin->delete('event', 'ID_EVENT', $id))
+        {
 
             set_pesan('data berhasil dihapus.');
-        } else {
+        }
+        else
+        {
             set_pesan('data gagal dihapus.', false);
         }
         redirect('event');

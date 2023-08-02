@@ -93,7 +93,20 @@
                         <span>Jenis Event</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link pb-0" href="<?= base_url('tingkatan_event'); ?>">
+                        <i class="fa fa-list-alt"></i>
+                        <span>Tingkatan Event</span>
+                    </a>
+                </li>
             <?php endif; ?>
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Data Event
+            </div>
+            <!-- Nav Item -->
+
 
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?= base_url('event'); ?>">
@@ -101,7 +114,6 @@
                     <span>Event</span>
                 </a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?= base_url('registrasi_all'); ?>">
                     <i class="fa fa-address-book"></i>
@@ -115,16 +127,13 @@
                     <span>Jadwal</span>
                 </a>
             </li>
+            <hr class="sidebar-divider">
 
             <?php if (is_admin()) : ?>
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-
                 <!-- Heading -->
                 <div class="sidebar-heading">
                     Settings
                 </div>
-
                 <!-- Nav Item -->
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('user'); ?>">

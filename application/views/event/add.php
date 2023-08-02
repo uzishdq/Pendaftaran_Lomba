@@ -45,7 +45,7 @@
                                     <?php endforeach; ?>
                                 </select>
                                 <div class="input-group-append">
-                                    <a class="btn btn-primary" href="<?= base_url('jenis/add'); ?>"><i class="fa fa-plus"></i></a>
+                                    <a class="btn btn-primary" href="<?= base_url('jenis_event/add'); ?>"><i class="fa fa-plus"></i></a>
                                 </div>
                             </div>
                             <?= form_error('ID_JENIS_EVENT', '<small class="text-danger">', '</small>'); ?>
