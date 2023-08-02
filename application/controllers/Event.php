@@ -28,13 +28,12 @@ class Event extends CI_Controller
         $this->form_validation->set_rules('BIAYA_EVENT', 'Biaya Event', 'required|trim');
         $this->form_validation->set_rules('BANK_EVENT', 'Bank Event', 'required|trim');
         $this->form_validation->set_rules('STATUS_EVENT', 'STATUS EVENT', 'required|trim');
-
     }
 
     private function _config()
     {
         $config['upload_path']      = "./assets/file/logo_event/";
-        $config['allowed_types']    = 'pdf|doc|docx|gif|jpg|jpeg|png';
+        $config['allowed_types']    = 'jpg|jpeg|png';
         $config['encrypt_name']     = TRUE;
         $config['max_size']         = '10048';
 
@@ -65,7 +64,7 @@ class Event extends CI_Controller
                 {
                     $file_data = $this->upload->data();
                     $file_name = $file_data['file_name'];
-
+                    $idUser = $this->input->post('ID_USER');
                     $IdTingkatEvent = $this->input->post('ID_TINGKAT_EVENT');
                     $IdJenisEvent = $this->input->post('ID_JENIS_EVENT');
                     $namaEvent = $this->input->post('NAMA_EVENT');
@@ -85,6 +84,7 @@ class Event extends CI_Controller
                     $input = array(
                         'ID_TINGKAT_EVENT' => $IdTingkatEvent,
                         'ID_JENIS_EVENT' => $IdJenisEvent,
+                        'ID_USER' => $idUser,
                         'NAMA_EVENT' => $namaEvent,
                         'TGL_MULAI_EVENT' => $tglMulai,
                         'TGL_AKHIR_EVENT' => $tglAkhir,

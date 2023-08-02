@@ -26,7 +26,7 @@ if ($event) :
                     </div>
                 </div>
                 <div class="card-body pb-2">
-                    <form action="<?= base_url('jadwal/add') ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?= base_url('jadwal/add') ?>" id="myFormAddJadwal" method="post" enctype="multipart/form-data">
                         <input hidden value="<?= set_value('ID_EVENT', $e['ID_EVENT']); ?>" name="ID_EVENT" type="text"">
                         <input hidden value=" <?= set_value('ID_USER', $idUser); ?>" name="ID_USER" type="text"">
                         <div class=" row form-group">
@@ -36,24 +36,13 @@ if ($event) :
                             <?= form_error('NAMA_ATRIBUT', '<span class="text-danger small">', '</span>'); ?>
                         </div>
                 </div>
-                <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="TINGKAT_ATRIBUT">Tingkat</label>
-                    <div class="col-md-6">
-                        <select name="TINGKAT_ATRIBUT" id="TINGKAT_ATRIBUT" class="custom-select">
-                            <option value="" selected disabled>Pilih Tingkat...</option>
-                            <option value="SD" id="SD" name="TINGKAT_ATRIBUT">SD</option>
-                            <option value="SMP" id="SMP" name="TINGKAT_ATRIBUT">SMP</option>
-                            <option value="SMA" id="SMA" name="TINGKAT_ATRIBUT">SMA</option>
-                        </select>
-                    </div>
-                </div>
                 <hr>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="FOTO_ATRIBUT">Gambar Jadwal </label>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-9">
-                                <input type="file" name="FOTO_ATRIBUT" id="FOTO_ATRIBUT" accept="image/gif, image/jpeg, image/png">
+                                <input type="file" name="FOTO_ATRIBUT" id="FOTO_ATRIBUT" accept="image/gif, image/jpeg, image/png" required>
                                 <br>
                                 <small>Max ukuran file 10MB <a href="https://compresspng.com/" target="_blank">Convert Disini</a></small>
                                 <?= form_error('FOTO_ATRIBUT', '<small class="text-danger">', '</small>'); ?>
@@ -101,3 +90,16 @@ else : ?>
         </div>
     </div>
 <?php endif; ?>
+
+<script>
+    document.getElementById('myFormAddJadwal').addEventListener('submit', function(event) {
+        var fileInput = document.getElementById('FOTO_ATRIBUT');
+        var fileSize = fileInput.files[0].size; // Ukuran file dalam byte
+        var maxSize = 10 * 1024 * 1024; // 10 MB dalam byte
+
+        if (fileSize > maxSize) {
+            alert('Ukuran file melebihi batas maksimum (10 MB).');
+            event.preventDefault(); // Mencegah pengiriman form jika validasi tidak lolos
+        }
+    });
+</script>

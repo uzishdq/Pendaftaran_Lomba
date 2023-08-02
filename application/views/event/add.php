@@ -1,3 +1,4 @@
+<?php $idUser = $this->session->userdata('login_session')['user']; ?>
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow-sm border-bottom-primary">
@@ -44,7 +45,8 @@
                         <label class="col-md-3 text-md-right" for="NAMA_EVENT">Nama Event</label>
                         <div class="col-md-9">
                             <div class="input-group">
-                                <input value="<?= set_value('NAMA_EVENT'); ?>" name="NAMA_EVENT" id="NAMA_EVENT" type="text" class="form-control" placeholder="Nama Event...">
+                                <input hidden value=" <?= set_value('ID_USER', $idUser); ?>" name="ID_USER" type="text"">
+                                <input value=" <?= set_value('NAMA_EVENT'); ?>" name="NAMA_EVENT" id="NAMA_EVENT" type="text" class="form-control" placeholder="Nama Event...">
                             </div>
                             <?= form_error('NAMA_EVENT', '<small class="text-danger">', '</small>'); ?>
                         </div>

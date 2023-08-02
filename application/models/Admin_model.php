@@ -126,6 +126,14 @@ class Admin_model extends CI_Model
         return $this->db->get('uploads u')->result_array();
     }
 
+    public function getJadwal()
+    {
+        $this->db->select('e.ID_EVENT,e.ID_JENIS_EVENT, e.NAMA_EVENT,e.STATUS_EVENT, j.NAMA_JENIS_EVENT');
+        $this->db->where('STATUS_EVENT', 'dibuka');
+        $this->db->or_where('STATUS_EVENT', 'berjalan');
+        return $this->db->get('event')->result_array();
+    }
+
     public function getAtributEvent()
     {
         $this->db->select('e.ID_EVENT,e.ID_JENIS_EVENT, e.NAMA_EVENT,e.STATUS_EVENT, j.NAMA_JENIS_EVENT');
@@ -137,9 +145,11 @@ class Admin_model extends CI_Model
 
     public function getAtributAll()
     {
-        $this->db->join('event e', 'e.ID_EVENT = a.ID_EVENT');
+        $this->db->select('t.NAMA_TINGKAT_EVENT,j.NAMA_JENIS_EVENT,e.NAMA_EVENT,a.FOTO_ATRIBUT,a.NAMA_ATRIBUT, e.ID_EVENT,t.ID_TINGKAT_EVENT,a.ID_ATRIBUT,j.ID_JENIS_EVENT');
+        $this->db->join('tingkat_event t', 'e.ID_TINGKAT_EVENT = t.ID_TINGKAT_EVENT');
+        $this->db->join('atribut a', 'e.ID_EVENT = a.ID_EVENT');
         $this->db->join('jenis_event j', 'e.ID_JENIS_EVENT = j.ID_JENIS_EVENT');
-        return $this->db->get('atribut a')->result_array();
+        return $this->db->get('event e')->result_array();
     }
 
     public function getAtribut()

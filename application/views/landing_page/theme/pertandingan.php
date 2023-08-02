@@ -28,7 +28,8 @@
             $foundEvent = false; // Variabel penanda jika ada event yang sesuai dengan jenis event
             if ($event) :
                 foreach ($event as $e) :
-                    if ($e['ID_EVENT'] == $je['ID_EVENT']) { // Memeriksa ID jenis event yang sesuai
+                    if ($e['ID_EVENT'] == $je['ID_EVENT'])
+                    { // Memeriksa ID jenis event yang sesuai
                         $foundEvent = true;
                         $tanggalMulai = $e['TGL_MULAI_EVENT'];
                         $datetime1 = date_create($tanggalMulai);
@@ -55,7 +56,7 @@
                                     <p class="card-text"> <?= $tglAwal; ?> - <?= $tglAkhir; ?></p>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <img loading="lazy" style="border-radius: 10px; width: 100%;" src="<?= $e['FOTO_ATRIBUT'] ?>" alt="service-image">
+                                    <img loading="lazy" style="border-radius: 10px; width: 100%;" src="assets/file/pertandingan/<?= $e['FOTO_ATRIBUT'] ?>" alt="service-image">
                                 </div>
                             </div>
                         </section>

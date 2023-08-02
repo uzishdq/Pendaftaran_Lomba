@@ -24,24 +24,13 @@ $id = $atribut['ID_ATRIBUT']
         <div class="card-body pb-2">
             <form action="<?= base_url('jadwal/edit/' . $id) ?>" id="myFormEditJawdal" method="post" enctype="multipart/form-data">
                 <input hidden value="<?= set_value('ID_EVENT', $atribut['ID_EVENT']); ?>" name="ID_EVENT" type="text"">
-                        <input hidden value=" <?= set_value('ID_USER', $idUser); ?>" name="ID_USER" type="text"">
-                        <div class=" row form-group">
+                <input hidden value=" <?= set_value('ID_USER', $idUser); ?>" name="ID_USER" type="text"">
+                <div class=" row form-group">
                 <label class="col-md-4 text-md-right" for="NAMA_ATRIBUT">Nama Atribut</label>
                 <div class="col-md-6">
                     <input value="<?= set_value('NAMA_ATRIBUT', $atribut['NAMA_ATRIBUT']); ?>" type="text" id="NAMA_ATRIBUT" name="NAMA_ATRIBUT" class="form-control" placeholder="Pertandingan...">
                     <?= form_error('NAMA_ATRIBUT', '<span class="text-danger small">', '</span>'); ?>
                 </div>
-        </div>
-        <div class="row form-group">
-            <label class="col-md-4 text-md-right" for="TINGKAT_ATRIBUT">Tingkat</label>
-            <div class="col-md-6">
-                <select name="TINGKAT_ATRIBUT" id="TINGKAT_ATRIBUT" class="custom-select">
-                    <option value="<?= $atribut['TINGKAT_ATRIBUT']; ?>" selected><?= $atribut['TINGKAT_ATRIBUT']; ?></option>
-                    <option value="SD" id="SD" name="TINGKAT_ATRIBUT">SD</option>
-                    <option value="SMP" id="SMP" name="TINGKAT_ATRIBUT">SMP</option>
-                    <option value="SMA" id="SMA" name="TINGKAT_ATRIBUT">SMA</option>
-                </select>
-            </div>
         </div>
         <hr>
         <div class="row form-group">
