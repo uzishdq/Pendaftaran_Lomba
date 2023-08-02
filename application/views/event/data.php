@@ -24,6 +24,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>Tingkatan</th>
                     <th>Nama Event</th>
                     <th>Kategori</th>
                     <th>Tanggal Mulai</th>
@@ -42,6 +43,7 @@
                 ?>
                         <tr>
                             <td><?= $no++; ?></td>
+                            <td><?= $e['NAMA_TINGKAT_EVENT']; ?></td>
                             <td><?= $e['NAMA_EVENT']; ?></td>
                             <td><?= $e['NAMA_JENIS_EVENT']; ?></td>
                             <td><?= $e['TGL_MULAI_EVENT']; ?></td>
@@ -59,7 +61,7 @@
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="9" class="text-center">
+                        <td colspan="10" class="text-center">
                             Data Kosong
                         </td>
                     </tr>

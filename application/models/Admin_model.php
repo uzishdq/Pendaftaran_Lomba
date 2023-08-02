@@ -47,6 +47,7 @@ class Admin_model extends CI_Model
     public function getEvent()
     {
         $this->db->join('jenis_event j', 'e.ID_JENIS_EVENT = j.ID_JENIS_EVENT');
+        $this->db->join('tingkat_event t', 'e.ID_TINGKAT_EVENT = t.ID_TINGKAT_EVENT');
         $this->db->order_by('e.ID_JENIS_EVENT');
         return $this->db->get('event e')->result_array();
     }

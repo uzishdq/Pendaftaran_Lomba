@@ -16,7 +16,6 @@ class Event extends CI_Controller
     {
         $data['title'] = "Event";
         $data['event'] = $this->admin->getEvent();
-        $data['getEvent'] = $this->admin->getEvent();
 
         $this->template->load('templates/dashboard', 'event/data', $data);
     }
@@ -29,11 +28,12 @@ class Event extends CI_Controller
         $this->form_validation->set_rules('BIAYA_EVENT', 'Biaya Event', 'required|trim');
         $this->form_validation->set_rules('BANK_EVENT', 'Bank Event', 'required|trim');
         $this->form_validation->set_rules('STATUS_EVENT', 'STATUS EVENT', 'required|trim');
+
     }
 
     private function _config()
     {
-        $config['upload_path']      = "./assets/file/";
+        $config['upload_path']      = "./assets/file/logo_event/";
         $config['allowed_types']    = 'pdf|doc|docx|gif|jpg|jpeg|png';
         $config['encrypt_name']     = TRUE;
         $config['max_size']         = '10048';
@@ -51,6 +51,7 @@ class Event extends CI_Controller
             {
                 $data['title'] = "Event";
                 $data['jenis'] = $this->admin->get('jenis_event');
+                $data['tingkat'] = $this->admin->get('tingkat_event');
                 $this->template->load('templates/dashboard', 'event/add', $data);
             }
             else
@@ -65,6 +66,7 @@ class Event extends CI_Controller
                     $file_data = $this->upload->data();
                     $file_name = $file_data['file_name'];
 
+                    $IdTingkatEvent = $this->input->post('ID_TINGKAT_EVENT');
                     $IdJenisEvent = $this->input->post('ID_JENIS_EVENT');
                     $namaEvent = $this->input->post('NAMA_EVENT');
                     $tglMulai = $this->input->post('TGL_MULAI_EVENT');
@@ -76,16 +78,17 @@ class Event extends CI_Controller
                     $nominal = preg_replace('/[^\d]/', '', $biaya);
                     $nominal_int = intval($nominal);
 
-                    $foto = $_FILES['FOTO_EVENT']["tmp_name"];
-                    $foto_path = 'assets/file/logo_event/' . $file_name;
-                    move_uploaded_file($foto, $foto_path);
+                    // $foto = $_FILES['FOTO_EVENT']["tmp_name"];
+                    // $foto_path = 'assets/file/logo_event/' . $file_name;
+                    // move_uploaded_file($foto, $foto_path);
 
                     $input = array(
+                        'ID_TINGKAT_EVENT' => $IdTingkatEvent,
                         'ID_JENIS_EVENT' => $IdJenisEvent,
                         'NAMA_EVENT' => $namaEvent,
                         'TGL_MULAI_EVENT' => $tglMulai,
                         'TGL_AKHIR_EVENT' => $tglAkhir,
-                        'FOTO_EVENT' => $foto_path,
+                        'FOTO_EVENT' => $file_name,
                         'BIAYA_EVENT' => $nominal_int,
                         'BANK_EVENT' => $bank,
                         'STATUS_EVENT' => $status,
@@ -121,6 +124,7 @@ class Event extends CI_Controller
         {
             $data['title'] = "Event";
             $data['jenis'] = $this->admin->get('jenis_event');
+            $data['tingkat'] = $this->admin->get('tingkat_event');
             $data['event'] = $this->admin->get('event', ['ID_EVENT' => $id]);
             $this->template->load('templates/dashboard', 'event/edit', $data);
         }
@@ -128,19 +132,14 @@ class Event extends CI_Controller
         {
             if (!$this->upload->do_upload('FOTO_EVENT'))
             {
-                $foto_path = $this->input->post('OLD_FOTO_EVENT');
-                set_pesan('data gagal diedit.', false);
+                $file_name = $this->input->post('OLD_FOTO_EVENT');
+                set_pesan('Foto Menggunakan yang sebelumnya diedit.', false);
             }
             else
             {
 
                 $file_data = $this->upload->data();
                 $file_name = $file_data['file_name'];
-                $foto = $_FILES['FOTO_EVENT']["tmp_name"];
-                $foto_path = 'assets/file/logo_event/' . $file_name;
-
-                move_uploaded_file($foto, $foto_path);
-
                 $old_foto_event = $this->input->post('OLD_FOTO_EVENT');
                 if ($old_foto_event && file_exists('assets/file/logo_event/' . $old_foto_event))
                 {
@@ -155,7 +154,7 @@ class Event extends CI_Controller
 
             // Prepare data for database update
             $input = array(
-                'FOTO_EVENT' => $foto_path,
+                'FOTO_EVENT' => $file_name,
                 'ID_JENIS_EVENT' => $this->input->post('ID_JENIS_EVENT'),
                 'NAMA_EVENT' => $this->input->post('NAMA_EVENT'),
                 'TGL_MULAI_EVENT' => $this->input->post('TGL_MULAI_EVENT'),

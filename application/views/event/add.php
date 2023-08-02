@@ -22,9 +22,24 @@
             </div>
             <div class="card-body">
                 <?= $this->session->flashdata('pesan'); ?>
-
-                <form action="<?= base_url('event/add') ?>" method="post" enctype="multipart/form-data">
-
+                <form action="<?= base_url('event/add') ?>" id="myFormAddEvent" method="post" enctype="multipart/form-data">
+                    <div class="row form-group">
+                        <label class="col-md-3 text-md-right" for="ID_TINGKAT_EVENT">Tingkatan Event</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <select name="ID_TINGKAT_EVENT" id="ID_TINGKAT_EVENT" class="custom-select">
+                                    <option value="" selected disabled>Pilih Tingakatn Event</option>
+                                    <?php foreach ($tingkat as $t) : ?>
+                                        <option <?= set_select('ID_TINGKAT_EVENT', $t['ID_TINGKAT_EVENT']) ?> value="<?= $t['ID_TINGKAT_EVENT'] ?>"><?= $t['NAMA_TINGKAT_EVENT'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <div class="input-group-append">
+                                    <a class="btn btn-primary" href="<?= base_url('tingkatan_event/add'); ?>"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                            <?= form_error('ID_TINGKAT_EVENT', '<small class="text-danger">', '</small>'); ?>
+                        </div>
+                    </div>
                     <div class="row form-group">
                         <label class="col-md-3 text-md-right" for="NAMA_EVENT">Nama Event</label>
                         <div class="col-md-9">
@@ -141,4 +156,14 @@
         // Menampilkan nilai yang telah diformat kembali ke input
         input.value = formattedValue;
     }
+    document.getElementById('myFormAddEvent').addEventListener('submit', function(event) {
+        var fileInput = document.getElementById('FOTO_EVENT');
+        var fileSize = fileInput.files[0].size; // Ukuran file dalam byte
+        var maxSize = 10 * 1024 * 1024; // 10 MB dalam byte
+
+        if (fileSize > maxSize) {
+            alert('Ukuran file melebihi batas maksimum (10 MB).');
+            event.preventDefault(); // Mencegah pengiriman form jika validasi tidak lolos
+        }
+    });
 </script>

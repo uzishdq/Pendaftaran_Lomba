@@ -38,7 +38,7 @@ if ($event) :
             </div>
           </div>
           <div class="col-lg-6">
-            <img loading="lazy" class="img-fluid" style="border-radius=10px;" src="<?= $e['FOTO_EVENT'] ?>" alt="service-image">
+            <img loading="lazy" class="img-fluid" style="border-radius=10px;" src="<?= base_url('assets/file/logo_event/' . $e['FOTO_EVENT']); ?>" alt="service-image">
           </div>
         </div>
     </section>

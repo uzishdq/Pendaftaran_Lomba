@@ -27,6 +27,24 @@
                 ?>
                 <form action="<?= base_url('event/edit/' . $id) ?>" id="myFormEditEvent" method="post" enctype="multipart/form-data">
                     <div class="row form-group">
+                        <label class="col-md-3 text-md-right" for="ID_TINGKAT_EVENT">Tingkatan Event</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <select name="ID_TINGKAT_EVENT" id="ID_TINGKAT_EVENT" class="custom-select">
+                                    <option value="" selected disabled>Pilih Tingakatn Event</option>
+
+                                    <?php foreach ($tingkat as $t) : ?>
+                                        <option <?= $event['ID_TINGKAT_EVENT'] == $t['ID_TINGKAT_EVENT'] ? 'selected' : ''; ?> <?= set_select('ID_TINGKAT_EVENT', $t['ID_TINGKAT_EVENT']) ?> value="<?= $t['ID_TINGKAT_EVENT'] ?>"><?= $t['NAMA_TINGKAT_EVENT'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <div class="input-group-append">
+                                    <a class="btn btn-primary" href="<?= base_url('tingkatan_event/add'); ?>"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                            <?= form_error('ID_TINGKAT_EVENT', '<small class="text-danger">', '</small>'); ?>
+                        </div>
+                    </div>
+                    <div class="row form-group">
                         <!-- <input value="<?= set_value('ID_EVENT', $event['ID_EVENT']); ?>" name="ID_EVENT"type="text""> -->
                         <label class="col-md-3 text-md-right" for="NAMA_EVENT">Nama Event</label>
                         <div class="col-md-9">
