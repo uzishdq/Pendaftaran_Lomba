@@ -3,36 +3,27 @@
         <div class="card shadow-sm border-bottom-primary">
             <div class="card-header bg-white py-3">
                 <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
-                    Form Laporan
+                    Form Laporan Registrasi
                 </h4>
             </div>
             <div class="card-body">
                 <?= $this->session->flashdata('pesan'); ?>
                 <?= form_open(); ?>
                 <div class="row form-group">
-                    <label class="col-md-3 text-md-right" for="transaksi">Laporan Transaksi</label>
+                    <label class="col-md-3 text-md-right" for="ID_EVENT"> Event</label>
                     <div class="col-md-9">
-                        <div class="custom-control custom-radio">
-                            <input value="barang_masuk" type="radio" id="barang_masuk" name="transaksi" class="custom-control-input">
-                            <label class="custom-control-label" for="barang_masuk">Barang Masuk</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input value="barang_keluar" type="radio" id="barang_keluar" name="transaksi" class="custom-control-input">
-                            <label class="custom-control-label" for="barang_keluar">Barang Keluar</label>
-                        </div>
-                        <?= form_error('transaksi', '<span class="text-danger small">', '</span>'); ?>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <label class="col-lg-3 text-lg-right" for="tanggal">Tanggal</label>
-                    <div class="col-lg-5">
                         <div class="input-group">
-                            <input value="<?= set_value('tanggal'); ?>" name="tanggal" id="tanggal" type="text" class="form-control" placeholder="Periode Tanggal">
+                            <select name="ID_EVENT" class="custom-select">
+                                <option value="" selected disabled>Pilih Event</option>
+                                <?php foreach ($event as $e) : ?>
+                                    <option value="<?= $e['ID_EVENT'] ?>"><?= $e['NAMA_EVENT'] ?> - <?= $e['NAMA_TINGKAT_EVENT'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
                             <div class="input-group-append">
-                                <span class="input-group-text"><i class="fa fa-fw fa-calendar"></i></span>
+                                <a class="btn btn-primary" href="<?= base_url('tingkatan_event/add'); ?>"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
-                        <?= form_error('tanggal', '<small class="text-danger">', '</small>'); ?>
+                        <?= form_error('ID_EVENT', '<small class="text-danger">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="row form-group">

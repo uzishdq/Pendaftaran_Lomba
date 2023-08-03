@@ -40,12 +40,12 @@ if ($jenisEvent) :
                         <thead>
                             <tr>
                                 <th>No.</th>
+                                <th>Tingkat</th>
                                 <th>No Registrasi</th>
                                 <th>Nama Event</th>
                                 <th>Nama Team</th>
                                 <th>Sekolah</th>
                                 <th>Jumlah Peserta</th>
-                                <th>Tingkat</th>
                                 <th>Bukti Pembayaran</th>
                                 <th>Aksi</th>
                             </tr>
@@ -61,6 +61,7 @@ if ($jenisEvent) :
                             ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
+                                            <td><?= $e['TINGKAT']; ?></td>
                                             <td><?= $e['ID_REGISTRASI']; ?></td>
                                             <td><?= $e['NAMA_EVENT']; ?></td>
                                             <td>
@@ -69,7 +70,6 @@ if ($jenisEvent) :
                                             </td>
                                             <td><?= $e['NAMA_TEAM']; ?></td>
                                             <td><?= $e['JUMLAH_PESERTA']; ?></td>
-                                            <td><?= $e['TINGKAT']; ?></td>
                                             <td><a href="<?= base_url('/') . $e['BUKTI_BAYAR'] ?>" target="_blank">Bukti Registrasi</a></td>
                                             <th>
                                                 <a href="<?= base_url('registrasi_all/toggle/') . $e['ID_REGISTRASI'] ?>" class="btn btn-circle btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-secondary' : 'btn-success' ?>" title="<?= $e['STATUS_REGISTRASI'] ? 'Tolak' : 'Terima' ?>"><i class="fa fa-fw fa-power-off"></i></a>

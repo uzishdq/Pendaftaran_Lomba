@@ -52,6 +52,22 @@ class Admin_model extends CI_Model
         return $this->db->get('event e')->result_array();
     }
 
+    public function getLaporanEvent($idEvent)
+    {
+        $this->db->select('je.NAMA_JENIS_EVENT, e.NAMA_EVENT, te.NAMA_TINGKAT_EVENT, t.NAMA_TEAM, t.SEKOLAH, t.PROVINSI, t.KOTA, c.NAMA_CONTACT_PERSON, c.NO_TELP_CONTACT_PERSON, c.EMAIL_CONTACT_PERSON, p.NAMA_PESERTA, p.FOTO_PESERTA, r.JUMLAH_PESERTA');
+        $this->db->from('event e');
+        $this->db->join('tingkat_event te', 'e.ID_TINGKAT_EVENT = te.ID_TINGKAT_EVENT');
+        $this->db->join('jenis_event je', 'e.ID_JENIS_EVENT = je.ID_JENIS_EVENT');
+        $this->db->join('registrasi r', 'e.ID_EVENT = r.ID_EVENT');
+        $this->db->join('team t', 't.ID_REGISTRASI = r.ID_REGISTRASI');
+        $this->db->join('contact_person c', 't.ID_CONTACT_PERSON = c.ID_CONTACT_PERSON');
+        $this->db->join('peserta p', 't.ID_TEAM = p.ID_TEAM');
+        $this->db->where('e.ID_EVENT', $idEvent);
+
+        return $this->db->get()->result_array();
+    }
+
+
     public function getFotoEvent($id)
     {
         $this->db->select('FOTO_EVENT');
@@ -79,6 +95,7 @@ class Admin_model extends CI_Model
         $this->db->order_by('r.ID_REGISTRASI');
         return $this->db->get('registrasi r')->result_array();
     }
+
     public function getTeamPeserta($idRegistrasi)
     {
         $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');

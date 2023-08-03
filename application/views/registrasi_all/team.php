@@ -1,46 +1,66 @@
-<div class="card p-2 shadow-sm border-bottom-primary">
-    <?php
-    if ($team) :
-        foreach ($team as $t) :
-    ?>
-            <div class="card-header bg-white">
-                <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
-                    Data Anggota Team <?= strtoupper($t['NAMA_TEAM']); ?>
-                </h4>
-            </div>
-            <div class="card-body mt-2">
-                <div class="row">
-                    <div class="col-md-11">
-                        <p>Contact Person</p>
-                        <table class="table">
-                            <tr>
-                                <th>Nama </th>
-                                <td><?= $t['NAMA_CONTACT_PERSON']; ?></td>
-                            </tr>
-                            <tr>
-                                <th>No Telp</th>
-                                <td><?= $t['NO_TELP_CONTACT_PERSON']; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Email</th>
-                                <td><?= $t['EMAIL_CONTACT_PERSON']; ?></td>
-                            </tr>
-                            <tr>
-                                <th>Team</th>
-                                <td><?= strtoupper($t['NAMA_TEAM']); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Provinsi</th>
-                                <td><?= strtoupper($t['PROVINSI']); ?></td>
-                            </tr>
-                            <tr>
-                                <th>Kota</th>
-                                <td><?= $t['KOTA']; ?></td>
-                            </tr>
-                        </table>
+<?php
+if ($team) :
+    // Ambil informasi kontak person dari data team pertama
+    $contact_person = reset($team); // Mengambil elemen pertama dari array $team
+?>
+    <div class="card p-2 shadow-sm border-bottom-primary">
+        <div class="card-header bg-white">
+        <div class="row">
+                    <div class="col">
+                    <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
+                Data Anggota Tim <?= strtoupper($contact_person['NAMA_TEAM']); ?>
+            </h4>
+                    </div>
+                    <div class="col-auto">
+                        <a href="<?= base_url('registrasi_all') ?>" class="btn btn-sm btn-secondary btn-icon-split">
+                            <span class="icon">
+                                <i class="fa fa-arrow-left"></i>
+                            </span>
+                            <span class="text">
+                                Kembali
+                            </span>
+                        </a>
                     </div>
                 </div>
+
+            
+        </div>
+        <div class="card-body mt-2">
+            <div class="row">
+                <div class="col-md-11">
+                    <p>Kontak Person</p>
+                    <table class="table">
+                        <tr>
+                            <th>Nama </th>
+                            <td><?= $contact_person['NAMA_CONTACT_PERSON']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>No Telp</th>
+                            <td><?= $contact_person['NO_TELP_CONTACT_PERSON']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td><?= $contact_person['EMAIL_CONTACT_PERSON']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Tim</th>
+                            <td><?= strtoupper($contact_person['NAMA_TEAM']); ?></td>
+                        </tr>
+                        <tr>
+                            <th>Provinsi</th>
+                            <td><?= strtoupper($contact_person['PROVINSI']); ?></td>
+                        </tr>
+                        <tr>
+                            <th>Kota</th>
+                            <td><?= $contact_person['KOTA']; ?></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
+        </div>
+        <?php
+        foreach ($team as $t) :
+        ?>
             <div class="card-body mt-2">
                 <div class="row">
                     <div class="col-md-2 mb-4 mb-md-0">
@@ -77,9 +97,7 @@
         <?php endforeach;
     else : ?>
         <tr>
-            <td colspan="8" class="text-center">Silahkan tambahkan user baru</td>
+            <td colspan="8" class="text-center">Belum ada data tim</td>
         </tr>
     <?php endif; ?>
-
-
-</div>
+    </div>
