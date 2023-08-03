@@ -106,8 +106,6 @@
                 Data Event
             </div>
             <!-- Nav Item -->
-
-
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?= base_url('event'); ?>">
                     <i class="fa fa-trophy"></i>
@@ -120,13 +118,19 @@
                     <span>Registrasi</span>
                 </a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link pb-0" href="<?= base_url('jadwal'); ?>">
                     <i class="fa fa-calendar"></i>
                     <span>Jadwal</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link pb-0" href="<?= base_url('laporan'); ?>">
+                    <i class="fa fa-print"></i>
+                    <span>Laporan</span>
+                </a>
+            </li>
+
             <hr class="sidebar-divider">
 
             <?php if (is_admin()) : ?>

@@ -147,6 +147,7 @@ class Jadwal extends CI_Controller
     public function delete($getId)
     {
         $id = encode_php_tags($getId);
+        
         if ($this->admin->delete('atribut', 'ID_ATRIBUT', $id))
         {
             set_pesan('data berhasil dihapus.');

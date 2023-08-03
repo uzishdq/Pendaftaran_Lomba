@@ -145,7 +145,7 @@ class Admin_model extends CI_Model
 
     public function getAtributAll()
     {
-        $this->db->select('t.NAMA_TINGKAT_EVENT,j.NAMA_JENIS_EVENT,e.NAMA_EVENT,a.FOTO_ATRIBUT,a.NAMA_ATRIBUT, e.ID_EVENT,t.ID_TINGKAT_EVENT,a.ID_ATRIBUT,j.ID_JENIS_EVENT');
+        $this->db->select('t.NAMA_TINGKAT_EVENT,j.NAMA_JENIS_EVENT,e.NAMA_EVENT,a.ID_ATRIBUT,a.FOTO_ATRIBUT,a.NAMA_ATRIBUT, e.ID_EVENT,e.TGL_MULAI_EVENT,e.TGL_AKHIR_EVENT');
         $this->db->join('tingkat_event t', 'e.ID_TINGKAT_EVENT = t.ID_TINGKAT_EVENT');
         $this->db->join('atribut a', 'e.ID_EVENT = a.ID_EVENT');
         $this->db->join('jenis_event j', 'e.ID_JENIS_EVENT = j.ID_JENIS_EVENT');

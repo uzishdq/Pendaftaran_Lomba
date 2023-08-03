@@ -9,6 +9,7 @@ class Service extends CI_Controller
 
         $this->load->model('Admin_model', 'admin');
         $this->load->library('form_validation');
+
         $upcoming_events = $this->admin->get_upcoming_events();
         foreach ($upcoming_events as $event)
         {

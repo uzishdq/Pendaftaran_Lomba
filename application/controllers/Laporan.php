@@ -34,7 +34,6 @@ class Laporan extends CI_Controller
             } else {
                 $query = $this->admin->getBarangKeluar(null, null, ['mulai' => $mulai, 'akhir' => $akhir]);
             }
-
             $this->_cetak($query, $table, $tanggal);
         }
     }

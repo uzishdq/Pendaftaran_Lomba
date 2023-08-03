@@ -47,7 +47,7 @@
                                             <?= strtoupper($e['NAMA_JENIS_EVENT']); ?>
                                         </h6>
                                         <h6 class="col-auto">
-                                            Tingkat: <?= strtoupper($e['TINGKAT_ATRIBUT']); ?>
+                                            Tingkat: <?= strtoupper($e['NAMA_TINGKAT_EVENT']); ?>
                                         </h6>
                                     </div>
                                 </div>
