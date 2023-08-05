@@ -36,9 +36,12 @@ class Registrasi_all extends CI_Controller
     public function delete($getId)
     {
         $id = encode_php_tags($getId);
-        if ($this->admin->delete('registrasi', 'ID_REGISTRASI', $id)) {
+        if ($this->admin->delete('registrasi', 'ID_REGISTRASI', $id))
+        {
             set_pesan('data berhasil dihapus.');
-        } else {
+        }
+        else
+        {
             set_pesan('data gagal dihapus.', false);
         }
         redirect('jenis');
@@ -48,12 +51,63 @@ class Registrasi_all extends CI_Controller
     {
         $id = $getId;
         $status = $this->admin->get('registrasi', ['ID_REGISTRASI' => $id])['STATUS_REGISTRASI'];
+        $email = $this->admin->getEmailMessage($id);
         $toggle = $status ? 0 : 1; //Jika user aktif maka nonaktifkan, begitu pula sebaliknya
-        $pesan = $toggle ? 'Terima' : 'Tolak';
-
-        if ($this->admin->update('registrasi', 'ID_REGISTRASI', $id, ['STATUS_REGISTRASI' => $toggle])) {
+        $pesan = $toggle ? 'Info Registrasi Telah Terkirim' : 'Tolak';
+        if ($this->admin->update('registrasi', 'ID_REGISTRASI', $id, ['STATUS_REGISTRASI' => $toggle]))
+        {
+            $this->_sendMail($email);
             set_pesan($pesan);
         }
+
         redirect('registrasi_all');
+    }
+
+    private function _sendMail($email)
+    {
+
+
+        $template = "Assalamualaikum,\r\n\r\nKepada : {nama}, {sekolah}, \r\n\r\nSelamat Registrasi Anda Diterima. \r\n\r\nDalam Event {event} Tingkat {tingkat} - Nama Event {namaEvent} \r\nNama Team : {namaTeam} - Sekolah : {sekolah} - Provinsi : {provinsi} - Kota : {kota} \r\n\r\n\r\nTerima kasih.";
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.googlemail.com',
+            'smtp_user' => 'rizza.10519123@mahasiswa.unikom.ac.id',
+            'smtp_pass' => '77969506',
+            'smtp_port' => 465,
+            'smtp_crypto' => 'ssl',
+            'mailtype' => 'text',
+            'charset' => 'utf-8',
+            'newline' => "\r\n",
+        ];
+
+        $this->load->library('email', $config);
+        $this->email->initialize($config);
+
+        foreach ($email as $ue)
+        {
+            $message = str_replace('{nama}', $ue['NAMA_CONTACT_PERSON'], $template);
+            $message = str_replace('{sekolah}', $ue['SEKOLAH'], $message);
+            $message = str_replace('{event}', $ue['NAMA_JENIS_EVENT'], $message);
+            $message = str_replace('{tingkat}', $ue['NAMA_TINGKAT_EVENT'], $message);
+            $message = str_replace('{namaEvent}', $ue['NAMA_EVENT'], $message);
+            $message = str_replace('{namaTeam}', $ue['NAMA_TEAM'], $message);
+            $message = str_replace('{provinsi}', $ue['PROVINSI'], $message);
+            $message = str_replace('{kota}', $ue['KOTA'], $message);
+
+            $this->email->from('por.piis2005@gmail.com', 'Panitia PORPIS (Pekan Olahraga Permata Insani Islamic School)');
+            $this->email->to($ue['EMAIL_CONTACT_PERSON']);
+            $this->email->subject('Info Registrasi Pekan Olahraga Permata Insani Islamic School');
+            $this->email->message($message);
+        }
+
+        if ($this->email->send())
+        {
+            return true;
+        }
+        else
+        {
+            echo $this->email->print_debugger();
+            die;
+        }
     }
 }

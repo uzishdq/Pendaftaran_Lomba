@@ -67,6 +67,30 @@ class Admin_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function getEmailContactPerson($idRegistrasi)
+    {
+        $this->db->select('cp.EMAIL_CONTACT_PERSON');
+        $this->db->from('registrasi r');
+        $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
+        $this->db->join('contact_person cp', 't.ID_CONTACT_PERSON = cp.ID_CONTACT_PERSON');
+        $this->db->where('r.ID_REGISTRASI', $idRegistrasi);
+        return $this->db->get()->result_array();
+    }
+
+    public function getEmailMessage($idRegistrasi)
+    {
+        $this->db->select('je.NAMA_JENIS_EVENT, te.NAMA_TINGKAT_EVENT, e.NAMA_EVENT, cp.NAMA_CONTACT_PERSON, cp.NO_TELP_CONTACT_PERSON, cp.EMAIL_CONTACT_PERSON, t.NAMA_TEAM, t.SEKOLAH, t.PROVINSI, t.KOTA');
+        $this->db->from('registrasi r');
+        $this->db->join('event e', 'r.ID_EVENT = e.ID_EVENT');
+        $this->db->join('jenis_event je', 'e.ID_JENIS_EVENT = je.ID_JENIS_EVENT');
+        $this->db->join('tingkat_event te', 'e.ID_TINGKAT_EVENT = te.ID_TINGKAT_EVENT');
+        $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
+        $this->db->join('contact_person cp', 't.ID_CONTACT_PERSON = cp.ID_CONTACT_PERSON');
+        $this->db->where('r.ID_REGISTRASI', $idRegistrasi);
+
+        return $this->db->get()->result_array();
+    }
+
 
     public function getFotoEvent($id)
     {
