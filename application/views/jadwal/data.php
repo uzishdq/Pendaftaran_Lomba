@@ -40,18 +40,18 @@
                     foreach ($atribut as $e) :
                         if ($e['NAMA_TINGKAT_EVENT'] == $role || $role == "ADMIN") :
                 ?>
-                        <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= $e['NAMA_TINGKAT_EVENT']; ?></td>
-                            <td><?= $e['NAMA_JENIS_EVENT']; ?></td>
-                            <td><?= $e['NAMA_EVENT']; ?></td>
-                            <td><a href="<?= base_url('/assets/file/pertandingan/') . $e['FOTO_ATRIBUT'] ?>" target="_blank">Jadwal</a></td>
-                            <td><?= $e['NAMA_ATRIBUT']; ?></td>
-                            <td>
-                                <a href="jadwal/edit/<?= $e['ID_ATRIBUT'] ?>" class="btn btn-circle btn-sm btn-warning"><i class="fa fa-fw fa-edit"></i></a>
-                                <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('jadwal/delete/') . $e['ID_ATRIBUT'] . '&pic=' . $e['FOTO_ATRIBUT'] ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= $e['NAMA_TINGKAT_EVENT']; ?></td>
+                                <td><?= $e['NAMA_JENIS_EVENT']; ?></td>
+                                <td><?= $e['NAMA_EVENT']; ?></td>
+                                <td><a href="<?= base_url('/assets/file/pertandingan/') . $e['FOTO_ATRIBUT'] ?>" target="_blank">Jadwal</a></td>
+                                <td><?= $e['NAMA_ATRIBUT']; ?></td>
+                                <td>
+                                    <a href="jadwal/edit/<?= $e['ID_ATRIBUT'] ?>" class="btn btn-circle btn-sm btn-warning"><i class="fa fa-fw fa-edit"></i></a>
+                                    <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('jadwal/delete/') . $e['ID_ATRIBUT'] ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
+                                </td>
+                            </tr>
                         <?php endif; ?>
                     <?php endforeach;
 
