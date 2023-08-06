@@ -4,11 +4,9 @@
         <div class="title-text">
             <?php
             $bank = '';
-            $tingkat = '';
             if ($title) :
                 foreach ($title as $t) :
                     $bank = $t['BANK_EVENT'];
-                    $tingkat = $t['BANK_EVENT'];
             ?>
                     <h1><?= $t['NAMA_EVENT']; ?> <br> competition</h1>
                 <?php endforeach;
