@@ -1,4 +1,7 @@
 <?= $this->session->flashdata('pesan'); ?>
+<div class="alert-warning mb-5" role="alert">
+    Warning : Jika Menghapus data Event semua data Registrasi peserta akan terhapus
+</div>
 <div class="card shadow-sm border-bottom-primary">
     <div class="card-header bg-white py-3">
         <div class="row">
@@ -38,8 +41,7 @@
                 <?php
                 if ($event) :
                     $no = 1;
-                    $ci = get_instance();
-                    $role = $ci->session->userdata('login_session')['role'];
+                    $role = $this->session->userdata('login_session')['role'];
                     foreach ($event as $e) :
                         $tanggalMulai = $e['TGL_MULAI_EVENT'];
                         $datetime1 = date_create($tanggalMulai);

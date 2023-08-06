@@ -36,7 +36,7 @@ if ($jenisEvent) :
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
+                    <table class="table table-striped w-100 dt-responsive nowrap" id="">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -53,32 +53,38 @@ if ($jenisEvent) :
                         <tbody>
                             <?php
                             $no = 1;
+                            $role = $this->session->userdata('login_session')['role'];
                             $foundEvent = false;
                             if ($registerAll) :
                                 foreach ($registerAll as $e) :
-                                    if ($e['ID_JENIS_EVENT'] == $je['ID_JENIS_EVENT']) {
+                                    if ($e['ID_JENIS_EVENT'] == $je['ID_JENIS_EVENT'])
+                                    {
                                         $foundEvent = true;
+                                        if ($e['TINGKAT'] == $role || $role == "ADMIN") :
                             ?>
-                                        <tr>
-                                            <td><?= $no++; ?></td>
-                                            <td><?= $e['TINGKAT']; ?></td>
-                                            <td><?= $e['ID_REGISTRASI']; ?></td>
-                                            <td><?= $e['NAMA_EVENT']; ?></td>
-                                            <td>
-                                                <a href="<?= base_url('registrasi_all/team/') . $e['ID_REGISTRASI'] ?>">
-                                                    <?= $e['SEKOLAH']; ?></a>
-                                            </td>
-                                            <td><?= $e['NAMA_TEAM']; ?></td>
-                                            <td><?= $e['JUMLAH_PESERTA']; ?></td>
-                                            <td><a href="<?= base_url('/') . $e['BUKTI_BAYAR'] ?>" target="_blank">Bukti Registrasi</a></td>
-                                            <th>
-                                                <a href="<?= base_url('registrasi_all/toggle/') . $e['ID_REGISTRASI'] ?>" class="btn btn-circle btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-secondary' : 'btn-success' ?>" title="<?= $e['STATUS_REGISTRASI'] ? 'Tolak' : 'Terima' ?>"><i class="fa fa-fw fa-power-off"></i></a>
-                                                <?php if (is_admin()) : ?>
-                                                    <a onclick="return confirm('Jika Menghapus data registrasi semua data pendaftaran akan terhapus, Yakin ingin hapus? <?= $e['NAMA_EVENT']; ?>')" href="<?= base_url('event/delete/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                <?php endif; ?>
-                                            </th>
-                                        </tr>
+                                            <tr>
+                                                <td><?= $no++; ?></td>
+                                                <td><?= $e['TINGKAT']; ?></td>
+                                                <td><?= $e['ID_REGISTRASI']; ?></td>
+                                                <td><?= $e['NAMA_EVENT']; ?></td>
+                                                <td>
+                                                    <a href="<?= base_url('registrasi_all/team/') . $e['ID_REGISTRASI'] ?>">
+                                                        <?= $e['SEKOLAH']; ?></a>
+                                                </td>
+                                                <td><?= $e['NAMA_TEAM']; ?></td>
+                                                <td><?= $e['JUMLAH_PESERTA']; ?></td>
+                                                <td><a href="<?= base_url('/') . $e['BUKTI_BAYAR'] ?>" target="_blank">Bukti Registrasi</a></td>
+                                                <th>
+
+                                                    <a href="<?= base_url('registrasi_all/terima/') . $e['ID_REGISTRASI'] ?>" class="btn btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-secondary' : 'btn-success' ?>">Terima</a>
+                                                    <a href="<?= base_url('registrasi_all/tolak/') . $e['ID_REGISTRASI'] ?>" class="btn btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-secondary' : 'btn-warning' ?>">Tolak</a>
+                                                    <?php if (is_admin()) : ?>
+                                                        <a onclick="return confirm('Jika Menghapus data registrasi semua data pendaftaran akan terhapus, Yakin ingin hapus? <?= $e['NAMA_EVENT']; ?>')" href="<?= base_url('event/delete/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                    <?php endif; ?>
+                                                </th>
+                                            </tr>
                                 <?php
+                                        endif;
                                     }
                                 endforeach;
                             endif;

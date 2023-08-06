@@ -76,17 +76,17 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Data Master
-            </div>
-
-            <!-- Divider -->
-
-            <!-- <hr class="sidebar-divider"> -->
-
-            <!-- Nav Item - Dashboard -->
             <?php if (is_admin()) : ?>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Data Master
+                </div>
+
+                <!-- Divider -->
+
+                <!-- <hr class="sidebar-divider"> -->
+
+                <!-- Nav Item - Dashboard -->
                 <li class="nav-item">
                     <a class="nav-link pb-0" href="<?= base_url('jenis_event'); ?>">
                         <i class="fa fa-book"></i>
@@ -99,8 +99,8 @@
                         <span>Tingkatan Event</span>
                     </a>
                 </li>
+                <hr class="sidebar-divider">
             <?php endif; ?>
-            <hr class="sidebar-divider">
             <!-- Heading -->
             <div class="sidebar-heading">
                 Data Event
@@ -131,9 +131,9 @@
                 </a>
             </li>
 
-            <hr class="sidebar-divider">
 
             <?php if (is_admin()) : ?>
+                <hr class="sidebar-divider">
                 <!-- Heading -->
                 <div class="sidebar-heading">
                     Settings

@@ -35,8 +35,10 @@
             <tbody>
                 <?php
                 $no = 1;
+                $role = $this->session->userdata('login_session')['role'];
                 if ($atribut) :
                     foreach ($atribut as $e) :
+                        if ($e['NAMA_TINGKAT_EVENT'] == $role || $role == "ADMIN") :
                 ?>
                         <tr>
                             <td><?= $no++; ?></td>
@@ -50,7 +52,9 @@
                                 <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('jadwal/delete/') . $e['ID_ATRIBUT'] . '&pic=' . $e['FOTO_ATRIBUT'] ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
                             </td>
                         </tr>
+                        <?php endif; ?>
                     <?php endforeach;
+
                 else : ?>
                     <tr>
                         <td colspan="8" class="text-center"> Data Kosong. Silahkan tambahkan Jadwal Pertandingan</td>
