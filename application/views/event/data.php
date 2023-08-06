@@ -27,8 +27,7 @@
                     <th>Tingkatan</th>
                     <th>Nama Event</th>
                     <th>Kategori</th>
-                    <th>Tanggal Mulai</th>
-                    <th>Tanggal Akhir</th>
+                    <th>Tanggal</th>
                     <th>Biaya Pendaftaran</th>
                     <th>Bank</th>
                     <th>Status Event</th>
@@ -39,27 +38,38 @@
                 <?php
                 if ($event) :
                     $no = 1;
+                    $ci = get_instance();
+                    $role = $ci->session->userdata('login_session')['role'];
                     foreach ($event as $e) :
-                ?>
-                        <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= $e['NAMA_TINGKAT_EVENT']; ?></td>
-                            <td><?= $e['NAMA_EVENT']; ?></td>
-                            <td><?= $e['NAMA_JENIS_EVENT']; ?></td>
-                            <td><?= $e['TGL_MULAI_EVENT']; ?></td>
-                            <td><?= $e['TGL_AKHIR_EVENT']; ?></td>
-                            <td>Rp. <?= number_format($e['BIAYA_EVENT'], 0, ',', '.'); ?></td>
-                            <td><?= $e['BANK_EVENT']; ?></td>
-                            <td><?= $e['STATUS_EVENT']; ?></td>
-                            <th>
-                                <a href="<?= base_url('event/edit/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                <?php if (is_admin()) : ?>
-                                    <a onclick="return confirm('Yakin ingin hapus? <?= $e['NAMA_EVENT']; ?>')" href="<?= base_url('event/delete/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                <?php endif; ?>
-                            </th>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else : ?>
+                        $tanggalMulai = $e['TGL_MULAI_EVENT'];
+                        $datetime1 = date_create($tanggalMulai);
+                        $tglAwal = date_format($datetime1, 'd');
+
+                        $tanggalAkhir = $e['TGL_AKHIR_EVENT'];
+                        $datetime2 = date_create($tanggalAkhir);
+                        $tglAkhir = date_format($datetime2, 'd F Y');
+
+                        if ($e['NAMA_TINGKAT_EVENT'] == $role || $role == "ADMIN") : ?>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= $e['NAMA_TINGKAT_EVENT']; ?></td>
+                                <td><?= $e['NAMA_EVENT']; ?></td>
+                                <td><?= $e['NAMA_JENIS_EVENT']; ?></td>
+                                <td><?= $tglAwal; ?> - <?= $tglAkhir; ?></td>
+                                <td>Rp. <?= number_format($e['BIAYA_EVENT'], 0, ',', '.'); ?></td>
+                                <td><?= $e['BANK_EVENT']; ?></td>
+                                <td><?= $e['STATUS_EVENT']; ?></td>
+                                <th>
+                                    <a href="<?= base_url('event/edit/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                    <?php if (is_admin()) : ?>
+                                        <a onclick="return confirm('Yakin ingin hapus? <?= $e['NAMA_EVENT']; ?>')" href="<?= base_url('event/delete/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    <?php endif; ?>
+                                </th>
+                            </tr>
+                    <?php endif;
+
+                    endforeach;
+                else : ?>
                     <tr>
                         <td colspan="10" class="text-center">
                             Data Kosong

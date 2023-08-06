@@ -55,13 +55,16 @@
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="role">Role</label>
                     <div class="col-md-6">
-                        <div class="custom-control custom-radio">
-                            <input <?= $user['ROLE'] == 'admin' ? 'checked' : ''; ?> <?= set_radio('role', 'admin'); ?> value="admin" type="radio" id="admin" name="role" class="custom-control-input">
-                            <label class="custom-control-label" for="admin">Admin</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input <?= $user['ROLE'] == 'panitia' ? 'checked' : ''; ?> <?= set_radio('role', 'panitia'); ?> value="panitia" type="radio" id="panitia" name="role" class="custom-control-input">
-                            <label class="custom-control-label" for="panitia">Panitia</label>
+                        <div class="input-group">
+                            <select name="role" id="role" class="custom-select">
+                                <option value="" selected disabled>Pilih Role..</option>
+                                <option value="ADMIN">ADMIN</option>
+                                <?php
+                                foreach ($tingkat as $t) :
+                                ?>
+                                    <option <?= $user['ROLE'] == $t['NAMA_TINGKAT_EVENT'] ? 'selected' : ''; ?> <?= set_select('role', $t['NAMA_TINGKAT_EVENT']) ?> value="<?= $t['NAMA_TINGKAT_EVENT'] ?>">PANITIA <?= $t['NAMA_TINGKAT_EVENT'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <?= form_error('role', '<span class="text-danger small">', '</span>'); ?>
                     </div>

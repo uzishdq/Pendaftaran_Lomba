@@ -20,7 +20,6 @@ class User extends CI_Controller
     {
         $data['title'] = "User Management";
         $data['users'] = $this->admin->getUsers(userdata('ID_USER'));
-
         $this->template->load('templates/dashboard', 'user/data', $data);
     }
 
@@ -61,6 +60,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false)
         {
             $data['title'] = "Tambah User";
+            $data['tingkat'] = $this->admin->get('tingkat_event');
             $this->template->load('templates/dashboard', 'user/add', $data);
         }
         else
@@ -99,6 +99,7 @@ class User extends CI_Controller
         {
             $data['title'] = "Edit User";
             $data['user'] = $this->admin->get('user', ['ID_USER' => $id]);
+            $data['tingkat'] = $this->admin->get('tingkat_event');
             $this->template->load('templates/dashboard', 'user/edit', $data);
         }
         else

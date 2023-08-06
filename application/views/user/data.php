@@ -52,7 +52,7 @@
                             <td>
                                 <a href="<?= base_url('user/toggle/') . $user['ID_USER'] ?>" class="btn btn-circle btn-sm <?= $user['IS_ACTIVE'] ? 'btn-secondary' : 'btn-success' ?>" title="<?= $user['IS_ACTIVE'] ? 'Nonaktifkan User' : 'Aktifkan User' ?>"><i class="fa fa-fw fa-power-off"></i></a>
                                 <a href="<?= base_url('user/edit/') . $user['ID_USER'] ?>" class="btn btn-circle btn-sm btn-warning"><i class="fa fa-fw fa-edit"></i></a>
-                                <a onclick="return confirm('Yakin ingin hapus? <?= $user['NAMA_USER']; ?>')" href="<?= base_url('user/delete/') . $e['ID_USER'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                <a onclick="return confirm('Yakin ingin hapus? <?= $user['NAMA_USER']; ?>')" href="<?= base_url('user/delete/') . $user['ID_USER'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach;

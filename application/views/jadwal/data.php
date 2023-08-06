@@ -61,7 +61,6 @@
         </table>
     </div>
 </div>
-
 <div class="card shadow-sm border-bottom-primary">
     <div class="card-header bg-white py-3">
         <div class="row">
@@ -78,45 +77,27 @@
         <table class="table table-striped" id="dataTable">
             <thead>
                 <tr>
-                    <th>No. </th>
-                    <th>Nama Team / Asal Sekolah</th>
-                    <th>VS</th>
-                    <th>Nama Team / Asal Sekolah</th>
+                    <th>Nama Event</th>
+                    <th>Jenis Event</th>
+                    <th>Tingkat Event</th>
+                    <th>Tim 1</th>
+                    <th>Tim 2</th>
+                    <th>Sekolah 1</th>
+                    <th>Sekolah 2</th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                $no = 1;
-                $previous_team = null;
-                $previous_sekole = null;
-
-                if ($jadwal) :
-                    foreach ($jadwal as $index => $j) :
-                        $current_team = $j['NAMA_TEAM'];
-                        $current_sekole = $j['SEKOLAH'];
-
-                        if ($current_team != $previous_team || $current_sekole != $previous_sekole) :
-                ?>
-                            <tr>
-                                <td><?= $no++; ?></td>
-                                <td><?= $j['NAMA_TEAM'] . ' - ' . $j['SEKOLAH']; ?></td>
-                                <td>VS</td>
-                                <td><?= $previous_team ? $previous_team . ' - ' . $previous_sekole : ''; ?></td>
-                            </tr>
-                    <?php
-                        endif;
-                        $previous_team = $current_team;
-                        $previous_sekole = $current_sekole;
-                    endforeach;
-                else :
-                    ?>
+                <?php foreach ($jadwal as $j) : ?>
                     <tr>
-                        <td colspan="4" class="text-center">
-                            Data Kosong
-                        </td>
+                        <td><?= $j['Nama_Event']; ?></td>
+                        <td><?= $j['Jenis_Event']; ?></td>
+                        <td><?= $j['Tingkat_Event']; ?></td>
+                        <td><?= $j['Tim_Peserta_1']; ?></td>
+                        <td><?= $j['Tim_Peserta_2']; ?></td>
+                        <td><?= $j['Sekolah_1']; ?></td>
+                        <td><?= $j['Sekolah_2']; ?></td>
                     </tr>
-                <?php endif; ?>
-
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

@@ -34,10 +34,12 @@ class Laporan extends CI_Controller
     {
         $this->load->library('CustomPDF');
 
+
         $table = 'Data Registrasi';
         $tanggal = 'Apa aja Boleh';
 
         $pdf = new FPDF();
+
         $pdf->AddPage('P', 'Letter');
         $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(190, 7, 'Laporan ' . $table, 0, 1, 'C');

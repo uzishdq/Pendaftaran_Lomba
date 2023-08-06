@@ -32,7 +32,6 @@
                             <div class="input-group">
                                 <select name="ID_TINGKAT_EVENT" id="ID_TINGKAT_EVENT" class="custom-select">
                                     <option value="" selected disabled>Pilih Tingakatn Event</option>
-
                                     <?php foreach ($tingkat as $t) : ?>
                                         <option <?= $event['ID_TINGKAT_EVENT'] == $t['ID_TINGKAT_EVENT'] ? 'selected' : ''; ?> <?= set_select('ID_TINGKAT_EVENT', $t['ID_TINGKAT_EVENT']) ?> value="<?= $t['ID_TINGKAT_EVENT'] ?>"><?= $t['NAMA_TINGKAT_EVENT'] ?></option>
                                     <?php endforeach; ?>

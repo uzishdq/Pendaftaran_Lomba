@@ -112,12 +112,16 @@ class Admin_model extends CI_Model
 
     public function getSchedule()
     {
-        $this->db->select('t.ID_TEAM, t.NAMA_TEAM, t.SEKOLAH, t.TINGKAT');
+        $this->db->select('e.NAMA_EVENT AS Nama_Event, je.NAMA_JENIS_EVENT AS Jenis_Event, te.NAMA_TINGKAT_EVENT AS Tingkat_Event, t1.NAMA_TEAM AS Tim_Peserta_1, t2.NAMA_TEAM AS Tim_Peserta_2, t1.SEKOLAH AS Sekolah_1, t2.SEKOLAH AS Sekolah_2, t1.PROVINSI AS Provinsi_1, t2.PROVINSI AS Provinsi_2, t1.KOTA AS Kota_1, t2.KOTA AS Kota_2, r.JUMLAH_PESERTA AS Jumlah_Peserta, e.TGL_MULAI_EVENT AS Tanggal_Mulai, e.TGL_AKHIR_EVENT AS Tanggal_Akhir');
+        $this->db->from('registrasi r');
         $this->db->join('event e', 'r.ID_EVENT = e.ID_EVENT');
-        $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
-        $this->db->where('r.STATUS_REGISTRASI', '1');
-        $this->db->order_by('r.ID_REGISTRASI');
-        return $this->db->get('registrasi r')->result_array();
+        $this->db->join('jenis_event je', 'e.ID_JENIS_EVENT = je.ID_JENIS_EVENT');
+        $this->db->join('tingkat_event te', 'e.ID_TINGKAT_EVENT = te.ID_TINGKAT_EVENT');
+        $this->db->join('team t1', 'r.ID_REGISTRASI = t1.ID_REGISTRASI');
+        $this->db->join('team t2', 'r.ID_REGISTRASI = t2.ID_REGISTRASI');
+        $this->db->where('t1.ID_TEAM < t2.ID_TEAM'); // Menampilkan hanya tim yang belum dipasangkan
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
     public function getTeamPeserta($idRegistrasi)
