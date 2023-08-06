@@ -54,7 +54,7 @@ class Admin_model extends CI_Model
 
     public function getLaporanEvent($idEvent)
     {
-        $this->db->select('je.NAMA_JENIS_EVENT, e.NAMA_EVENT, te.NAMA_TINGKAT_EVENT, t.NAMA_TEAM, t.SEKOLAH, t.PROVINSI, t.KOTA, c.NAMA_CONTACT_PERSON, c.NO_TELP_CONTACT_PERSON, c.EMAIL_CONTACT_PERSON, p.NAMA_PESERTA, p.FOTO_PESERTA, r.JUMLAH_PESERTA');
+        $this->db->select('r.ID_REGISTRASI, je.NAMA_JENIS_EVENT, e.NAMA_EVENT, te.NAMA_TINGKAT_EVENT, t.NAMA_TEAM, t.SEKOLAH, t.PROVINSI, t.KOTA, c.NAMA_CONTACT_PERSON, c.NO_TELP_CONTACT_PERSON, c.EMAIL_CONTACT_PERSON, GROUP_CONCAT(p.NAMA_PESERTA) AS NAMA_PESERTA, GROUP_CONCAT(p.FOTO_PESERTA) AS FOTO_PESERTA, r.JUMLAH_PESERTA');
         $this->db->from('event e');
         $this->db->join('tingkat_event te', 'e.ID_TINGKAT_EVENT = te.ID_TINGKAT_EVENT');
         $this->db->join('jenis_event je', 'e.ID_JENIS_EVENT = je.ID_JENIS_EVENT');
@@ -63,6 +63,7 @@ class Admin_model extends CI_Model
         $this->db->join('contact_person c', 't.ID_CONTACT_PERSON = c.ID_CONTACT_PERSON');
         $this->db->join('peserta p', 't.ID_TEAM = p.ID_TEAM');
         $this->db->where('e.ID_EVENT', $idEvent);
+        $this->db->group_by('r.ID_REGISTRASI, je.NAMA_JENIS_EVENT, e.NAMA_EVENT, te.NAMA_TINGKAT_EVENT');
 
         return $this->db->get()->result_array();
     }

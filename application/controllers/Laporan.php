@@ -38,15 +38,19 @@ class Laporan extends CI_Controller
         $tanggal = date('d-M-y');
 
         $pdf = new FPDF();
-        $pdf->AddPage('P', 'Letter');
-        $pdf->AliasNbPages();
 
-        $teamDisplayed = false;
-        $pesertaDisplayed = false;
+
+        $teamDisplayed = array();
         foreach ($query as $d)
         {
-            if (!$teamDisplayed)
+
+            $daftarNamaPeserta = explode(",", $d['NAMA_PESERTA']);
+            $daftarFotoPeserta = explode(",", $d['FOTO_PESERTA']);
+
+            if (!in_array($d['ID_REGISTRASI'], $teamDisplayed))
             {
+                $pdf->AddPage('P', 'Letter');
+                $pdf->AliasNbPages();
                 $pdf->SetFont('Arial', 'B', 16);
                 $pdf->Cell(190, 7, 'Laporan ' . $table, 0, 1, 'C');
                 $pdf->SetFont('Arial', '', 10);
@@ -89,18 +93,18 @@ class Laporan extends CI_Controller
                 $pdf->Cell(50, 7, 'Nama Peserta', 1, 0, 'C');
                 $pdf->Cell(50, 7, 'Foto Peserta', 1, 0, 'C');
                 $pdf->Ln();
+                $pdf->SetFont('Arial', '', 12);
 
-                foreach ($query as $d)
+                // var_dump($d['FOTO_PESERTA']);
+                foreach ($daftarNamaPeserta as $index => $namaPeserta)
                 {
-                    $pdf->SetFont('Arial', '', 12);
-                    $pdf->Cell(50, 40, $d['NAMA_PESERTA'], 1, 0, 'C');
-                    $pdf->Cell(50, 40, $pdf->Image(base_url() . $d['FOTO_PESERTA'], ($pdf->GetX() + (50 - 30) / 2), ($pdf->GetY() + (40 - 30) / 2), 30, 35), 1, 0, 'C');
+                    $pdf->Cell(50, 40, $namaPeserta, 1, 0, 'C');
+                    $pdf->Cell(50, 40, $pdf->Image(base_url() . $daftarFotoPeserta[$index], ($pdf->GetX() + (50 - 30) / 2), ($pdf->GetY() + (40 - 30) / 2), 30, 35), 1, 0, 'C');
                     $pdf->Ln();
                 }
-                $teamDisplayed = true;
+                $teamDisplayed[] = $d['ID_REGISTRASI'];
             }
         }
-
 
         $file_name = $table . ' ' . $tanggal;
         $pdf->Output('I', $file_name);
