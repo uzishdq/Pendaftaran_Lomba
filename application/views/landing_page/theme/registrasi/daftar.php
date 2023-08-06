@@ -3,14 +3,15 @@
     <div class="container">
         <div class="title-text">
             <?php
+            $bank = '';
+            $tingkat = '';
             if ($title) :
                 foreach ($title as $t) :
+                    $bank = $t['BANK_EVENT'];
+                    $tingkat = $t['BANK_EVENT'];
             ?>
                     <h1><?= $t['NAMA_EVENT']; ?> <br> competition</h1>
-
                 <?php endforeach;
-
-
             else : ?>
                 <h1>Tida Ada Data Event</h1>
             <?php endif; ?>
@@ -21,7 +22,6 @@
 
 <?php
 if ($title) : ?>
-
     <section class="section style-three pb-0">
         <div class="container">
             <div class="row">
@@ -90,7 +90,7 @@ if ($title) : ?>
                                         <div class="mb-3">
                                             <label for="file" class="drop-container">
                                                 <img id='folder-upload' src="<?= base_url() ?>assets/img/images/icons/upload-folder.png">
-                                                <span class="drop-title">Upload Bukti Pembayaran</span>
+                                                <span class="drop-title">Upload Bukti Pembayaran ke <?= $bank  ?></span>
                                                 or
                                                 <input type="file" id="BUKTI_BAYAR" name="BUKTI_BAYAR" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/gif, image/jpeg, image/png" required style="width: 350px;
                                 max-width: 100%;
@@ -248,8 +248,6 @@ if ($title) : ?>
 else : ?>
 
 <?php endif; ?>
-
-
 
 <script>
     function validateForm() {

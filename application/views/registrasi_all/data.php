@@ -47,6 +47,7 @@ if ($jenisEvent) :
                                 <th>Sekolah</th>
                                 <th>Jumlah Peserta</th>
                                 <th>Bukti Pembayaran</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -75,9 +76,20 @@ if ($jenisEvent) :
                                                 <td><?= $e['JUMLAH_PESERTA']; ?></td>
                                                 <td><a href="<?= base_url('/') . $e['BUKTI_BAYAR'] ?>" target="_blank">Bukti Registrasi</a></td>
                                                 <th>
+                                                    <?php
+                                                    if ($e['STATUS_REGISTRASI'] == 1) :
+                                                    ?>
+                                                        <a href="<?= base_url('registrasi_all/tolak/') . $e['ID_REGISTRASI'] ?>" class="btn btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-secondary' : 'btn-warning' ?>">Tolak</a>
+                                                        <a href="#" class="btn btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-success' : 'btn-secondary' ?>">Terima</a>
+                                                    <?php else : ?>
+                                                        <a href="#" class="btn btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-secondary' : 'btn-warning' ?>">Tolak</a>
+                                                        <a href="<?= base_url('registrasi_all/terima/') . $e['ID_REGISTRASI'] ?>" class="btn btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-success' : 'btn-secondary' ?>">Terima</a>
+                                                    <?php endif; ?>
 
-                                                    <a href="<?= base_url('registrasi_all/terima/') . $e['ID_REGISTRASI'] ?>" class="btn btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-secondary' : 'btn-success' ?>">Terima</a>
-                                                    <a href="<?= base_url('registrasi_all/tolak/') . $e['ID_REGISTRASI'] ?>" class="btn btn-sm <?= $e['STATUS_REGISTRASI'] ? 'btn-secondary' : 'btn-warning' ?>">Tolak</a>
+
+
+                                                </th>
+                                                <th>
                                                     <?php if (is_admin()) : ?>
                                                         <a onclick="return confirm('Jika Menghapus data registrasi semua data pendaftaran akan terhapus, Yakin ingin hapus? <?= $e['NAMA_EVENT']; ?>')" href="<?= base_url('event/delete/') . $e['ID_EVENT'] ?>" class="btn btn-circle btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                                     <?php endif; ?>
@@ -93,7 +105,7 @@ if ($jenisEvent) :
                                 ?>
                                 <tr>
                                     <td colspan="9" class="text-center">
-                                        Data Kosong
+                                        Tidak Ada Registrasi
                                     </td>
                                 </tr>
                             <?php endif; ?>

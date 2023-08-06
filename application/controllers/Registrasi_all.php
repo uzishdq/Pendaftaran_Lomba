@@ -53,21 +53,64 @@ class Registrasi_all extends CI_Controller
         $status = $this->admin->get('registrasi', ['ID_REGISTRASI' => $id])['STATUS_REGISTRASI'];
         $email = $this->admin->getEmailMessage($id);
         $toggle = $status ? 0 : 1; //Jika user aktif maka nonaktifkan, begitu pula sebaliknya
-        $pesan = $toggle ? 'Info Registrasi Telah Terkirim' : 'Tolak';
+        $pesan = $toggle ? 'Terima' : 'Tolak';
         if ($this->admin->update('registrasi', 'ID_REGISTRASI', $id, ['STATUS_REGISTRASI' => $toggle]))
         {
             $this->_sendMail($email);
             set_pesan($pesan);
         }
-
         redirect('registrasi_all');
     }
 
-    private function _sendMail($email)
+    public function tolak($getId)
+    {
+        $id = $getId;
+        $status = $this->admin->get('registrasi', ['ID_REGISTRASI' => $id])['STATUS_REGISTRASI'];
+        $email = $this->admin->getEmailMessage($id);
+
+        if ($status == 1)
+        {
+            $status = 0;
+            $template = "Assalamualaikum,\r\n\r\nKepada : {nama}, {sekolah}, \r\n\r\nMohon Maaf Registrasi Anda Ditolak. \r\n\r\nDalam Event {event} Tingkat {tingkat} - Nama Event {namaEvent} \r\nNama Team : {namaTeam} - Sekolah : {sekolah} - Provinsi : {provinsi} - Kota : {kota} \r\n\r\n\r\nTerima kasih.";
+            if ($this->admin->update('registrasi', 'ID_REGISTRASI', $id, ['STATUS_REGISTRASI' => $status]))
+            {
+                $this->_sendMail($email, $template);
+                set_pesan("Status Berhasil Diubah, Email Segera Dikirimkan ");
+            }
+            else
+            {
+                set_pesan("Status Gagal Diubah, Email Tidak Dikirimkan ", false);
+            }
+        }
+        redirect('registrasi_all');
+    }
+
+    public function terima($getId)
+    {
+        $id = $getId;
+        $status = $this->admin->get('registrasi', ['ID_REGISTRASI' => $id])['STATUS_REGISTRASI'];
+        $email = $this->admin->getEmailMessage($id);
+
+        if ($status == 0)
+        {
+            $status = 1;
+            $template = "Assalamualaikum,\r\n\r\nKepada : {nama}, {sekolah}, \r\n\r\nSelamat Registrasi Anda Diterima. \r\n\r\nDalam Event {event} Tingkat {tingkat} - Nama Event {namaEvent} \r\nNama Team : {namaTeam} - Sekolah : {sekolah} - Provinsi : {provinsi} - Kota : {kota} \r\n\r\n\r\nTerima kasih.";
+            if ($this->admin->update('registrasi', 'ID_REGISTRASI', $id, ['STATUS_REGISTRASI' => $status]))
+            {
+                $this->_sendMail($email, $template);
+                set_pesan("Status Berhasil Diubah, Email Segera Dikirimkan ");
+            }
+            else
+            {
+                set_pesan("Status Gagal Diubah, Email Tidak Dikirimkan ", false);
+            }
+        }
+        redirect('registrasi_all');
+    }
+
+    private function _sendMail($email, $template)
     {
 
-
-        $template = "Assalamualaikum,\r\n\r\nKepada : {nama}, {sekolah}, \r\n\r\nSelamat Registrasi Anda Diterima. \r\n\r\nDalam Event {event} Tingkat {tingkat} - Nama Event {namaEvent} \r\nNama Team : {namaTeam} - Sekolah : {sekolah} - Provinsi : {provinsi} - Kota : {kota} \r\n\r\n\r\nTerima kasih.";
         $config = [
             'protocol' => 'smtp',
             'smtp_host' => 'smtp.googlemail.com',
