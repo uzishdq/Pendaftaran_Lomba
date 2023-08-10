@@ -208,11 +208,13 @@ class Undangan extends CI_Controller
 
                     if ($this->email->send())
                     {
-                        echo "Email with attachment sent to $recipient<br>";
+                        set_pesan('Email with attachment sent to:' . $recipient);
+                        redirect('undangan');
                     }
                     else
                     {
-                        echo "Failed to send email with attachment to $recipient<br>";
+                        set_pesan('Failed to send email with attachment to :' . $recipient);
+                        redirect('undangan');
                         echo $this->email->print_debugger();
                     }
                 }
