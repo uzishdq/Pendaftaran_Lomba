@@ -137,7 +137,7 @@ class Registrasi_all extends CI_Controller
             $message = str_replace('{provinsi}', $ue['PROVINSI'], $message);
             $message = str_replace('{kota}', $ue['KOTA'], $message);
 
-            $this->email->from('por.piis2005@gmail.com', 'Panitia PORPIS (Pekan Olahraga Permata Insani Islamic School)');
+            $this->email->from('por.piis2005@gmail.com', 'Panitia PORPIS (Pekan Olahraga Permata Insani Islamic School');
             $this->email->to($ue['EMAIL_CONTACT_PERSON']);
             $this->email->subject('Info Registrasi Pekan Olahraga Permata Insani Islamic School');
             $this->email->message($message);

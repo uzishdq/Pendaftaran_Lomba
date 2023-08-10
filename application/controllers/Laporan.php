@@ -38,6 +38,7 @@ class Laporan extends CI_Controller
         $tanggal = date('d-M-y');
 
         $pdf = new FPDF();
+
         if ($query != null)
         {
             $teamDisplayed = array();
@@ -89,16 +90,26 @@ class Laporan extends CI_Controller
                     $pdf->Ln();
                     $pdf->Ln(20);
 
-                    $pdf->Cell(50, 7, 'Nama Peserta', 1, 0, 'C');
-                    $pdf->Cell(50, 7, 'Foto Peserta', 1, 0, 'C');
+                    $pdf->SetFont('Arial','B',12);
+                    $pdf->Cell(7, 9, 'No', 1, 0, 'C');
+                    $pdf->Cell(12, 9, 'NPG', 1, 0, 'C');
+                    $pdf->Cell(90, 9, 'Nama Peserta', 1, 0, 'C');
+                    $pdf->Cell(50, 9, 'Foto Peserta', 1, 0, 'C');
+                    $pdf->Cell(12, 9, 'M', 1, 0, 'C');
+                    $pdf->Cell(12, 9, 'C', 1, 0, 'C');
+                    $pdf->Cell(12, 9, 'TM', 1, 0, 'C');
                     $pdf->Ln();
                     $pdf->SetFont('Arial', '', 12);
-
-                    // var_dump($d['FOTO_PESERTA']);
+                    $n = 1 ;
                     foreach ($daftarNamaPeserta as $index => $namaPeserta)
                     {
-                        $pdf->Cell(50, 40, $namaPeserta, 1, 0, 'C');
-                        $pdf->Cell(50, 40, $pdf->Image(base_url() . $daftarFotoPeserta[$index], ($pdf->GetX() + (50 - 30) / 2), ($pdf->GetY() + (40 - 30) / 2), 30, 35), 1, 0, 'C');
+                        $pdf->Cell(7, 10, $n++, 1, 0, 'C');
+                        $pdf->Cell(12, 10," ", 1, 0, 'C');
+                        $pdf->Cell(90, 10, $namaPeserta, 1, 0, 'L');
+                        $pdf->Cell(50, 10, $daftarFotoPeserta[$index], 1, 0, 'C');
+                        $pdf->Cell(12, 10," ", 1, 0, 'C');
+                        $pdf->Cell(12, 10," ", 1, 0, 'C');
+                        $pdf->Cell(12, 10," ", 1, 0, 'C');
                         $pdf->Ln();
                     }
                     $teamDisplayed[] = $d['ID_REGISTRASI'];

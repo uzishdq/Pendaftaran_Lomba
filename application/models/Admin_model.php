@@ -52,6 +52,11 @@ class Admin_model extends CI_Model
         return $this->db->get('event e')->result_array();
     }
 
+    public function getUndangan()
+    {
+        return $this->db->get('undangan')->result_array();
+    }
+
     public function getLaporanEvent($idEvent)
     {
         $this->db->select('r.ID_REGISTRASI, je.NAMA_JENIS_EVENT, e.NAMA_EVENT, te.NAMA_TINGKAT_EVENT, t.NAMA_TEAM, t.SEKOLAH, t.PROVINSI, t.KOTA, c.NAMA_CONTACT_PERSON, c.NO_TELP_CONTACT_PERSON, c.EMAIL_CONTACT_PERSON, GROUP_CONCAT(p.NAMA_PESERTA) AS NAMA_PESERTA, GROUP_CONCAT(p.FOTO_PESERTA) AS FOTO_PESERTA, r.JUMLAH_PESERTA');
@@ -75,6 +80,14 @@ class Admin_model extends CI_Model
         $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
         $this->db->join('contact_person cp', 't.ID_CONTACT_PERSON = cp.ID_CONTACT_PERSON');
         $this->db->where('r.ID_REGISTRASI', $idRegistrasi);
+        return $this->db->get()->result_array();
+    }
+
+    public function getEmailContactPersonAll()
+    {
+        $this->db->select('cp.NAMA_CONTACT_PERSON,cp.EMAIL_CONTACT_PERSON,t.SEKOLAH,t.KOTA');
+        $this->db->from('contact_person cp');
+        $this->db->join('team t', 'cp.ID_CONTACT_PERSON = t.ID_CONTACT_PERSON');
         return $this->db->get()->result_array();
     }
 

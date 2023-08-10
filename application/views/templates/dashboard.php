@@ -107,6 +107,12 @@
             </div>
             <!-- Nav Item -->
             <li class="nav-item">
+                <a class="nav-link pb-0" href="<?= base_url('undangan'); ?>">
+                    <i class="fa fa-address-card"></i>
+                    <span>Undangan</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link pb-0" href="<?= base_url('event'); ?>">
                     <i class="fa fa-trophy"></i>
                     <span>Event</span>
