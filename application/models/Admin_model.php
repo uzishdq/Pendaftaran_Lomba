@@ -124,6 +124,23 @@ class Admin_model extends CI_Model
         return $this->db->get('jenis_event')->result_array();
     }
 
+    public function getSchedule2($jenisEvent, $tingkatEvent)
+    {
+        $this->db->select('e.NAMA_EVENT, t.NAMA_TEAM, t.SEKOLAH, je.NAMA_JENIS_EVENT, te.NAMA_TINGKAT_EVENT');
+        $this->db->from('registrasi r');
+        $this->db->join('team t', 'r.ID_REGISTRASI = t.ID_REGISTRASI');
+        $this->db->join('event e', 'r.ID_EVENT = e.ID_EVENT');
+        $this->db->join('jenis_event je', 'e.ID_JENIS_EVENT = je.ID_JENIS_EVENT');
+        $this->db->join('tingkat_event te', 'e.ID_TINGKAT_EVENT = te.ID_TINGKAT_EVENT');
+
+        // Gunakan parameter jenisEvent dan tingkatEvent dalam kueri
+        $this->db->where('je.ID_JENIS_EVENT', $jenisEvent);
+        $this->db->where('te.ID_TINGKAT_EVENT', $tingkatEvent);
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function getSchedule()
     {
         $this->db->select('e.NAMA_EVENT AS Nama_Event, je.NAMA_JENIS_EVENT AS Jenis_Event, te.NAMA_TINGKAT_EVENT AS Tingkat_Event, t1.NAMA_TEAM AS Tim_Peserta_1, t2.NAMA_TEAM AS Tim_Peserta_2, t1.SEKOLAH AS Sekolah_1, t2.SEKOLAH AS Sekolah_2, t1.PROVINSI AS Provinsi_1, t2.PROVINSI AS Provinsi_2, t1.KOTA AS Kota_1, t2.KOTA AS Kota_2, r.JUMLAH_PESERTA AS Jumlah_Peserta, e.TGL_MULAI_EVENT AS Tanggal_Mulai, e.TGL_AKHIR_EVENT AS Tanggal_Akhir');

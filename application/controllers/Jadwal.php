@@ -14,9 +14,18 @@ class Jadwal extends CI_Controller
 
     public function index()
     {
+        if ($this->input->post())
+        {
+            $jenisEvent = $this->input->post('jenis_event');
+            $tingkatEvent = $this->input->post('tingkat_event');
+
+            $data['spinner'] = $this->admin->getSchedule2($jenisEvent, $tingkatEvent);
+        }
         $data['title'] = "Jadwal Pertandingan";
         $data['jadwal'] = $this->admin->getSchedule();
         $data['atribut'] = $this->admin->getAtributAll();
+        $data['jenisEvent'] = $this->admin->get('jenis_event');
+        $data['tingkatEvent'] = $this->admin->get('tingkat_event');
         $this->template->load('templates/dashboard', 'jadwal/data', $data);
     }
 
@@ -147,7 +156,7 @@ class Jadwal extends CI_Controller
     public function delete($getId)
     {
         $id = encode_php_tags($getId);
-        
+
         if ($this->admin->delete('atribut', 'ID_ATRIBUT', $id))
         {
             set_pesan('data berhasil dihapus.');

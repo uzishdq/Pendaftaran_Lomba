@@ -83,7 +83,7 @@
                         <?php endforeach; ?>
                     </select>
                     <div class="input-group-append">
-                        <a class="btn btn-primary" href="<?= base_url('tingkatan_event/add'); ?>"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-primary" href="<?= base_url('undangan/add'); ?>"><i class="fa fa-plus"></i></a>
                     </div>
                 </div>
                 <?= form_error('FILE_UNDANGAN', '<small class="text-danger">', '</small>'); ?>

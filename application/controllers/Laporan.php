@@ -35,6 +35,7 @@ class Laporan extends CI_Controller
         $this->load->library('CustomPDF');
 
         $table = 'Data Registrasi';
+        $subTable = 'PORPIS (Pekan Olahraga Permata Insani Islamic School)';
         $tanggal = date('d-M-y');
 
         $pdf = new FPDF();
@@ -53,7 +54,10 @@ class Laporan extends CI_Controller
                     $pdf->AliasNbPages();
                     $pdf->SetFont('Arial', 'B', 16);
                     $pdf->Cell(190, 7, 'Laporan ' . $table, 0, 1, 'C');
+                    $pdf->SetFont('Arial', 'B', 13);
+                    $pdf->Cell(190, 7,$subTable, 0, 1, 'C');
                     $pdf->SetFont('Arial', '', 10);
+                    $pdf->Ln();
                     $pdf->Cell(190, 4, 'Tanggal : ' . $tanggal, 0, 1, 'C');
                     $pdf->Ln(10);
                     $pdf->SetFont('Arial', 'B', 10);
@@ -90,7 +94,7 @@ class Laporan extends CI_Controller
                     $pdf->Ln();
                     $pdf->Ln(20);
 
-                    $pdf->SetFont('Arial','B',12);
+                    $pdf->SetFont('Arial', 'B', 12);
                     $pdf->Cell(7, 9, 'No', 1, 0, 'C');
                     $pdf->Cell(12, 9, 'NPG', 1, 0, 'C');
                     $pdf->Cell(90, 9, 'Nama Peserta', 1, 0, 'C');
@@ -100,16 +104,16 @@ class Laporan extends CI_Controller
                     $pdf->Cell(12, 9, 'TM', 1, 0, 'C');
                     $pdf->Ln();
                     $pdf->SetFont('Arial', '', 12);
-                    $n = 1 ;
+                    $n = 1;
                     foreach ($daftarNamaPeserta as $index => $namaPeserta)
                     {
                         $pdf->Cell(7, 10, $n++, 1, 0, 'C');
-                        $pdf->Cell(12, 10," ", 1, 0, 'C');
+                        $pdf->Cell(12, 10, " ", 1, 0, 'C');
                         $pdf->Cell(90, 10, $namaPeserta, 1, 0, 'L');
                         $pdf->Cell(50, 10, $daftarFotoPeserta[$index], 1, 0, 'C');
-                        $pdf->Cell(12, 10," ", 1, 0, 'C');
-                        $pdf->Cell(12, 10," ", 1, 0, 'C');
-                        $pdf->Cell(12, 10," ", 1, 0, 'C');
+                        $pdf->Cell(12, 10, " ", 1, 0, 'C');
+                        $pdf->Cell(12, 10, " ", 1, 0, 'C');
+                        $pdf->Cell(12, 10, " ", 1, 0, 'C');
                         $pdf->Ln();
                     }
                     $teamDisplayed[] = $d['ID_REGISTRASI'];
