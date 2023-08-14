@@ -55,12 +55,12 @@ class Laporan extends CI_Controller
                     $pdf->SetFont('Arial', 'B', 16);
                     $pdf->Cell(190, 7, 'Laporan ' . $table, 0, 1, 'C');
                     $pdf->SetFont('Arial', 'B', 13);
-                    $pdf->Cell(190, 7,$subTable, 0, 1, 'C');
+                    $pdf->Cell(190, 7, $subTable, 0, 1, 'C');
                     $pdf->SetFont('Arial', '', 10);
                     $pdf->Ln();
                     $pdf->Cell(190, 4, 'Tanggal : ' . $tanggal, 0, 1, 'C');
                     $pdf->Ln(10);
-                    $pdf->SetFont('Arial', 'B', 10);
+                    $pdf->SetFont('Arial', 'B', 12);
 
                     $pdf->Cell(61, 10, 'Jenis Event : ' . $d['NAMA_JENIS_EVENT'], 0, 0, 'L');
                     $pdf->Cell(61, 10, 'Nama Event : ' . $d['NAMA_EVENT'], 0, 0, 'C');
@@ -79,26 +79,25 @@ class Laporan extends CI_Controller
                     $pdf->Cell(40, 7, ': ' . $d['EMAIL_CONTACT_PERSON'], 0, 0, 'L');
 
                     $pdf->Ln(20);
+                    $pdf->Cell(40, 7, 'Sekolah', 0, 0, 'L');
+                    $pdf->Cell(150, 7, ': ' . $d['SEKOLAH'], 0, 0, 'L');
+                    $pdf->Ln();
                     $pdf->Cell(40, 7, 'Nama Team', 0, 0, 'L');
                     $pdf->Cell(70, 7, ': ' . $d['NAMA_TEAM'], 0, 0, 'L');
                     $pdf->Cell(40, 7, 'Kota', 0, 0, 'L');
                     $pdf->Cell(40, 7, ': ' . $d['KOTA'], 0, 0, 'L');
                     $pdf->Ln();
-                    $pdf->Cell(40, 7, 'Sekolah', 0, 0, 'L');
-                    $pdf->Cell(70, 7, ': ' . $d['SEKOLAH'], 0, 0, 'L');
+                    $pdf->Cell(40, 7, 'Jumlah Peserta', 0, 0, 'L');
+                    $pdf->Cell(70, 7, ': ' . $d['JUMLAH_PESERTA'], 0, 0, 'L');
                     $pdf->Cell(40, 7, 'Provinsi', 0, 0, 'L');
                     $pdf->Cell(40, 7, ': ' . $d['PROVINSI'], 0, 0, 'L');
-                    $pdf->Ln(10);
-                    $pdf->Cell(40, 7, 'Jumlah Peserta', 0, 0, 'L');
-                    $pdf->Cell(40, 7, $d['JUMLAH_PESERTA'], 0, 0, 'L');
-                    $pdf->Ln();
-                    $pdf->Ln(20);
+                    $pdf->Ln(15);
 
                     $pdf->SetFont('Arial', 'B', 12);
                     $pdf->Cell(7, 9, 'No', 1, 0, 'C');
                     $pdf->Cell(12, 9, 'NPG', 1, 0, 'C');
-                    $pdf->Cell(90, 9, 'Nama Peserta', 1, 0, 'C');
-                    $pdf->Cell(50, 9, 'Foto Peserta', 1, 0, 'C');
+                    $pdf->Cell(115, 9, 'Nama Peserta', 1, 0, 'C');
+                    // $pdf->Cell(50, 9, 'Foto Peserta', 1, 0, 'C');
                     $pdf->Cell(12, 9, 'M', 1, 0, 'C');
                     $pdf->Cell(12, 9, 'C', 1, 0, 'C');
                     $pdf->Cell(12, 9, 'TM', 1, 0, 'C');
@@ -109,8 +108,8 @@ class Laporan extends CI_Controller
                     {
                         $pdf->Cell(7, 10, $n++, 1, 0, 'C');
                         $pdf->Cell(12, 10, " ", 1, 0, 'C');
-                        $pdf->Cell(90, 10, $namaPeserta, 1, 0, 'L');
-                        $pdf->Cell(50, 10, $daftarFotoPeserta[$index], 1, 0, 'C');
+                        $pdf->Cell(115, 10, $namaPeserta, 1, 0, 'L');
+                        // $pdf->Cell(50, 10, $daftarFotoPeserta[$index], 1, 0, 'C');
                         $pdf->Cell(12, 10, " ", 1, 0, 'C');
                         $pdf->Cell(12, 10, " ", 1, 0, 'C');
                         $pdf->Cell(12, 10, " ", 1, 0, 'C');
@@ -136,6 +135,65 @@ class Laporan extends CI_Controller
             $pdf->Ln(20);
         }
 
+
+        if ($query != null)
+        {
+            $pdf->AddPage('L', 'Letter');
+            $pdf->AliasNbPages();
+            $pdf->SetFont('Arial', 'B', 16);
+            $pdf->Cell(260, 7, 'Laporan ' . $table, 0, 1, 'C');
+            $pdf->SetFont('Arial', 'B', 13);
+            $pdf->Cell(260, 7, $subTable, 0, 1, 'C');
+            $pdf->SetFont('Arial', '', 10);
+            $pdf->Ln();
+            $pdf->Cell(260, 4, 'Tanggal : ' . $tanggal, 0, 1, 'C');
+            $pdf->Ln();
+            $pdf->SetFont('Arial', 'B', 12);
+            $pdf->Cell(85, 10, 'Jenis Event : ' . $d['NAMA_JENIS_EVENT'], 0, 0, 'L');
+            $pdf->Cell(90, 10, 'Nama Event : ' . $d['NAMA_EVENT'], 0, 0, 'C');
+            $pdf->Cell(85, 10, 'Tingkat : ' . $d['NAMA_TINGKAT_EVENT'], 0, 0, 'R');
+            $pdf->Ln(20);
+
+            $pdf->SetFont('Arial', '', 12);
+            $pdf->Cell(7, 9, 'No', 1, 0, 'C');
+            $pdf->Cell(150, 9, 'Sekolah', 1, 0, 'C');
+            $pdf->Cell(40, 9, 'Kota', 1, 0, 'C');
+            $pdf->Cell(45, 9, 'Provinsi', 1, 0, 'C');
+            $pdf->Cell(20, 9, 'Peserta', 1, 0, 'C');
+            $pdf->Ln();
+            $pdf->SetFont('Arial', '', 12);
+
+            $n = 1;
+            $totalPeserta = 0;
+            foreach ($query as $d)
+            {
+                $SekolahDisplayed = array();
+                if (!in_array($d['ID_REGISTRASI'], $SekolahDisplayed))
+                {
+                    $pdf->Cell(7, 10, $n++, 1, 0, 'C');
+                    $pdf->Cell(150, 10, $d['SEKOLAH'], 1, 0, 'L');
+                    $pdf->Cell(40, 10, $d['KOTA'], 1, 0, 'L');
+                    $pdf->Cell(45, 10, $d['PROVINSI'], 1, 0, 'L');
+                    $pdf->Cell(20, 10, $d['JUMLAH_PESERTA'], 1, 0, 'C');
+                    $pdf->Ln();
+                    $totalPeserta += $d['JUMLAH_PESERTA'];
+                }
+            }
+            $pdf->Cell(242, 9, 'Jumlah Peserta', 1, 0, 'C');
+            $pdf->Cell(20, 9, $totalPeserta, 1, 0, 'C');
+        }
+        else
+        {
+            $pdf->AddPage('L', 'Letter');
+            $pdf->AliasNbPages();
+            $pdf->SetFont('Arial', 'B', 16);
+            $pdf->Cell(260, 7, 'Laporan ' . $table, 0, 1, 'C');
+            $pdf->SetFont('Arial', 'B', 13);
+            $pdf->Cell(260, 7, $subTable, 0, 1, 'C');
+            $pdf->SetFont('Arial', '', 10);
+            $pdf->Ln();
+            $pdf->Cell(260, 4, 'Tanggal : ' . $tanggal, 0, 1, 'C');
+        }
 
 
 
