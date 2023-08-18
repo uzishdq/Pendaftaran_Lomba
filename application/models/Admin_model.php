@@ -115,8 +115,11 @@ class Admin_model extends CI_Model
 
     public function getEventId($id)
     {
-        $this->db->where('ID_EVENT =', $id);
-        return $this->db->get('event')->result_array();
+        $this->db->select('e.NAMA_EVENT,e.BANK_EVENT,te.NAMA_TINGKAT_EVENT');
+        $this->db->from('event e');
+        $this->db->join('tingkat_event te', 'e.ID_TINGKAT_EVENT = te.ID_TINGKAT_EVENT');
+        $this->db->where('e.ID_EVENT =', $id);
+        return $this->db->get()->result_array();
     }
 
     public function getJenisEvent()

@@ -66,24 +66,30 @@ if ($title) : ?>
 
                                     <div class="form-group">
                                         <select name="TINGKAT" id="TINGKAT" class="custom-select">
-                                            <option value="" selected disabled>Pilih Tingkat...</option>
-                                            <option value="SD" id="SD" name="TINGKAT">SD</option>
-                                            <option value="SMP" id="SMP" name="TINGKAT">SMP</option>
-                                            <option value="SMA" id="SMA" name="TINGKAT">SMA</option>
+                                            <?php foreach ($title as $te) : ?>
+                                                <option selected value="<?= $te['NAMA_TINGKAT_EVENT'] ?>" id="<?= $te['NAMA_TINGKAT_EVENT'] ?>"><?= $te['NAMA_TINGKAT_EVENT'] ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
-
                                     <div class="form-group">
-                                        <input class="form-control" type="text" name="PROVINSI" id="PROVINSI" placeholder="Provinsi" required="">
+                                        <select name="PROVINSI" id="PROVINSI" class="custom-select">
+                                            <option value="" selected disabled>Pilih Provinsi...</option>
+                                            <option value="Baten">Banten</option>
+                                        </select>
+                                        <?= form_error('PROVINSI', '<small class="text-danger">', '</small>'); ?>
                                     </div>
-                                    <?= form_error('PROVINSI', '<small class="text-danger">', '</small>'); ?>
-
                                     <div class="form-group">
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" name="KOTA" id="KOTA" placeholder="Kota" required="">
-                                        </div>
+                                        <select name="KOTA" id="KOTA" class="custom-select">
+                                            <option value="" selected disabled>Pilih Kota...</option>
+                                            <option value="kab tangerang">KAB. TANGERANG</option>
+                                            <option value="cilegon">KOTA CILEGON</option>
+                                            <option value="serang">KOTA SERANG</option>
+                                            <option value="tangerang">KOTA TANGERANG</option>
+                                            <option value="tangerang selatan">KOTA TANGERANG SELATAN</option>
+                                        </select>
                                         <?= form_error('KOTA', '<small class="text-danger">', '</small>'); ?>
                                     </div>
+
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label for="file" class="drop-container">
